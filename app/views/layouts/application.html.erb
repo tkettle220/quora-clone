@@ -6,7 +6,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
   </head>
 
   <body>
@@ -32,8 +32,9 @@
 </script>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-  <%=    button_to 'Sign out', destroy_user_session_path, :method => :delete
-%>
+<% if user_signed_in? %>
+  <%= button_to 'Sign out', destroy_user_session_path, :method => :delete%>
+<% end %>
     <%= yield %>
   </body>
 </html>

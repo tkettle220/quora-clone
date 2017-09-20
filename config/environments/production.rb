@@ -71,7 +71,7 @@ Rails.application.configure do
       :enable_starttls_auto => true,
       :address => "smtp.gmail.com",
       :port => 587,
-      :domain => "https://quera-fullstack-project.herokuapp.com",
+      :domain => "heroku.com",
       :authentication => :login,
       :user_name => "quera.user.auth@gmail.com",
       :password => "go_fullstack_go"

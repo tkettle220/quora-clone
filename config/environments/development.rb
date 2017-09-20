@@ -14,14 +14,14 @@ Rails.application.configure do
 
   # default mailer for devise
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'https://quera-fullstack-project.herokuapp.com' }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       :enable_starttls_auto => true,
       :address => "smtp.gmail.com",
       :port => 587,
-      :domain => "localhost:3000",
+      :domain => "https://quera-fullstack-project.herokuapp.com",
       :authentication => :login,
       :user_name => "quera.user.auth@gmail.com",
       :password => "go_fullstack_go"

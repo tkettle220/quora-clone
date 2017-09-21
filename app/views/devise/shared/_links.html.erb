@@ -1,6 +1,7 @@
 <script type="text/javascript">
     function simulateLogin(userName, password)
     {
+      debugger
       var userNameField = document.getElementById("user_email");
       var passwordField = document.getElementById("user_password");
       let user_chars = userName.split("");
@@ -18,21 +19,22 @@
     }
 </script>
 
+<%- if devise_mapping.omniauthable? %>
+<%- resource_class.omniauth_providers.each do |provider| %>
+<% if controller_name != 'sessions' %>
+<%#= link_to "Sign up with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
+<% else %>
+<%= link_to " Continue with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
+<% end %>
+<br />
+<% if controller_name == 'sessions' %>
+<button id="demo" onclick="simulateLogin('tkilmer95@gmail.com','password')">Demo Login</button><br/>
+<% end %>
+
 <%- if controller_name != 'sessions' %>
   <%= link_to "Login", new_session_path(resource_name) %><br />
 <% end -%>
 
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-  <% if controller_name != 'sessions' %>
-    <%#= link_to "Sign up with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
-  <% else %>
-    <%= link_to " Continue with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
-  <% end %>
-    <br />
-    <% if controller_name == 'sessions' %>
-      <button id="demo" onclick="simulateLogin('tkilmer95@gmail.com','password')">Demo Login</button><br/>
-    <% end %>
 
     <!-- remove option to sign up with email -->
 

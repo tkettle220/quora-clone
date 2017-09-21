@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  provider               :string
+#  uid                    :string
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
+#
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -10,6 +35,27 @@ class User < ApplicationRecord
   # validates :username, :email, :session_token, uniqueness: true
   # validates :password, length: {minimum: 6}, allow_nil: true
 
+  #authored_questions
+  has_many :authored_questions,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: :Question
+
+  #topic_user join table
+  has_many :topics_users,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :TopicsUser
+
+  #topics subscribed to
+  has_many :subscribed_topics,
+    through: :topics_users,
+    source: :topic
+
+  #questions belonging to subscribed topics?
+  has_many :feed_questions,
+    through: :subscribed_topics,
+    source: :questions
 
 
   # for oauth

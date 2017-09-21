@@ -50,7 +50,7 @@
   flex-direction: row;
   justify-content: center;
   margin: 40px;
-  margin-bottom: 125px;
+  margin-bottom: 155px;
 }
 
 .loginhead h2 {
@@ -140,7 +140,7 @@ label[for="user_login"] {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   border-radius: 3px;
   padding: 3px, 7px, 4px, 7px;
-  box-shadow: 0, 1px, 1px, 0, rgba(200,200,200,0.6);
+  box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
 }
 
 .actions input:hover {
@@ -156,10 +156,10 @@ label[for="user_login"] {
   display: block;
   border: 0;
   padding-top: 8px;
-  padding-right:16px;
+  padding-right: 16px;
   padding-bottom: 12px;
   padding-left: 16px;
-  box-shadow: 0, 1px, 1px, 0, rgba(200,200,200,0.6);
+  box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
   text-decoration: none;
 }
 
@@ -174,12 +174,18 @@ label[for="user_login"] {
   background: #DF4930;
 }
 
+.leftlogin button:focus {outline:0;}
+
 .leftlogin a:before {
   content: "\f082";
 }
 
 .leftlogin button:before {
   content: "\f2c4";
+}
+
+.leftlogin button:hover, .leftlogin a:hover{
+  opacity: .6;
 }
 
 .leftlogin button:hover {

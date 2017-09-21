@@ -10,10 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920013001) do
+ActiveRecord::Schema.define(version: 20170921165049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "questions", force: :cascade do |t|
+    t.string "body", null: false
+    t.integer "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id", "body"], name: "index_questions_on_author_id_and_body", unique: true
+    t.index ["author_id"], name: "index_questions_on_author_id"
+  end
+
+  create_table "questions_topics", force: :cascade do |t|
+    t.integer "topic_id", null: false
+    t.integer "question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id", "topic_id"], name: "index_questions_topics_on_question_id_and_topic_id", unique: true
+    t.index ["question_id"], name: "index_questions_topics_on_question_id"
+    t.index ["topic_id"], name: "index_questions_topics_on_topic_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.integer "num_followers", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "topics_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "topic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id", "user_id"], name: "index_topics_users_on_topic_id_and_user_id", unique: true
+    t.index ["topic_id"], name: "index_topics_users_on_topic_id"
+    t.index ["user_id"], name: "index_topics_users_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false

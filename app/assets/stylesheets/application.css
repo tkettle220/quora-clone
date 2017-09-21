@@ -13,3 +13,130 @@
  *= require_tree .
  *= require_self
  */
+
+ html, body {
+   margin: 0;
+   height: 100%;
+ }
+
+#background {
+  width: 100%;
+  height: 100%;
+  background: url("https://qph.ec.quoracdn.net/main-qimg-53fa8c2c3b3944c91a49b1e9c30970cd");
+  background-size: cover;
+}
+
+.login {
+  margin: auto;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  right: 100px;
+  width: 500px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  margin: auto;
+}
+
+.two-forms {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 40px;
+}
+
+.loginhead h2 {
+  margin-top: 0;
+}
+
+.login h1 {
+  text-align: center;
+  color: #B92B27;
+  font-size: 60px;
+  font-weight: 1;
+  font-family: "Palatino", sans-serif;
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+
+.login h2 {
+  text-align: center;
+  margin-top: 5px;
+  font-family: 'q_serif';
+  font-size: 19px;
+  font-weight: 400;
+  color: #999;
+}
+
+.leftlogin {
+  width: 100%;
+  padding-right: 20px;
+}
+
+.rightlogin {
+  width: 100%;
+  display: block;
+  padding-left: 20px;
+}
+
+#user_email {
+  width: 100%;
+  background-color: #EEE;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  outline: 0;
+  margin-bottom: 15px;
+  height: 20px;
+}
+
+#user_password {
+  width: 100%;
+  background-color: #EEE;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  outline: 0;
+  margin-bottom: 5px;
+  height: 20px;
+
+}
+
+label[for="user_login"] {
+   font-size: 10px;
+   margin-bottom: 8px;
+   font-weight: bold;
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.form_bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.form_bottom a {
+  font-size: 10px;
+  text-decoration: none;
+  margin-top: 2px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.form_bottom a:visited {
+  text-decoration: none;
+  color: #999999;
+}
+
+.actions input {
+  background: #3e78ad;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #3a66ad;
+  color: white;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  border-radius: 3px;
+  padding: 3px, 7px, 4px, 7px;
+  box-shadow: 0, 1px, 1px, 0, rgba(200,200,200,0.6);
+}

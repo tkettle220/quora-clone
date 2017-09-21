@@ -13678,6 +13678,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('root');
     _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
   }
+  delete window.currentUser;
 });
 
 /***/ }),

@@ -5,7 +5,7 @@ import configureStore from './store/store';
 
 document.addEventListener('DOMContentLoaded', () => {
     if(window.currentUser === null) {
-      window.location = "users/sign_in"
+      window.location = "users/sign_in";
     } else {
       const store = configureStore();
       window.getState = store.getState;
@@ -13,5 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const root = document.getElementById('root');
       ReactDOM.render(<Root store={store} />, root);
     }
+    delete window.currentUser;
+
 
 });

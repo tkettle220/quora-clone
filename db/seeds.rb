@@ -9,8 +9,8 @@
 QuestionsTopic.destroy_all
 TopicsUser.destroy_all
 User.destroy_all
-demo_user = User.create(email: "tkilmer95@gmail.com", password: "password")
-dummy_user = User.create(email: "jerrylau321@hotmail.com", password: "password")
+demo_user = User.create(email: "thomas.kilmer@yale.edu", password: "password")
+dummy_user = User.create(email: "jerryzlau@gmail.com", password: "password")
 
 #Create Questions
 Question.destroy_all

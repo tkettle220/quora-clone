@@ -28,4 +28,8 @@ class Topic < ApplicationRecord
   has_many :questions,
     through: :questions_topics,
     source: :question
+
+  def num_followers 
+    subscribers.count
+  end
 end

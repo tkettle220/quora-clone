@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     resource :session, only: [:create, :destroy]
+    resources :questions, only: [:index, :show, :create, :update, :destroy]
+    resources :topics, only: [:index, :show, :create, :update, :destroy]
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations" }

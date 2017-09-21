@@ -29,6 +29,9 @@
 .login {
   margin: auto;
   position: absolute;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  box-shadow: 0 0 5px #888;
   top: 100px;
   left: 100px;
   right: 100px;
@@ -86,6 +89,7 @@
   width: 100%;
   display: block;
   padding-left: 30px;
+  border-left: 1px solid #e2e2e2;
 }
 
 #user_email, #user_password {
@@ -124,6 +128,10 @@ label[for="user_login"] {
   text-decoration: none;
   margin-top: 2px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.form_bottom a:hover {
+  text-decoration: underline;
 }
 
 .form_bottom a:visited {

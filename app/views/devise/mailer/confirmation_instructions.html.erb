@@ -3,3 +3,7 @@
 <p>You can confirm your account email through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>If you created your account through facebook, you can login by clicking "Continue with facebook" without a password. If you'd like to set a password after confirming, use the link below: </p>
+
+<p><%= link_to "Set your password", "https://quera-fullstack-project.herokuapp.com/users/password/new" %>

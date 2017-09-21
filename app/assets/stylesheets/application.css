@@ -19,7 +19,27 @@
    height: 100%;
  }
 
-#background {
+ .notice, .alert{
+   background-color: #CC3729;
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+   height: 35px;
+   line-height: 35px;
+   text-align: center;
+   vertical-align: middle;
+   color: white;
+   display: block;
+   overflow: hidden;
+ }
+
+ .notice {
+   background-color: #FFF4C8;
+   color: black;
+ }
+
+
+
+
+.background {
   width: 100%;
   height: 100%;
   background: url("https://qph.ec.quoracdn.net/main-qimg-53fa8c2c3b3944c91a49b1e9c30970cd");
@@ -43,9 +63,31 @@
   align-items: center;
 }
 
+#reset_password {
+  height: 400px;
+}
+
+#error_explanation {
+  height: 30px;
+  margin: 20px;
+}
+
+#error_explanation h2 {
+  font-size: 11px;
+}
+
 .logo {
   margin: auto;
   margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.one-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 40px;
+  margin-bottom: 155px;
 }
 
 .two-forms {
@@ -92,7 +134,7 @@
   border-left: 1px solid #e2e2e2;
 }
 
-#user_email, #user_password {
+#user_email, #user_password, #user_password_confirmation {
   width: 261px;
   background-color: #EEE;
   border: 1px solid #e2e2e2;
@@ -107,7 +149,7 @@
   margin-top: 5px;
 }
 
-#user_password {
+#user_password, #user_password_confirmation {
   margin-bottom: 5px;
 }
 

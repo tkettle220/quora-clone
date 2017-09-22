@@ -28,7 +28,19 @@ class Topic < ApplicationRecord
     through: :questions_topics,
     source: :question
 
-  def num_followers 
+  def num_followers
     subscribers.count
   end
+
+  #code for time posted ago from github.com/katrinalui
+  include ActionView::Helpers::DateHelper
+
+  def time_posted_ago
+    time_ago_in_words(created_at) + " ago"
+  end
+
+  def post_day
+    created_at.strftime("%B %d, %Y")
+  end
+  
 end

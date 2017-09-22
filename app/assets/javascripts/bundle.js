@@ -33384,7 +33384,8 @@ var AnswerItem = function (_React$Component) {
     value: function render() {
       var answer = this.props.answer;
       var body = answer.body,
-          author = answer.author;
+          author = answer.author,
+          time_posted_ago = answer.time_posted_ago;
 
       return _react2.default.createElement(
         "li",
@@ -33394,6 +33395,12 @@ var AnswerItem = function (_React$Component) {
           "h1",
           null,
           author.name
+        ),
+        _react2.default.createElement(
+          "h2",
+          null,
+          "Answered ",
+          time_posted_ago
         ),
         _react2.default.createElement(
           "p",

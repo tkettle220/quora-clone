@@ -10,7 +10,7 @@ QuestionsTopic.destroy_all
 TopicsUser.destroy_all
 User.destroy_all
 demo_user = User.create(email: "thomas.kilmer@yale.edu", password: "password")
-dummy_user = User.create(email: "jerrylau21@yahoo.com", password: "password")
+dummy_user = User.create(email: "jerrylau210@yahoo.com", password: "password")
 
 #Create Questions
 Question.destroy_all
@@ -22,7 +22,9 @@ q5 = Question.create(body: 'If you were on death row, what would you request for
 q6 = Question.create(body: 'What was your weirdest date ever?', author_id: dummy_user.id)
 
 #Create Answers
+Answer.destroy_all
 a1 = Answer.create(body: 'Test answer 1 for common lies', author_id: demo_user.id, question_id: q1.id)
+
 a2 = Answer.create(body: 'Test answer 2 for common lies', author_id: dummy_user.id, question_id: q1.id)
 a3 = Answer.create(body: 'Test answer 1 for good programmer', author_id: demo_user.id, question_id: q2.id)
 a4 = Answer.create(body: 'Test answer 1 for strange sort', author_id: dummy_user.id, question_id: q3.id)
@@ -46,3 +48,22 @@ q6.topics += [t3]
 t1.subscribers += [demo_user,dummy_user]
 t2.subscribers += [dummy_user]
 t3.subscribers += [demo_user]
+
+
+Question.all.each do |question|
+  some_days_ago = Time.at(Time.now.to_f -  30.days.to_f*rand)
+
+  some_less_days_ago = Time.at(Time.now.to_f -  (Time.now.to_f-some_days_ago.to_f)*rand)
+
+  question.update_attributes(created_at: some_days_ago, updated_at: some_less_days_ago)
+end
+
+Answer.all.each do |answer|
+  question_created_ago = (Time.now.to_f - answer.question.created_at.to_f)
+
+  some_days_ago = Time.at(Time.now.to_f -  question_created_ago*rand)
+
+  some_less_days_ago = Time.at(Time.now.to_f -  some_days_ago.to_f*rand)
+
+  answer.update_attributes(created_at: some_days_ago, updated_at: some_less_days_ago)
+end

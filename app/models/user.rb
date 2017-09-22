@@ -60,6 +60,19 @@ class User < ApplicationRecord
     through: :subscribed_topics,
     source: :questions
 
+  has_many :answers,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: :Answer
+
+  has_many :answered_questions,
+    through: :answers,
+    source: :question
+
+  has_many :answered_topics,
+    through: :answered_questions,
+    source: :topics
+
 
   # for oauth
   # attr_accessor :provider, :uid

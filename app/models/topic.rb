@@ -28,6 +28,15 @@ class Topic < ApplicationRecord
     through: :questions_topics,
     source: :question
 
+  has_many :answers,
+    through: :questions,
+    source: :answers
+
+  has_many :contributers,
+    through: :answers,
+    source: :author
+
+
   def num_followers
     subscribers.count
   end
@@ -42,5 +51,5 @@ class Topic < ApplicationRecord
   def post_day
     created_at.strftime("%B %d, %Y")
   end
-  
+
 end

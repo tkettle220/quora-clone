@@ -4,6 +4,7 @@ import Root from './components/root';
 import configureStore from './store/store';
 import {fetchTopics, fetchTopic} from './actions/topic_actions';
 import {fetchQuestions, fetchQuestion} from './actions/question_actions';
+import {fetchQuestionAnswers, fetchAnswer} from './actions/answer_actions';
 import {receiveCurrentUser} from './actions/session_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //remove these after dev, this is just for testing
-// window.fetchTopic = fetchTopic;
-// window.fetchQuestion = fetchQuestion;
-// window.fetchQuestions = fetchQuestions;
+window.fetchTopic = fetchTopic;
+window.fetchQuestion = fetchQuestion;
+window.fetchQuestions = fetchQuestions;
+window.fetchQuestionAnswers = fetchQuestionAnswers;
+window.fetchAnswer = fetchAnswer;

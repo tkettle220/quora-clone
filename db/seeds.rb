@@ -21,6 +21,11 @@ q4 = Question.create(body: 'Why is the food at Google free for employees?', auth
 q5 = Question.create(body: 'If you were on death row, what would you request for your last meal?', author_id: dummy_user.id)
 q6 = Question.create(body: 'What was your weirdest date ever?', author_id: dummy_user.id)
 
+#Create Answers
+a1 = Answer.create(body: 'Test answer 1 for common lies', author_id: demo_user.id, question_id: q1.id)
+a2 = Answer.create(body: 'Test answer 2 for common lies', author_id: dummy_user.id, question_id: q1.id)
+a3 = Answer.create(body: 'Test answer 1 for good programmer', author_id: demo_user.id, question_id: q2.id)
+a4 = Answer.create(body: 'Test answer 1 for strange sort', author_id: dummy_user.id, question_id: q3.id)
 
 
 #Create Topics

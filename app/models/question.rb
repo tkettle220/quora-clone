@@ -26,6 +26,11 @@ class Question < ApplicationRecord
     through: :questions_topics,
     source: :topic
 
+  has_many :answers,
+    primary_key: :id,
+    foreign_key: :question_id,
+    class_name: :Answer
+
   #code for time posted ago from github.com/katrinalui
   include ActionView::Helpers::DateHelper
 

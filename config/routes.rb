@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :questions, only: [:index, :show, :create, :update, :destroy]
     resources :topics, only: [:index, :show, :create, :update, :destroy]
+    resources :answers, only: [:index, :show, :create, :destroy]
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations" }

@@ -61,20 +61,32 @@ class User < ApplicationRecord
   # for oauth
   # attr_accessor :provider, :uid
 
+  #rather than storing the access_token and accessing fb data every time I need to render, I just store the initial name, propic, and will pull from my database when I want to render.  Could change this and write methods so that it pulls the data, but this is fine for now
   def self.find_or_create_by_facebook_oauth(auth)
    user = User.where(:provider => auth.provider, :uid => auth.uid).first
 
    unless user
+     access_token = auth.credentials.token
+     graph = Koala::Facebook::API.new(access_token)
+     me = graph.get_object("me")
+     fb_id = me["id"]
+     pro_pic_url = "http://graph.facebook.com/#{fb_id}/picture"
+     debugger
      user = User.create!(
      provider: auth.provider,
      uid: auth.uid,
      email: auth.info.email,
-     password: Devise.friendly_token[0,20]
+     password: Devise.friendly_token[0,20],
+     name: me["name"],
+     fb_id: fb_id,
+     pro_pic_url: pro_pic_url
    )
    end
-
   user
 end
+
+
+
 
 
   # after_initialize :ensure_session_token

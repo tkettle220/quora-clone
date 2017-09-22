@@ -33,6 +33,7 @@ gem 'pry-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'devise'
+gem 'koala'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

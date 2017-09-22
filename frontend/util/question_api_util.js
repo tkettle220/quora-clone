@@ -12,3 +12,15 @@ export const fetchQuestion = (id) => (
     url: `api/questions/${id}`,
   })
 );
+
+export const createQuestion = (body) => (
+  $.ajax({
+    method: 'POST',
+    url: `api/questions`,
+    data: {
+      question: {
+        body
+      }
+    }
+  })
+);

@@ -18,25 +18,54 @@ class CreateQuestionForm extends React.Component {
     super();
 
     this.state = {
-      modalIsOpen: false
+      createModalIsOpen: false,
+      successModalIsOpen: false,
+      question: "",
+      asked_question: {}
     };
+
+    this.setQuestion = this.setQuestion.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSuccessfulSubmit = this.handleSuccessfulSubmit.bind(this);
 
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  openModal() {
-    this.setState({modalIsOpen: true});
+  openModal(modalName) {
+    let desiredState = {};
+    desiredState[modalName+"ModalIsOpen"] = true;
+    this.setState(desiredState);
   }
 
-  afterOpenModal() {
+  afterOpenModal(modalName) {
     // references are now sync'd and can be accessed.
     // this.subtitle.style.color = '#f00';
   }
 
-  closeModal() {
-    this.setState({modalIsOpen: false});
+  closeModal(modalName) {
+    let desiredState = {};
+    desiredState[modalName+"ModalIsOpen"] = false;
+    this.setState(desiredState);
+  }
+
+  setQuestion(e) {
+    const question = e.target.value ? e.target.value : "";
+    this.setState({ question });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.createQuestion(this.state.question).then(
+      question => this.handleSuccessfulSubmit(question.question)
+    );
+  }
+
+  handleSuccessfulSubmit(question) {
+    this.closeModal("create");
+    this.setState({asked_question: question})
+    this.openModal("success")
   }
 
   render() {
@@ -45,24 +74,37 @@ class CreateQuestionForm extends React.Component {
       <div>
         <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
         <span>{user.name}</span>
-        <button onClick={this.openModal}>What is your question?</button>
+        <button onClick={()=>this.openModal("create")}>What is your question?</button>
 
         <Modal
-          isOpen={this.state.modalIsOpen}
+          isOpen={this.state.createModalIsOpen}
           onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
+          onRequestClose={()=>this.closeModal("create")}
           style={customStyles}
           contentLabel="Example Modal"
         >
 
         <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
         <span>{user.name} asks</span>
-          <form>
-            <input />
+        <form className="ask-question-form" onSubmit={this.handleSubmit}>
+          <input onChange={this.setQuestion} value={this.state.question}/>
 
-          </form>
-          <button onClick={this.closeModal}>close</button>
-          <button onClick={this.submitQuestion}>Ask Question</button>
+          <input type="submit" value="Ask Question"/>
+
+        </form>
+          <button onClick={()=>this.closeModal("create")}>close</button>
+        </Modal>
+
+
+        <Modal
+          isOpen={this.state.successModalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={()=>this.closeModal("success")}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+        <span>You asked {this.state.asked_question.body}?</span>
+        <button onClick={()=>this.closeModal("success")}>close</button>
         </Modal>
       </div>
     );

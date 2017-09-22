@@ -13705,7 +13705,7 @@ module.exports = identity;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchQuestion = exports.fetchQuestions = exports.receiveQuestion = exports.receiveQuestions = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
+exports.createQuestion = exports.fetchQuestion = exports.fetchQuestions = exports.receiveQuestion = exports.receiveQuestions = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
 
 var _question_api_util = __webpack_require__(386);
 
@@ -13742,6 +13742,13 @@ var fetchQuestions = exports.fetchQuestions = function fetchQuestions() {
 var fetchQuestion = exports.fetchQuestion = function fetchQuestion(id) {
   return function (dispatch) {
     return APIUtil.fetchQuestion(id).then(function (question) {
+      return dispatch(receiveQuestion(question));
+    });
+  };
+};
+var createQuestion = exports.createQuestion = function createQuestion(body) {
+  return function (dispatch) {
+    return APIUtil.createQuestion(body).then(function (question) {
       return dispatch(receiveQuestion(question));
     });
   };
@@ -30131,9 +30138,9 @@ var _topic_list_container = __webpack_require__(305);
 
 var _topic_list_container2 = _interopRequireDefault(_topic_list_container);
 
-var _create_question_form = __webpack_require__(398);
+var _create_question_form_container = __webpack_require__(406);
 
-var _create_question_form2 = _interopRequireDefault(_create_question_form);
+var _create_question_form_container2 = _interopRequireDefault(_create_question_form_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30148,7 +30155,7 @@ var App = function App() {
     ),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _session_form_container2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _session_form_container2.default }),
-    _react2.default.createElement(_create_question_form2.default, { user: currentUser }),
+    _react2.default.createElement(_create_question_form_container2.default, { user: currentUser }),
     _react2.default.createElement(_topic_list_container2.default, null)
   );
 };
@@ -30566,8 +30573,8 @@ var TopicList = function (_React$Component) {
   }
 
   _createClass(TopicList, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       this.props.requestTopics();
     }
   }, {
@@ -33205,6 +33212,18 @@ var fetchQuestion = exports.fetchQuestion = function fetchQuestion(id) {
   });
 };
 
+var createQuestion = exports.createQuestion = function createQuestion(body) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/questions',
+    data: {
+      question: {
+        body: body
+      }
+    }
+  });
+};
+
 /***/ }),
 /* 387 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -33638,8 +33657,15 @@ var CreateQuestionForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (CreateQuestionForm.__proto__ || Object.getPrototypeOf(CreateQuestionForm)).call(this));
 
     _this.state = {
-      modalIsOpen: false
+      createModalIsOpen: false,
+      successModalIsOpen: false,
+      question: "",
+      asked_question: {}
     };
+
+    _this.setQuestion = _this.setQuestion.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleSuccessfulSubmit = _this.handleSuccessfulSubmit.bind(_this);
 
     _this.openModal = _this.openModal.bind(_this);
     _this.afterOpenModal = _this.afterOpenModal.bind(_this);
@@ -33649,23 +33675,52 @@ var CreateQuestionForm = function (_React$Component) {
 
   _createClass(CreateQuestionForm, [{
     key: 'openModal',
-    value: function openModal() {
-      this.setState({ modalIsOpen: true });
+    value: function openModal(modalName) {
+      var desiredState = {};
+      desiredState[modalName + "ModalIsOpen"] = true;
+      this.setState(desiredState);
     }
   }, {
     key: 'afterOpenModal',
-    value: function afterOpenModal() {
+    value: function afterOpenModal(modalName) {
       // references are now sync'd and can be accessed.
       // this.subtitle.style.color = '#f00';
     }
   }, {
     key: 'closeModal',
-    value: function closeModal() {
-      this.setState({ modalIsOpen: false });
+    value: function closeModal(modalName) {
+      var desiredState = {};
+      desiredState[modalName + "ModalIsOpen"] = false;
+      this.setState(desiredState);
+    }
+  }, {
+    key: 'setQuestion',
+    value: function setQuestion(e) {
+      var question = e.target.value ? e.target.value : "";
+      this.setState({ question: question });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.props.createQuestion(this.state.question).then(function (question) {
+        return _this2.handleSuccessfulSubmit(question.question);
+      });
+    }
+  }, {
+    key: 'handleSuccessfulSubmit',
+    value: function handleSuccessfulSubmit(question) {
+      this.closeModal("create");
+      this.setState({ asked_question: question });
+      this.openModal("success");
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var user = this.props.user;
 
       return _react2.default.createElement(
@@ -33679,15 +33734,19 @@ var CreateQuestionForm = function (_React$Component) {
         ),
         _react2.default.createElement(
           'button',
-          { onClick: this.openModal },
+          { onClick: function onClick() {
+              return _this3.openModal("create");
+            } },
           'What is your question?'
         ),
         _react2.default.createElement(
           _reactModal2.default,
           {
-            isOpen: this.state.modalIsOpen,
+            isOpen: this.state.createModalIsOpen,
             onAfterOpen: this.afterOpenModal,
-            onRequestClose: this.closeModal,
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal("create");
+            },
             style: customStyles,
             contentLabel: 'Example Modal'
           },
@@ -33700,18 +33759,42 @@ var CreateQuestionForm = function (_React$Component) {
           ),
           _react2.default.createElement(
             'form',
-            null,
-            _react2.default.createElement('input', null)
+            { className: 'ask-question-form', onSubmit: this.handleSubmit },
+            _react2.default.createElement('input', { onChange: this.setQuestion, value: this.state.question }),
+            _react2.default.createElement('input', { type: 'submit', value: 'Ask Question' })
           ),
           _react2.default.createElement(
             'button',
-            { onClick: this.closeModal },
+            { onClick: function onClick() {
+                return _this3.closeModal("create");
+              } },
             'close'
+          )
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            isOpen: this.state.successModalIsOpen,
+            onAfterOpen: this.afterOpenModal,
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal("success");
+            },
+            style: customStyles,
+            contentLabel: 'Example Modal'
+          },
+          _react2.default.createElement(
+            'span',
+            null,
+            'You asked ',
+            this.state.asked_question.body,
+            '?'
           ),
           _react2.default.createElement(
             'button',
-            { onClick: this.submitQuestion },
-            'Ask Question'
+            { onClick: function onClick() {
+                return _this3.closeModal("success");
+              } },
+            'close'
           )
         )
       );
@@ -34548,6 +34631,46 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 }());
 
+
+/***/ }),
+/* 406 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(41);
+
+var _create_question_form = __webpack_require__(398);
+
+var _create_question_form2 = _interopRequireDefault(_create_question_form);
+
+var _question_actions = __webpack_require__(149);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    user: ownProps.user
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createQuestion: function createQuestion(body) {
+      return dispatch((0, _question_actions.createQuestion)(body));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_create_question_form2.default);
 
 /***/ })
 /******/ ]);

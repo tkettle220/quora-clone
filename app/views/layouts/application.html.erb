@@ -32,14 +32,16 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-<% if notice %>
-  <div class="notice"><%= notice %></div>
-<% end %>
-<% if alert %>
-  <div class="alert"><%= alert %></div>
-<% end %>
+
 <% if user_signed_in? %>
   <%= button_to 'Sign out', destroy_user_session_path, :method => :delete%>
+<% else %>
+  <% if notice %>
+    <div class="notice"><%= notice %></div>
+  <% end %>
+  <% if alert %>
+    <div class="alert"><%= alert %></div>
+  <% end %>
 <% end %>
     <%= yield %>
   </body>

@@ -13666,6 +13666,8 @@ var _store = __webpack_require__(303);
 
 var _store2 = _interopRequireDefault(_store);
 
+var _topic_actions = __webpack_require__(376);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -30006,6 +30008,10 @@ var _session_form_container = __webpack_require__(300);
 
 var _session_form_container2 = _interopRequireDefault(_session_form_container);
 
+var _topic_list_container = __webpack_require__(379);
+
+var _topic_list_container2 = _interopRequireDefault(_topic_list_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -30018,7 +30024,8 @@ var App = function App() {
       'Quera'
     ),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _session_form_container2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _session_form_container2.default })
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _session_form_container2.default }),
+    _react2.default.createElement(_topic_list_container2.default, null)
   );
 };
 
@@ -30421,11 +30428,16 @@ var _session_reducer = __webpack_require__(375);
 
 var _session_reducer2 = _interopRequireDefault(_session_reducer);
 
+var _topics_reducer = __webpack_require__(378);
+
+var _topics_reducer2 = _interopRequireDefault(_topics_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RootReducer = (0, _redux.combineReducers)({
   session: _session_reducer2.default,
-  errors: _errors_reducer2.default
+  errors: _errors_reducer2.default,
+  topics: _topics_reducer2.default
 });
 
 exports.default = RootReducer;
@@ -32635,6 +32647,236 @@ var SessionReducer = function SessionReducer() {
 };
 
 exports.default = SessionReducer;
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchTopic = exports.fetchTopics = exports.receiveTopic = exports.receiveTopics = exports.RECEIVE_TOPIC = exports.RECEIVE_TOPICS = undefined;
+
+var _topic_api_util = __webpack_require__(377);
+
+var APIUtil = _interopRequireWildcard(_topic_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_TOPICS = exports.RECEIVE_TOPICS = 'RECEIVE_TOPICS';
+var RECEIVE_TOPIC = exports.RECEIVE_TOPIC = 'RECEIVE_TOPIC';
+
+var receiveTopics = exports.receiveTopics = function receiveTopics(topics) {
+  return {
+    type: RECEIVE_TOPICS,
+    topics: topics
+  };
+};
+
+var receiveTopic = exports.receiveTopic = function receiveTopic(topic) {
+  return {
+    type: RECEIVE_TOPIC,
+    topic: topic
+  };
+};
+
+//assumes you want to fetch topics for the current_user. Current_user is grabbed in the controller, so is not passed as arg here. Later can modify to take a filter arg which sends ajax to get all topics or get just topics for a user
+var fetchTopics = exports.fetchTopics = function fetchTopics() {
+  return function (dispatch) {
+    return APIUtil.fetchTopics().then(function (topics) {
+      return dispatch(receiveTopics(topics));
+    });
+  };
+};
+
+var fetchTopic = exports.fetchTopic = function fetchTopic(id) {
+  return function (dispatch) {
+    return APIUtil.fetchTopic(id).then(function (topic) {
+      return dispatch(receiveTopic(topic));
+    });
+  };
+};
+
+/***/ }),
+/* 377 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//Doesn't take a user argument, since in the controller it uses the current_user as the user
+var fetchTopics = exports.fetchTopics = function fetchTopics() {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/topics'
+  });
+};
+
+/***/ }),
+/* 378 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _merge = __webpack_require__(132);
+
+var _merge2 = _interopRequireDefault(_merge);
+
+var _topic_actions = __webpack_require__(376);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defaultState = {};
+
+var TopicsReducer = function TopicsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _topic_actions.RECEIVE_TOPICS:
+      return action.topics;
+    default:
+      return state;
+  }
+};
+
+exports.default = TopicsReducer;
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(69);
+
+var _selectors = __webpack_require__(381);
+
+var _topic_list = __webpack_require__(380);
+
+var _topic_list2 = _interopRequireDefault(_topic_list);
+
+var _topic_actions = __webpack_require__(376);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    topics: (0, _selectors.allTopics)(state),
+    errors: state.errors
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestTopics: function requestTopics() {
+      return dispatch((0, _topic_actions.fetchTopics)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_topic_list2.default);
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopicList = function (_React$Component) {
+  _inherits(TopicList, _React$Component);
+
+  function TopicList(props) {
+    _classCallCheck(this, TopicList);
+
+    return _possibleConstructorReturn(this, (TopicList.__proto__ || Object.getPrototypeOf(TopicList)).call(this, props));
+  }
+
+  _createClass(TopicList, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.requestTopics();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var topics = this.props.topics;
+
+      var topicItems = topic.map(function (topic) {
+        return _react2.default.createElement(TopicListItem, { key: "topic-" + topic.id, topic: topic });
+      });
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "ul",
+          { className: "topic-list" },
+          topicItems
+        )
+      );
+    }
+  }]);
+
+  return TopicList;
+}(_react2.default.Component);
+
+exports.default = TopicList;
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var allTopics = exports.allTopics = function allTopics(_ref) {
+  var topics = _ref.topics;
+  return Object.keys(topics).map(function (id) {
+    return topics[id];
+  });
+};
 
 /***/ })
 /******/ ]);

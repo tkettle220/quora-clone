@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
+import {fetchTopics} from './actions/topic_actions'
 
 document.addEventListener('DOMContentLoaded', () => {
     if(window.currentUser === null) {

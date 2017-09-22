@@ -21,6 +21,9 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  name                   :string
+#  pro_pic_url            :string
+#  fb_id                  :string
 #
 
 class User < ApplicationRecord
@@ -69,9 +72,10 @@ class User < ApplicationRecord
      access_token = auth.credentials.token
      graph = Koala::Facebook::API.new(access_token)
      me = graph.get_object("me")
+
      fb_id = me["id"]
      pro_pic_url = "http://graph.facebook.com/#{fb_id}/picture"
-     debugger
+
      user = User.create!(
      provider: auth.provider,
      uid: auth.uid,

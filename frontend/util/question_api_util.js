@@ -1,14 +1,14 @@
 //Doesn't take a user argument, since in the controller it uses the current_user as the user
-export const fetchTopics = () => (
+export const fetchQuestions = () => (
   $.ajax({
     method: 'GET',
-    url: 'api/topics',
+    url: 'api/questions',
   })
 );
 
-export const fetchTopic = (id) => (
+export const fetchQuestion = (id) => (
   $.ajax({
     method: 'GET',
-    url: `api/topics/${id}`,
+    url: `api/questions/${id}`,
   })
 );

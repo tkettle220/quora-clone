@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: topics_users
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer          not null
+#  topic_id   :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class TopicsUser < ApplicationRecord
   belongs_to :user,
     primary_key: :id,

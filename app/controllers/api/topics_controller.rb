@@ -9,7 +9,7 @@ class Api::TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find(params[:id]).includes(:questions)
+    @topic = Topic.find(params[:id])
     render :show
   end
 

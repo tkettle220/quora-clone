@@ -21,6 +21,9 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  name                   :string
+#  pro_pic_url            :string
+#  fb_id                  :string
 #
 
 require 'test_helper'

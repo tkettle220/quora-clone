@@ -8,7 +8,7 @@ const AnswersReducer = (state = defaultState, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_ANSWERS:
-      return action.answers;
+      return merge({}, state, action.answers);
     case RECEIVE_ANSWER:
       return {[action.answer.id]: action.answer};
     default:

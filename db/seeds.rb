@@ -19,6 +19,8 @@ q2 = Question.create(body: 'How can I know if a person is a good programmer or n
 q3 = Question.create(body: 'What is the strangest sorting algorithm?', author_id: demo_user.id)
 q4 = Question.create(body: 'Why is the food at Google free for employees?', author_id: demo_user.id)
 q5 = Question.create(body: 'If you were on death row, what would you request for your last meal?', author_id: dummy_user.id)
+q6 = Question.create(body: 'What was your weirdest date ever?', author_id: dummy_user.id)
+
 
 
 #Create Topics
@@ -33,6 +35,7 @@ q2.topics += [t1]
 q3.topics += [t1]
 q4.topics += [t1,t2]
 q5.topics += [t1]
+q6.topics += [t3]
 
 #Subscribe Users to Topics
 t1.subscribers += [demo_user,dummy_user]

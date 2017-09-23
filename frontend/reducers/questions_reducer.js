@@ -10,7 +10,7 @@ const QuestionsReducer = (state = defaultState, action) => {
     case RECEIVE_QUESTIONS:
       return action.questions;
     case RECEIVE_QUESTION:
-      return {[action.question.id]: action.question};
+      return merge({},state,{[action.question.id]: action.question});
     default:
       return state;
   }

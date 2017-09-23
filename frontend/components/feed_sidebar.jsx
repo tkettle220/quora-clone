@@ -7,9 +7,9 @@ class FeedSidebar extends React.Component {
     super(props)
   }
 
-  // componentWillMount() {
-  //   this.props.requestTopics();
-  // }
+  componentWillMount() {
+    this.props.requestTopics();
+  }
 
   render() {
     const {topics} = this.props;

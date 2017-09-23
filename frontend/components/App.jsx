@@ -8,6 +8,7 @@ import CreateQuestionFormContainer from './create_question_form_container';
 import NavBarContainer from './nav_bar_container';
 import FeedSidebarContainer from './feed_sidebar_container'
 import TopicDetailContainer from './topic_detail_container'
+import QuestionListContainer from './question_list_container'
 
 
 const App = () => (
@@ -24,6 +25,8 @@ const App = () => (
           <Route exact path="/" component={CreateQuestionFormContainer} />
           <Route exact path="/" component={TopicListContainer} />
           <Route path="/topics/:topicId" component={TopicDetailContainer} />
+          <Route path="/questions" component={QuestionListContainer} />
+
         </div>
 
       </Switch>

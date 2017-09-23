@@ -23,15 +23,24 @@ q6 = Question.create(body: 'What was your weirdest date ever?', author_id: dummy
 
 #Create Answers
 Answer.destroy_all
-a1 = Answer.create(body: "If by 'lies', you are talking about intentional deceit, most of these answers describe a lack of experience. ... or self-delusion at worse.
+a1 = Answer.create(body: "Usually after having to \"train\" a user how to use a feature that is painfully obvious and simple, and I mean Tinder simple...
 
-But if you want ‘lies’; I'd say the most common lies told by programmers are never verbalized.  The most common lie is 'going dark'.
+\"No it's ok - I totally see how you could have missed that. For the next iteration I'll try to make it more intuitive.\"", author_id: demo_user.id, question_id: q1.id)
 
-Going dark is when the programmer is thinking 'I can't tell anybody my current status, so I'm not going to say anything until I get myself out of the jam I'm in.  Then nobody will know the difference.'  Then they stop responding to all communication.  The programmer might've been slacking ... or, more than likely, they're just really embarrassed about their honest lack of progress.
+a2 = Answer.create(body: 'Client: “Could you make the software do XYZ?”
 
-This is a really easy problem to solve if it's happening to you though; you just need to get frequent status updates.", author_id: demo_user.id, question_id: q1.id)
+  Programmer: “No.”
 
-a2 = Answer.create(body: 'Test answer 2 for common lies', author_id: dummy_user.id, question_id: q1.id)
+  What the programmer really wants to say:
+
+  “It’s software. Of course we could do it. But:
+
+  it would take a very long time,
+  you can’t afford it,
+  we can’t sell it to anyone else because it’s a terrible idea,
+  by the time we finish it, you won’t want it anymore.”
+  “No” is just easier to say and is less insulting, especially when the client has a dozen of these ‘great’ ideas.
+', author_id: dummy_user.id, question_id: q1.id)
 a3 = Answer.create(body: 'Test answer 1 for good programmer', author_id: demo_user.id, question_id: q2.id)
 a4 = Answer.create(body: 'Test answer 1 for strange sort', author_id: dummy_user.id, question_id: q3.id)
 

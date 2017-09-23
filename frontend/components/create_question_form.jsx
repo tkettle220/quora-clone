@@ -109,7 +109,7 @@ class CreateQuestionForm extends React.Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-        <span>You asked {this.state.asked_question.body}?</span>
+        <span>You asked {this.state.asked_question.body}</span>
         <button onClick={()=>this.closeModal("success")}>close</button>
         </Modal>
       </div>

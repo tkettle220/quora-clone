@@ -14,6 +14,8 @@ class NavBar extends React.Component {
 
           <li><Link to={`/`} activeClassName="active">Home</Link>
 </li>
+          <li><Link to={`/questions`} activeClassName="active">Answer</Link>
+</li>
 
           <li><button onClick={()=>{console.log("Clicked Aanswer")}}>Answer</button></li>
           <li><input onChange={()=>{console.log("u is typing")}}/></li>

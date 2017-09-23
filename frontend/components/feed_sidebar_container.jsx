@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // requestTopics: () => dispatch(fetchTopics())
+  requestTopics: () => dispatch(fetchTopics())
 });
 
 export default connect(

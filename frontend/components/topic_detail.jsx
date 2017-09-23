@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TopicListItem from './topic_list_item'
+import TopicDetailItem from './topic_detail_item'
 
 class TopicDetail extends React.Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class TopicDetail extends React.Component {
 
   componentWillMount() {
     this.props.requestTopic(this.props.topicId);
+    window.scrollTo(0, 0);
   }
 
   render() {
@@ -18,7 +19,7 @@ class TopicDetail extends React.Component {
       return (<div>Loading</div>)
     } else {
       const topicItems = [topic].map( topic => (
-        <TopicListItem key={ "topic-" + topic.id } topic={topic}/>
+        <TopicDetailItem key={ "topic-" + topic.id } topic={topic}/>
         ));
 
       return(

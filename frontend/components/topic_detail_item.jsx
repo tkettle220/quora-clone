@@ -1,9 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 import QuestionItem from './question_item'
 
-class TopicListItem extends React.Component {
+class TopicDetailItem extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -20,15 +19,14 @@ class TopicListItem extends React.Component {
     );
 
     return (
-      <li className="topic-list-item">
-        <h2 className="topic-header">{name}</h2>
-        <ul className="question-list">{questionItems}</ul>
-        <footer className="topic-list-item-footer">
-          <Link to={`/topics/${topic.id}`} activeClassName="active">View All</Link>
-        </footer>
+      <li className="topic-detail-item">
+        <h2 className="topic-header">{name}<p>{description}</p></h2>
+
+        <ul className="question-detail">{questionItems}</ul>
+
       </li>
     );
   }
 }
 
-export default TopicListItem;
+export default TopicDetailItem;

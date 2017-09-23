@@ -14,15 +14,89 @@
  *= require_self
  */
 
+
  html, body {
    margin: 0;
    height: 100%;
+ }
+
+ .nav-bar {
+   border-bottom: 1px solid #ddd;
+   margin-left: 8px;
+   margin-right: 8px;
+   height: 52px;
  }
 
  .nav-bar-items {
    display: flex;
    flex-direction: row;
    justify-content: space-between;
+   align-items: center;
+   height: 100%;
+   margin: 0px;
+ }
+
+ .question-search-bar {
+   width: 200px;
+   overflow-x: hidden;
+   word-wrap: break-word;
+   height: 29px;
+   background-image: url(//qsf.ec.quoracdn.net/-3-images.new_grid.QuoraSearch_2x.png-26-f131488ab1e6a729.png);
+   background-repeat: no-repeat;
+   background-position: 8px, 50%;
+   border: 1px solid #e2e2e2;
+   border-radius: 4px;
+   padding-top: 4px;
+   padding-bottom: 0px;
+   padding-left: 26px;
+   background-size: 13px;
+   box-shadow: 0 1px 1px rgba(200,200,200,0.3);
+   box-sizing: border-box;
+   font-size: 13px;
+   line-height: 1.4;
+   display: block;
+   overflow-y: hidden;
+   resize: none;
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+   font-weight: 400;
+   color: #333333;
+ }
+
+ ::-webkit-input-placeholder {
+   color: #757575;
+   font-weight: 300;
+   font-size: 14px;
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+:-ms-input-placeholder {
+  color: #757575;
+  font-weight: 300;
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+:-moz-placeholder {
+  color: #757575;
+  font-weight: 300;
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+::-moz-placeholder {
+  color: #757575;
+  font-weight: 300;
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+ .question-search-bar:focus {
+   outline:0;
+ }
+
+ .nav-pro-pic {
+   height: 26px;
+   border-radius: 50%;
  }
 
 li {

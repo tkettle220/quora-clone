@@ -32336,6 +32336,8 @@ var NavBar = function (_React$Component) {
   _createClass(NavBar, [{
     key: 'render',
     value: function render() {
+      var user = this.props.user;
+
       return _react2.default.createElement(
         'div',
         { className: 'nav-bar' },
@@ -32368,18 +32370,7 @@ var NavBar = function (_React$Component) {
           _react2.default.createElement(
             'li',
             null,
-            _react2.default.createElement(
-              'button',
-              { onClick: function onClick() {
-                  console.log("Clicked Aanswer");
-                } },
-              'Answer'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement('input', { onChange: function onChange() {
+            _react2.default.createElement('textarea', { className: 'question-search-bar', rows: '1', placeholder: 'Search Quera', onChange: function onChange() {
                 console.log("u is typing");
               } })
           ),
@@ -32394,6 +32385,7 @@ var NavBar = function (_React$Component) {
               'Ask Question'
             )
           ),
+          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'nav-pro-pic' }),
           _react2.default.createElement(
             'li',
             null,

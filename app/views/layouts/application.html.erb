@@ -33,9 +33,7 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<% if user_signed_in? %>
-  <%#= button_to 'Sign out', destroy_user_session_path, :method => :delete%>
-<% else %>
+<% unless user_signed_in? %>
   <% if notice %>
     <div class="notice"><%= notice %></div>
   <% end %>

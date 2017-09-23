@@ -17,10 +17,10 @@ class QuestionItem extends React.Component {
       <AnswerItem key={ "answer-" + answer.id } answer={answer}/>
       ));
     return (
-      <li>
-        <h1>{body}</h1>
-        <ul className="topic-list">
-          {answerItems}
+      <li className="question-item">
+        <h1 className="question-header">{body}</h1>
+        <ul className="answer-list">
+          {answerItems[0]}
         </ul>
       </li>
     );

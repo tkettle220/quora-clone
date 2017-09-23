@@ -10,7 +10,7 @@ QuestionsTopic.destroy_all
 TopicsUser.destroy_all
 User.destroy_all
 demo_user = User.create(email: "thomas.kilmer@yale.edu", password: "password")
-dummy_user = User.create(email: "jerrylau210@yahoo.com", password: "password")
+dummy_user = User.create(email: "sgullapalli@gmail.com", password: "password")
 
 #Create Questions
 Question.destroy_all
@@ -23,7 +23,13 @@ q6 = Question.create(body: 'What was your weirdest date ever?', author_id: dummy
 
 #Create Answers
 Answer.destroy_all
-a1 = Answer.create(body: 'Test answer 1 for common lies', author_id: demo_user.id, question_id: q1.id)
+a1 = Answer.create(body: "If by 'lies', you are talking about intentional deceit, most of these answers describe a lack of experience. ... or self-delusion at worse.
+
+But if you want ‘lies’; I'd say the most common lies told by programmers are never verbalized.  The most common lie is 'going dark'.
+
+Going dark is when the programmer is thinking 'I can't tell anybody my current status, so I'm not going to say anything until I get myself out of the jam I'm in.  Then nobody will know the difference.'  Then they stop responding to all communication.  The programmer might've been slacking ... or, more than likely, they're just really embarrassed about their honest lack of progress.
+
+This is a really easy problem to solve if it's happening to you though; you just need to get frequent status updates.", author_id: demo_user.id, question_id: q1.id)
 
 a2 = Answer.create(body: 'Test answer 2 for common lies', author_id: dummy_user.id, question_id: q1.id)
 a3 = Answer.create(body: 'Test answer 1 for good programmer', author_id: demo_user.id, question_id: q2.id)
@@ -49,7 +55,11 @@ t1.subscribers += [demo_user,dummy_user]
 t2.subscribers += [dummy_user]
 t3.subscribers += [demo_user]
 
+#Give our users propics and names
+demo_user.update_attributes(name: "Will Xu", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/17952972_10155238754978829_6171178937828086766_n.jpg?oh=d1bd2b6555ebcb13479addf2874a0f83&oe=5A4A61E8")
+dummy_user.update_attributes(name: "Sachith Gullapalli", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/14642433_10154649038393035_50739788996994746_n.jpg?oh=532a963328339ecddfec271190e6175a&oe=5A39FFA4")
 
+#Give queestions and answers fake timestamps
 Question.all.each do |question|
   some_days_ago = Time.at(Time.now.to_f -  30.days.to_f*rand)
 

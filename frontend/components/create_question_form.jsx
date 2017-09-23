@@ -4,12 +4,13 @@ import Modal from 'react-modal';
 
 const customStyles = {
   content : {
-    top                   : '50%',
+    top                   : '15%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    width                 : '623px'
   }
 };
 
@@ -71,12 +72,16 @@ class CreateQuestionForm extends React.Component {
   render() {
     const {user} = this.props
     return (
-      <div>
-        <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
-        <span>{user.name}</span>
+      <div className="greeting">
+        <div>
+          <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
+          <span>{user.name}</span>
+        </div>
+
         <button onClick={()=>this.openModal("create")}>What is your question?</button>
 
         <Modal
+          class="create-question-modal"
           isOpen={this.state.createModalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={()=>this.closeModal("create")}
@@ -97,6 +102,7 @@ class CreateQuestionForm extends React.Component {
 
 
         <Modal
+          class="notice-modal"
           isOpen={this.state.successModalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={()=>this.closeModal("success")}

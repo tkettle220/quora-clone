@@ -6,14 +6,28 @@ import SessionFormContainer from './session_form/session_form_container';
 import TopicListContainer from './topic_list_container';
 import CreateQuestionFormContainer from './create_question_form_container';
 import NavBarContainer from './nav_bar_container';
+import FeedSidebarContainer from './feed_sidebar_container'
+import TopicDetailContainer from './topic_detail_container'
+
 
 const App = () => (
   <div>
     <Route path="/login" component={SessionFormContainer} />
     <Route path="/signup" component={SessionFormContainer} />
-    <NavBarContainer user={currentUser}/>
-    <CreateQuestionFormContainer user={currentUser}/>
-    <TopicListContainer />
+    <NavBarContainer />
+    <div id="main-page">
+      <div className="sidebar">
+        <FeedSidebarContainer />
+      </div>
+      <Switch>
+        <div className="main-col">
+          <Route exact path="/" component={CreateQuestionFormContainer} />
+          <Route exact path="/" component={TopicListContainer} />
+          <Route path="/topics/:topicId" component={TopicDetailContainer} />
+        </div>
+
+      </Switch>
+    </div>
   </div>
 );
 

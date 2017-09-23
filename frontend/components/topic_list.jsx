@@ -17,8 +17,7 @@ class TopicList extends React.Component {
       <TopicListItem key={ "topic-" + topic.id } topic={topic}/>
       ));
     return(
-      <div>
-        <h1>Topics You Follow:</h1>
+      <div id="topics-container">
         <ul className="topic-list">
           {topicItems}
         </ul>

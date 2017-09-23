@@ -9,11 +9,16 @@ class AnswerItem extends React.Component {
     const { answer } = this.props;
     const {body, author, time_posted_ago} = answer;
     return (
-      <li>
-        <img src={author.pro_pic_url} alt={`${author.name}'s picture`}  className="answerer-pro-pic" />
-        <h1>{author.name}</h1>
-        <h2>Answered {time_posted_ago}</h2>
-        <p>{body}</p>
+      <li className="answer-item">
+        <div className="answer-header">
+          <img src={author.pro_pic_url} alt={`${author.name}'s picture`}  className="answerer-pro-pic" />
+          <div className="answer-details">
+            <h1>{author.name}</h1>
+            <h2>Answered {time_posted_ago}</h2>
+          </div>
+
+        </div>
+        <p className="answer-body">{body}</p>
       </li>
     );
   }

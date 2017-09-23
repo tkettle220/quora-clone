@@ -5,9 +5,11 @@ import QuestionForm from './create_question_form';
 // Actions
 import { createQuestion } from '../actions/question_actions';
 
-const mapStateToProps = (state, ownProps) => ({
-  user: ownProps.user
-});
+const mapStateToProps = (state) => {
+  return {
+    user: state.session.currentUser
+  }
+};
 
 
 const mapDispatchToProps = dispatch => ({

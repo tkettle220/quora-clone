@@ -20,8 +20,11 @@ class TopicListItem extends React.Component {
 
     return (
       <li className="topic-list-item">
-        <h2>{name}</h2>
-        <ul>{questionItems}</ul>
+        <h2 className="topic-header">{name}</h2>
+        <ul className="question-list">{questionItems}</ul>
+        <footer className="topic-list-item-footer">
+          View All
+        </footer>
       </li>
     );
   }

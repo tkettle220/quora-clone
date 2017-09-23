@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -10,7 +11,10 @@ class NavBar extends React.Component {
       <div className="nav-bar">
         <ul className="nav-bar-items">
           <li>Quera</li>
-          <li><button onClick={()=>{console.log("Clicked home")}}>Home</button></li>
+
+          <li><Link to={`/`} activeClassName="active">Home</Link>
+</li>
+
           <li><button onClick={()=>{console.log("Clicked Aanswer")}}>Answer</button></li>
           <li><input onChange={()=>{console.log("u is typing")}}/></li>
           <li><button onClick={()=>{console.log("Clicked ask question")}}>Ask Question</button></li>

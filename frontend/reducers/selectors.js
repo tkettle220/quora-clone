@@ -11,3 +11,11 @@ export const selectQuestion = ({ questions }, id) => {
    const question = questions[id] || {};
    return question
 };
+
+export const asSortedArray = ({ questions, filters }) => {
+  const {query} = filters;
+  const keywords = query.split(" ");
+  return(
+  Object.values(questions).sort((a,b)=>b.match_score - a.match_score)
+  );
+}

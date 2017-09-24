@@ -55,4 +55,8 @@ class Question < ApplicationRecord
   end
 
 
+  def match_score(keywords)
+    body.split(" ").reduce(0){|acc, qword| keywords.include?(qword) ? acc + 1 : acc}
+  end
+
 end

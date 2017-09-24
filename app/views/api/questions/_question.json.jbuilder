@@ -14,3 +14,6 @@ end
 json.topic question.topics.first
 
 json.num_answers question.num_answers_str
+keywords ||= []
+
+json.match_score question.match_score(keywords)

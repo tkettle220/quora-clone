@@ -15,8 +15,8 @@ export const receiveQuestion = question => ({
 });
 
 //assumes you want to fetch questions for the current_user
-export const fetchQuestions = () => dispatch => (
-  APIUtil.fetchQuestions().then(
+export const fetchQuestions = (filters) => dispatch => (
+  APIUtil.fetchQuestions(filters).then(
     questions=>(dispatch(receiveQuestions(questions))
   ))
 );

@@ -5,6 +5,7 @@ import SessionReducer from './session_reducer';
 import TopicsReducer from './topics_reducer';
 import QuestionsReducer from './questions_reducer';
 import AnswersReducer from './answers_reducer';
+import FiltersReducer from './filters_reducer';
 
 const RootReducer = combineReducers({
   session: SessionReducer,
@@ -12,6 +13,7 @@ const RootReducer = combineReducers({
   topics: TopicsReducer,
   questions: QuestionsReducer,
   answers: AnswersReducer,
+  filters: FiltersReducer
 });
 
 export default RootReducer;

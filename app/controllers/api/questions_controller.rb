@@ -4,7 +4,17 @@ class Api::QuestionsController < ApplicationController
 
   #shows all of the questions for a user
   def index
-    @questions = Question.all.includes(:author)
+    questions = Question.all.includes(:author)
+    if params[:query]
+      @keywords = params[:query].split(" ")
+      questions = []
+      @keywords.each do |keyword|
+        questions += Question.where("body LIKE ?", "%#{keyword}%")
+      end
+      @questions = questions.uniq
+    else
+      @questions = Question.all.includes(:author)
+    end
     render :index
   end
 
@@ -25,4 +35,5 @@ class Api::QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:body)
   end
+
 end

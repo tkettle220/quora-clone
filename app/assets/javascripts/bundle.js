@@ -35515,16 +35515,24 @@ var QuestionListItem = function (_React$Component) {
             time_posted_ago = question.time_posted_ago,
             topic = question.topic;
 
-
-        return _react2.default.createElement(
-          'li',
-          { className: 'question-list-item' },
-          _react2.default.createElement(
+        if (topic) {
+          var head = _react2.default.createElement(
             'h3',
             null,
             'Question asked \xB7 ',
             topic.name
-          ),
+          );
+        } else {
+          var _head = _react2.default.createElement(
+            'h3',
+            null,
+            'Question asked'
+          );
+        }
+        return _react2.default.createElement(
+          'li',
+          { className: 'question-list-item' },
+          _react2.default.createElement('head', null),
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/questions/' + question.id, activeClassName: 'active' },

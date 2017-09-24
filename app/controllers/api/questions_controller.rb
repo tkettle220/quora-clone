@@ -4,7 +4,7 @@ class Api::QuestionsController < ApplicationController
 
   #shows all of the questions for a user
   def index
-    @questions = current_user.feed_questions.includes(:author)
+    @questions = Question.all.includes(:author)
     render :index
   end
 

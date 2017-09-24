@@ -15,11 +15,15 @@ class QuestionListItem extends React.Component {
         <h1>Loading!</h1>
       );
     } else {
-      const { body, time_posted_ago, topic } = question
-
+      const { body, time_posted_ago, topic } = question;
+      if(topic) {
+        const head = <h3>Question asked · {topic.name}</h3>;
+      } else {
+        const head = <h3>Question asked</h3>
+      }
       return (
         <li className="question-list-item">
-          <h3>Question asked · {topic.name}</h3>
+          <head />
           <Link to={`/questions/${question.id}`} activeClassName="active">{body}</Link>
 
           <h3>Last asked {time_posted_ago}</h3>

@@ -31203,6 +31203,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.customStyles = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -31226,7 +31227,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var customStyles = {
+var customStyles = exports.customStyles = {
   content: {
     top: '15%',
     left: '50%',
@@ -32281,6 +32282,8 @@ var _nav_bar = __webpack_require__(328);
 
 var _nav_bar2 = _interopRequireDefault(_nav_bar);
 
+var _question_actions = __webpack_require__(84);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Actions
@@ -32292,7 +32295,12 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    createQuestion: function createQuestion(body) {
+      return dispatch((0, _question_actions.createQuestion)(body));
+    }
+
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_nav_bar2.default);
@@ -32314,7 +32322,17 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = __webpack_require__(57);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactModal = __webpack_require__(319);
+
+var _reactModal2 = _interopRequireDefault(_reactModal);
+
 var _reactRouterDom = __webpack_require__(76);
+
+var _create_question_form = __webpack_require__(318);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32330,12 +32348,73 @@ var NavBar = function (_React$Component) {
   function NavBar(props) {
     _classCallCheck(this, NavBar);
 
-    return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.state = {
+      createModalIsOpen: false,
+      successModalIsOpen: false,
+      question: "",
+      asked_question: {}
+    };
+
+    _this.setQuestion = _this.setQuestion.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleSuccessfulSubmit = _this.handleSuccessfulSubmit.bind(_this);
+
+    _this.openModal = _this.openModal.bind(_this);
+    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+    _this.closeModal = _this.closeModal.bind(_this);
+    return _this;
   }
 
   _createClass(NavBar, [{
+    key: 'openModal',
+    value: function openModal(modalName) {
+      var desiredState = {};
+      desiredState[modalName + "ModalIsOpen"] = true;
+      this.setState(desiredState);
+    }
+  }, {
+    key: 'afterOpenModal',
+    value: function afterOpenModal(modalName) {
+      // references are now sync'd and can be accessed.
+      // this.subtitle.style.color = '#f00';
+    }
+  }, {
+    key: 'closeModal',
+    value: function closeModal(modalName) {
+      var desiredState = {};
+      desiredState[modalName + "ModalIsOpen"] = false;
+      this.setState(desiredState);
+    }
+  }, {
+    key: 'setQuestion',
+    value: function setQuestion(e) {
+      var question = e.target.value ? e.target.value : "";
+      this.setState({ question: question });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.props.createQuestion(this.state.question).then(function (question) {
+        return _this2.handleSuccessfulSubmit(question.question);
+      });
+    }
+  }, {
+    key: 'handleSuccessfulSubmit',
+    value: function handleSuccessfulSubmit(question) {
+      this.closeModal("create");
+      this.setState({ asked_question: question });
+      this.openModal("success");
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var user = this.props.user;
 
       return _react2.default.createElement(
@@ -32370,7 +32449,7 @@ var NavBar = function (_React$Component) {
           _react2.default.createElement(
             'li',
             null,
-            _react2.default.createElement('textarea', { className: 'question-search-bar', rows: '1', placeholder: 'Search Quera', onChange: function onChange() {
+            _react2.default.createElement('input', { type: 'text', className: 'question-search-bar', rows: '1', placeholder: 'Search Quera', onChange: function onChange() {
                 console.log("u is typing");
               } })
           ),
@@ -32380,7 +32459,7 @@ var NavBar = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
-                  console.log("Clicked ask question");
+                  return _this3.openModal("create");
                 } },
               'Ask Question'
             )
@@ -32399,6 +32478,65 @@ var NavBar = function (_React$Component) {
                 _react2.default.createElement('input', { name: 'submit2', type: 'submit', id: 'submit2', value: 'Sign out' })
               )
             )
+          )
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            'class': 'create-question-modal',
+            isOpen: this.state.createModalIsOpen,
+            onAfterOpen: this.afterOpenModal,
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal("create");
+            },
+            style: _create_question_form.customStyles,
+            contentLabel: 'Example Modal'
+          },
+          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            user.name,
+            ' asks'
+          ),
+          _react2.default.createElement(
+            'form',
+            { className: 'ask-question-form', onSubmit: this.handleSubmit },
+            _react2.default.createElement('input', { onChange: this.setQuestion, value: this.state.question }),
+            _react2.default.createElement('input', { type: 'submit', value: 'Ask Question' })
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this3.closeModal("create");
+              } },
+            'close'
+          )
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            'class': 'notice-modal',
+            isOpen: this.state.successModalIsOpen,
+            onAfterOpen: this.afterOpenModal,
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal("success");
+            },
+            style: _create_question_form.customStyles,
+            contentLabel: 'Example Modal'
+          },
+          _react2.default.createElement(
+            'span',
+            null,
+            'You asked ',
+            this.state.asked_question.body
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this3.closeModal("success");
+              } },
+            'close'
           )
         )
       );

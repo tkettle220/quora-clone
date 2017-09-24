@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 
-const customStyles = {
+export const customStyles = {
   content : {
     top                   : '15%',
     left                  : '50%',
@@ -102,16 +102,16 @@ class CreateQuestionForm extends React.Component {
 
 
         <Modal
-          class="notice-modal"
-          isOpen={this.state.successModalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={()=>this.closeModal("success")}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-        <span>You asked {this.state.asked_question.body}</span>
-        <button onClick={()=>this.closeModal("success")}>close</button>
-        </Modal>
+            class="notice-modal"
+            isOpen={this.state.successModalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={()=>this.closeModal("success")}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+          <span>You asked {this.state.asked_question.body}</span>
+          <button onClick={()=>this.closeModal("success")}>close</button>
+          </Modal>
       </div>
     );
   }

@@ -47,16 +47,13 @@
    border: 1px solid #e2e2e2;
    border-radius: 4px;
    padding-top: 4px;
-   padding-bottom: 0px;
+   padding-bottom: 2px;
    padding-left: 26px;
    background-size: 13px;
-   box-shadow: 0 1px 1px rgba(200,200,200,0.3);
    box-sizing: border-box;
    font-size: 13px;
    line-height: 1.4;
    display: block;
-   overflow-y: hidden;
-   resize: none;
    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
    font-weight: 400;
    color: #333333;

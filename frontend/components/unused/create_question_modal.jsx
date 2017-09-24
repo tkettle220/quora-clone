@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
-import { customStyles } from './create_question_form';
 
-class NavBar extends React.Component {
-  constructor(props) {
-    super(props)
+export const customStyles = {
+  content : {
+    top                   : '15%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    width                 : '623px'
+  }
+};
+
+class CreateQuestionModal extends React.Component {
+  constructor() {
+    super();
 
     this.state = {
       createModalIsOpen: false,
@@ -20,7 +30,7 @@ class NavBar extends React.Component {
     this.handleSuccessfulSubmit = this.handleSuccessfulSubmit.bind(this);
 
     this.openModal = this.openModal.bind(this);
-    // this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
@@ -30,11 +40,9 @@ class NavBar extends React.Component {
     this.setState(desiredState);
   }
 
-
-  afterOpenModal() {
-
+  afterOpenModal(modalName) {
     // references are now sync'd and can be accessed.
-    // this.subtitle.style.color = '#f00';
+    // this.background.style.color = 'white';
   }
 
   closeModal(modalName) {
@@ -62,41 +70,11 @@ class NavBar extends React.Component {
   }
 
   render() {
+    debugger
     const {user} = this.props
-    return(
-      <div className="nav-bar">
-        <ul className="nav-bar-items">
-          <li>Quera</li>
+    return (
+      <div className="modal">
 
-          <li>
-            <Link to={`/`} activeClassName="active">Home</Link>
-          </li>
-
-          <li>
-            <Link to={`/questions`} activeClassName="active">Answer</Link>
-          </li>
-
-          <li>
-
-            <input type="text" className="question-search-bar" rows="1" placeholder="Search Quera" onChange={()=>{console.log("u is typing")}}></input>
-            </li>
-
-
-          <li><button onClick={()=>this.openModal("create")}>Ask Question</button></li>
-
-
-            <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="nav-pro-pic" />
-
-          <li>
-            <form name="sign-out" method="POST" action="/users/sign_out">
-              <input type="hidden" name="_method" value="delete"/>
-              <label>
-                <input name="submit2" type="submit" id="submit2" value="Sign out" />
-              </label>
-            </form>
-
-            </li>
-        </ul>
         <Modal
           class="create-question-modal"
           isOpen={this.state.createModalIsOpen}
@@ -134,4 +112,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default CreateQuestionModal

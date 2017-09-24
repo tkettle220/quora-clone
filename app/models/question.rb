@@ -42,5 +42,17 @@ class Question < ApplicationRecord
     created_at.strftime("%B %d, %Y")
   end
 
+  def num_answers_str
+    num_answers = answers.count
+    case num_answers
+    when 0
+      "No answers yet"
+    when 1
+      "1 Answer"
+    else
+      "#{num_answers} Answers"
+    end
+  end
+
 
 end

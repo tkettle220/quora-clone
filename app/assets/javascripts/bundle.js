@@ -13562,7 +13562,7 @@ var CreateQuestionForm = function (_React$Component) {
     key: 'afterOpenModal',
     value: function afterOpenModal(modalName) {
       // references are now sync'd and can be accessed.
-      // this.subtitle.style.color = '#f00';
+      // this.background.style.color = 'white';
     }
   }, {
     key: 'closeModal',
@@ -32376,7 +32376,7 @@ var NavBar = function (_React$Component) {
     _this.handleSuccessfulSubmit = _this.handleSuccessfulSubmit.bind(_this);
 
     _this.openModal = _this.openModal.bind(_this);
-    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+    // this.afterOpenModal = this.afterOpenModal.bind(this);
     _this.closeModal = _this.closeModal.bind(_this);
     return _this;
   }
@@ -32390,7 +32390,8 @@ var NavBar = function (_React$Component) {
     }
   }, {
     key: 'afterOpenModal',
-    value: function afterOpenModal(modalName) {
+    value: function afterOpenModal() {
+
       // references are now sync'd and can be accessed.
       // this.subtitle.style.color = '#f00';
     }
@@ -33052,26 +33053,31 @@ var QuestionListItem = function (_React$Component) {
       } else {
         var body = question.body,
             time_posted_ago = question.time_posted_ago,
-            topic = question.topic;
+            topic = question.topic,
+            num_answers = question.num_answers;
 
+        var questionHead = void 0;
         if (topic) {
-          var header = _react2.default.createElement(
+          questionHead = [_react2.default.createElement(
             'h3',
             null,
             'Question asked \xB7 ',
-            topic.name
-          );
+            topic.name,
+            ' \xB7 ',
+            time_posted_ago
+          )];
         } else {
-          var _header = _react2.default.createElement(
+          questionHead = [_react2.default.createElement(
             'h3',
             null,
-            'Question asked'
-          );
+            'Question asked \xB7 ',
+            time_posted_ago
+          )];
         }
         return _react2.default.createElement(
           'li',
           { className: 'question-list-item' },
-          _react2.default.createElement('header', null),
+          questionHead,
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/questions/' + question.id, activeClassName: 'active' },
@@ -33081,7 +33087,9 @@ var QuestionListItem = function (_React$Component) {
             'h3',
             null,
             'Last asked ',
-            time_posted_ago
+            time_posted_ago,
+            ' \xB7 ',
+            num_answers
           )
         );
       }

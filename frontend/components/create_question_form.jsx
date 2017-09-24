@@ -42,7 +42,7 @@ class CreateQuestionForm extends React.Component {
 
   afterOpenModal(modalName) {
     // references are now sync'd and can be accessed.
-    // this.subtitle.style.color = '#f00';
+    // this.background.style.color = 'white';
   }
 
   closeModal(modalName) {

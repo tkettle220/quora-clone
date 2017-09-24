@@ -12,3 +12,5 @@ json.answers do
 end
 
 json.topic question.topics.first
+
+json.num_answers question.num_answers_str

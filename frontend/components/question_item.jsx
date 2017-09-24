@@ -1,5 +1,6 @@
 import React from 'react';
 import AnswerItem from './answer_item'
+import { Link } from 'react-router-dom';
 
 class QuestionItem extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class QuestionItem extends React.Component {
       ));
     return (
       <li className="question-item">
-        <h1 className="question-header">{body}</h1>
+        <Link to={`/questions/${id}`} activeClassName="active" className="question-header">{body}</Link>
         <ul className="answer-list">
           {answerItems[0]}
         </ul>

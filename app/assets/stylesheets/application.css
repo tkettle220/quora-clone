@@ -21,13 +21,20 @@
  }
 
  .nav-bar {
+   width: 100%;
    border-bottom: 1px solid #ddd;
    margin-left: 8px;
    margin-right: 8px;
    height: 52px;
+   display: flex;
+   justify-content: center;
  }
+/*need to make this shrink the search bar and take up 100% width if container if window detected to be less than 1000px
+Then, if window is less than 800, convert to fixed width of 800px;
+*/
 
  .nav-bar-items {
+   width: 1000px;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
@@ -37,7 +44,7 @@
  }
 
  .question-search-bar {
-   width: 200px;
+   width: 400px;
    overflow-x: hidden;
    word-wrap: break-word;
    height: 29px;
@@ -92,6 +99,12 @@
    outline:0;
  }
 
+ .ReactModal__Body--open {
+   background: black;
+   opacity: .5;
+   -moz-opacity: .5;
+}
+
  .nav-pro-pic {
    height: 26px;
    border-radius: 50%;
@@ -126,12 +139,17 @@ li {
    display: flex;
    flex-direction: row;
    align-items: flex-start;
+   justify-content: center;
    background: #FAFAFA;
+   padding-left: 32px;
+   padding-right: 32px;
+   padding-top: 30px;
  }
 
  .sidebar {
    width: 142px;
    margin-left: 30px;
+   margin-right: 30px;
  }
 
 .greeting {
@@ -160,6 +178,7 @@ li {
 
 .main-col {
   width: 600px;
+  margin-right: 200px;
 }
 
 .greeting{

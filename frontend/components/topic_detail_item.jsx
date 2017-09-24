@@ -19,12 +19,10 @@ class TopicDetailItem extends React.Component {
     );
 
     return (
-      <li className="topic-detail-item">
+      <div className="topic-detail-item">
         <h2 className="topic-header">{name}<p>{description}</p></h2>
-
-        <ul className="question-detail">{questionItems}</ul>
-
-      </li>
+        <ul className="question-list">{questionItems}</ul>
+      </div>
     );
   }
 }

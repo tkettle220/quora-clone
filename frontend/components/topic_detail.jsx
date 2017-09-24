@@ -18,16 +18,12 @@ class TopicDetail extends React.Component {
       console.log("No topic, gotta load");
       return (<div>Loading</div>)
     } else {
-      const topicItems = [topic].map( topic => (
-        <TopicDetailItem key={ "topic-" + topic.id } topic={topic}/>
-        ));
-
       return(
         <div id="topic-detail">
           <div className="topic-detail-header">
           </div>
           <ul className="topic-detail-questions">
-            {topicItems}
+            <TopicDetailItem key={ "topic-" + topic.id } topic={topic}/>
           </ul>
         </div>
       );

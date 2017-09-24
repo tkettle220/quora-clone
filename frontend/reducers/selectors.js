@@ -6,3 +6,8 @@ export const selectTopic = ({ topics }, id) => {
 };
 
 export const allQuestions = ({ questions }) => Object.keys(questions).map(id => questions[id]);
+
+export const selectQuestion = ({ questions }, id) => {
+   const question = questions[id] || {};
+   return question
+};

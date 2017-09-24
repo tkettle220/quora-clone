@@ -15,7 +15,7 @@ class QuestionList extends React.Component {
     const {questions} = this.props;
     const questionItems = questions.map( question => (
       <QuestionListItem key={ "question-" + question.id } question={question}/>
-      ));
+      )).reverse();
     return(
       <div id="questions-container">
         <ul className="question-list">

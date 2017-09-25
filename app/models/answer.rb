@@ -14,6 +14,17 @@ class Answer < ApplicationRecord
       through: :question,
       source: :topics
 
+  acts_as_votable
+
+
+  def upvoter_ids
+    get_likes.reject{|v| v.vote_scope}.map{|v| v.voter_id}
+  end
+
+  def num_upvotes
+    get_likes.reject{|v| v.vote_scope}.count
+  end
+
     #code for time posted ago from github.com/katrinalui
     include ActionView::Helpers::DateHelper
 

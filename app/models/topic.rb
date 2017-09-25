@@ -36,9 +36,14 @@ class Topic < ApplicationRecord
     through: :answers,
     source: :author
 
+  acts_as_votable
+
+  def follower_ids
+    get_likes(:vote_scope => 'follow').map{|vote| vote.voter_id}
+  end
 
   def num_followers
-    subscribers.count
+    get_likes(:vote_scope => 'follow').count
   end
 
   #code for time posted ago from github.com/katrinalui

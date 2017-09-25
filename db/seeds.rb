@@ -59,10 +59,21 @@ q4.topics += [t1,t2]
 q5.topics += [t1]
 q6.topics += [t3]
 
-#Subscribe Users to Topics
-t1.subscribers += [demo_user,dummy_user]
-t2.subscribers += [dummy_user]
-t3.subscribers += [demo_user]
+#Make users follow topics and questions
+[t1, t3, q1, q3].each{|followable| demo_user.follow(followable)}
+[t1, t2, q2, q3, q5].each{|followable| dummy_user.follow(followable)}
+
+#Make users upvote questions and answers
+[q3, a4, a3].each{|entity| demo_user.upvote(entity)}
+[q1, q3, q6, a4].each{|entity| dummy_user.upvote(entity)}
+
+
+#Make users downvote questions and answers
+[q1, q2, a1].each{|entity| demo_user.downvote(entity)}
+[q4, a1, a2].each{|entity| dummy_user.downvote(entity)}
+
+
+
 
 #Give our users propics and names
 demo_user.update_attributes(name: "Will Xu", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/17952972_10155238754978829_6171178937828086766_n.jpg?oh=d1bd2b6555ebcb13479addf2874a0f83&oe=5A4A61E8")

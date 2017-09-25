@@ -31,6 +31,25 @@ class Question < ApplicationRecord
     foreign_key: :question_id,
     class_name: :Answer
 
+  acts_as_votable
+
+
+  def follower_ids
+    get_likes(:vote_scope => 'follow').map{|v| v.voter_id}
+  end
+
+  def upvoter_ids
+    get_likes.reject{|v| v.vote_scope}.map{|v| v.voter_id}
+  end
+
+  def num_followers
+    get_likes(:vote_scope => 'follow').count
+  end
+
+  def num_upvotes
+    get_likes.reject{|v| v.vote_scope}.count
+  end
+
   #code for time posted ago from github.com/katrinalui
   include ActionView::Helpers::DateHelper
 

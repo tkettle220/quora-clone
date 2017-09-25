@@ -73,6 +73,47 @@ class User < ApplicationRecord
     through: :answered_questions,
     source: :topics
 
+  acts_as_voter
+  #I don't think there's an easy way to cancle a vote which is scoped, so follows are scoped, with a positive vote meaning follow, and a negative or nil vote meaning unfollowed.  Up and downvotes are not scoped, allowing us to use the built-in unliked by
+  def follow(entity)
+    entity.vote_by :voter => self, :vote_scope => 'follow'
+  end
+
+  def unfollow(entity)
+    entity.vote_by :voter => self, :vote => 'bad', :vote_scope => 'follow'
+  end
+
+  def upvote(entity)
+    entity.vote_by :voter => self, :vote => 'like'
+  end
+
+  def downvote(entity)
+    entity.vote_by :voter => self, :vote => 'bad'
+  end
+
+  def cancel_vote(entity)
+    entity.unliked_by self
+  end
+
+  def followed_topics
+    self.find_up_voted_items.select{|item| item.class == Topic}
+  end
+
+  def followed_questions
+    #these are all the upvoted questions, but need to filter for questions which are followed, not just upvoted
+    self.find_up_voted_items.select{|item| item.class == Question && item.follower_ids.include?(self.id)}.uniq
+  end
+
+  def upvoted_questions
+    self.find_up_voted_items.select{|item| item.class == Question && item.up_voter_ids.include?(self.id)}.uniq
+  end
+
+  def upvoted_answers
+    self.find_up_voted_items.select{|item| item.class == Answer && item.up_voter_ids.include?(self.id)}.uniq
+  end
+
+
+
 
   # for oauth
   # attr_accessor :provider, :uid

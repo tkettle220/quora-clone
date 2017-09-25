@@ -4,7 +4,7 @@ class Api::TopicsController < ApplicationController
 
   #index assumes a current_user and returns JUST their subscribed topics
   def index
-    @topics = current_user.subscribed_topics.includes(:questions)
+    @topics = current_user.followed_topics
     render :index
   end
 

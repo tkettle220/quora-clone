@@ -13607,10 +13607,14 @@ var AnswerItem = function (_React$Component) {
   _createClass(AnswerItem, [{
     key: "render",
     value: function render() {
-      var answer = this.props.answer;
-      var body = answer.body,
+      var _props = this.props,
+          answer = _props.answer,
+          voteOnAnswer = _props.voteOnAnswer;
+      var id = answer.id,
+          body = answer.body,
           author = answer.author,
-          time_posted_ago = answer.time_posted_ago;
+          time_posted_ago = answer.time_posted_ago,
+          upvoter_ids = answer.upvoter_ids;
 
       return _react2.default.createElement(
         "li",
@@ -13639,6 +13643,28 @@ var AnswerItem = function (_React$Component) {
           "p",
           { className: "answer-body" },
           body
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return voteOnAnswer(id, "upvote");
+            } },
+          "Upvote ",
+          upvoter_ids
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return voteOnAnswer(id, "cancel_vote");
+            } },
+          "Undo Vote"
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return voteOnAnswer(id, "downvote");
+            } },
+          "Downvote"
         )
       );
     }
@@ -31309,22 +31335,30 @@ var _topic_list2 = _interopRequireDefault(_topic_list);
 
 var _topic_actions = __webpack_require__(37);
 
+var _question_actions = __webpack_require__(20);
+
 var _answer_actions = __webpack_require__(161);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Actions
 var mapStateToProps = function mapStateToProps(state) {
   return {
     topics: (0, _selectors.allTopics)(state),
+    questions: (0, _selectors.allQuestions)(state),
     errors: state.errors
   };
 };
+
+// Actions
+
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     requestTopics: function requestTopics() {
       return dispatch((0, _topic_actions.fetchTopics)());
+    },
+    requestQuestions: function requestQuestions() {
+      return dispatch((0, _question_actions.fetchQuestions)());
     },
     voteOnAnswer: function voteOnAnswer(id, type) {
       return dispatch((0, _answer_actions.voteOnAnswer)(id, type));
@@ -31376,16 +31410,18 @@ var TopicList = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.requestTopics();
+      this.props.requestQuestions();
     }
   }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
           topics = _props.topics,
-          voteOnAnswer = _props.voteOnAnswer;
+          voteOnAnswer = _props.voteOnAnswer,
+          questions = _props.questions;
 
       var topicItems = topics.map(function (topic) {
-        return _react2.default.createElement(_topic_list_item2.default, { key: "topic-" + topic.id, topic: topic, voteOnAnswer: voteOnAnswer });
+        return _react2.default.createElement(_topic_list_item2.default, { key: "topic-" + topic.id, topic: topic, voteOnAnswer: voteOnAnswer, questions: questions });
       });
       return _react2.default.createElement(
         'div',
@@ -31449,13 +31485,17 @@ var TopicListItem = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           topic = _props.topic,
-          voteOnAnswer = _props.voteOnAnswer;
+          voteOnAnswer = _props.voteOnAnswer,
+          questions = _props.questions;
       var name = topic.name,
           description = topic.description,
           num_followers = topic.num_followers,
-          questions = topic.questions;
+          question_ids = topic.question_ids;
 
-      var questionItems = questions.map(function (question) {
+      var topic_questions = questions.filter(function (question) {
+        return question_ids.includes(question.id);
+      });
+      var questionItems = topic_questions.map(function (question) {
         return _react2.default.createElement(_question_item2.default, {
           key: "question-" + question.id,
           question: question,

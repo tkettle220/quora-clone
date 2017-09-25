@@ -9,8 +9,9 @@ class Api::QuestionsController < ApplicationController
       @keywords = params[:query].split(" ")
       questions = []
       @keywords.each do |keyword|
-        questions += Question.where("body LIKE ?", "%#{keyword}%")
+        questions += Question.where("LOWER(body) LIKE ? ", "%#{keyword.downcase}%")
       end
+      p questions
       @questions = questions.uniq
     else
       @questions = Question.all.includes(:author)

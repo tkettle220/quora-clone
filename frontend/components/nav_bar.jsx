@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { customStyles } from './create_question_form';
+import QuestionSearchContainer from './question_search_container';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -32,7 +33,6 @@ class NavBar extends React.Component {
 
 
   afterOpenModal() {
-
     // references are now sync'd and can be accessed.
     // this.subtitle.style.color = '#f00';
   }
@@ -78,7 +78,7 @@ class NavBar extends React.Component {
 
           <li>
 
-            <input type="text" className="question-search-bar" rows="1" placeholder="Search Quera" onChange={()=>{console.log("u is typing")}}></input>
+            <QuestionSearchContainer />
             </li>
 
 

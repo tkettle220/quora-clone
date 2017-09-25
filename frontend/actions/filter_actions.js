@@ -1,4 +1,4 @@
-import { fetchQuestions } from './question_actions'
+import { fetchSearchQuestions } from './question_actions'
 
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 
@@ -10,5 +10,5 @@ export const changeFilter = (filter, value) => ({
 
 export const updateFilter = (filter, value) => (dispatch, getState) => {
   dispatch(changeFilter(filter, value));
-  return fetchQuestions(getState().filters)(dispatch);
+  return fetchSearchQuestions(getState().filters)(dispatch);
 };

@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 
-import { updateFilter } from '../../actions/filter_actions';
-import { asArray } from '../../reducers/selectors';
-import Search from './search';
+import { updateFilter } from '../actions/filter_actions';
+import { asSortedArray } from '../reducers/selectors';
+import QuestionSearch from './question_search';
 
 const mapStateToProps = state => ({
-  questions: asArray(state),
-  minSeating: state.ui.filters.minSeating,
-  maxSeating: state.ui.filters.maxSeating
+  questions: asSortedArray(state),
+  query: state.filters.query
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -17,4 +16,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Search);
+)(QuestionSearch);

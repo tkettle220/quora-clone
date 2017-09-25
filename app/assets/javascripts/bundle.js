@@ -2733,7 +2733,7 @@ module.exports = PooledClass;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createQuestion = exports.fetchQuestion = exports.fetchQuestions = exports.receiveQuestion = exports.receiveQuestions = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
+exports.createQuestion = exports.fetchQuestion = exports.fetchSearchQuestions = exports.fetchQuestions = exports.receiveQuestion = exports.receiveSearchQuestions = exports.receiveQuestions = exports.RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
 
 var _question_api_util = __webpack_require__(326);
 
@@ -2743,10 +2743,18 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var RECEIVE_QUESTIONS = exports.RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 var RECEIVE_QUESTION = exports.RECEIVE_QUESTION = 'RECEIVE_QUESTION';
+var RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_SEARCH_QUESTIONS = 'RECEIVE_SEARCH_QUESTIONS';
 
 var receiveQuestions = exports.receiveQuestions = function receiveQuestions(questions) {
   return {
     type: RECEIVE_QUESTIONS,
+    questions: questions
+  };
+};
+
+var receiveSearchQuestions = exports.receiveSearchQuestions = function receiveSearchQuestions(questions) {
+  return {
+    type: RECEIVE_SEARCH_QUESTIONS,
     questions: questions
   };
 };
@@ -2759,10 +2767,18 @@ var receiveQuestion = exports.receiveQuestion = function receiveQuestion(questio
 };
 
 //assumes you want to fetch questions for the current_user
-var fetchQuestions = exports.fetchQuestions = function fetchQuestions(filters) {
+var fetchQuestions = exports.fetchQuestions = function fetchQuestions() {
+  return function (dispatch) {
+    return APIUtil.fetchQuestions().then(function (questions) {
+      return dispatch(receiveQuestions(questions));
+    });
+  };
+};
+
+var fetchSearchQuestions = exports.fetchSearchQuestions = function fetchSearchQuestions(filters) {
   return function (dispatch) {
     return APIUtil.fetchQuestions(filters).then(function (questions) {
-      return dispatch(receiveQuestions(questions));
+      return dispatch(receiveSearchQuestions(questions));
     });
   };
 };
@@ -4068,12 +4084,12 @@ var selectQuestion = exports.selectQuestion = function selectQuestion(_ref4, id)
 };
 
 var asSortedArray = exports.asSortedArray = function asSortedArray(_ref5) {
-   var questions = _ref5.questions,
+   var searchQuestions = _ref5.searchQuestions,
        filters = _ref5.filters;
    var query = filters.query;
 
    var keywords = query.split(" ");
-   return Object.values(questions).sort(function (a, b) {
+   return Object.values(searchQuestions).sort(function (a, b) {
       return b.match_score - a.match_score;
    });
 };
@@ -32366,6 +32382,10 @@ var _reactRouterDom = __webpack_require__(19);
 
 var _create_question_form = __webpack_require__(139);
 
+var _question_search_container = __webpack_require__(419);
+
+var _question_search_container2 = _interopRequireDefault(_question_search_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32409,7 +32429,6 @@ var NavBar = function (_React$Component) {
   }, {
     key: 'afterOpenModal',
     value: function afterOpenModal() {
-
       // references are now sync'd and can be accessed.
       // this.subtitle.style.color = '#f00';
     }
@@ -32482,9 +32501,7 @@ var NavBar = function (_React$Component) {
           _react2.default.createElement(
             'li',
             null,
-            _react2.default.createElement('input', { type: 'text', className: 'question-search-bar', rows: '1', placeholder: 'Search Quera', onChange: function onChange() {
-                console.log("u is typing");
-              } })
+            _react2.default.createElement(_question_search_container2.default, null)
           ),
           _react2.default.createElement(
             'li',
@@ -33426,6 +33443,10 @@ var _questions_reducer = __webpack_require__(414);
 
 var _questions_reducer2 = _interopRequireDefault(_questions_reducer);
 
+var _search_questions_reducer = __webpack_require__(423);
+
+var _search_questions_reducer2 = _interopRequireDefault(_search_questions_reducer);
+
 var _answers_reducer = __webpack_require__(415);
 
 var _answers_reducer2 = _interopRequireDefault(_answers_reducer);
@@ -33442,7 +33463,8 @@ var RootReducer = (0, _redux.combineReducers)({
   topics: _topics_reducer2.default,
   questions: _questions_reducer2.default,
   answers: _answers_reducer2.default,
-  filters: _filters_reducer2.default
+  filters: _filters_reducer2.default,
+  searchQuestions: _search_questions_reducer2.default
 });
 
 exports.default = RootReducer;
@@ -35868,9 +35890,299 @@ var changeFilter = exports.changeFilter = function changeFilter(filter, value) {
 var updateFilter = exports.updateFilter = function updateFilter(filter, value) {
   return function (dispatch, getState) {
     dispatch(changeFilter(filter, value));
-    return (0, _question_actions.fetchQuestions)(getState().filters)(dispatch);
+    return (0, _question_actions.fetchSearchQuestions)(getState().filters)(dispatch);
   };
 };
+
+/***/ }),
+/* 419 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(16);
+
+var _filter_actions = __webpack_require__(418);
+
+var _selectors = __webpack_require__(36);
+
+var _question_search = __webpack_require__(420);
+
+var _question_search2 = _interopRequireDefault(_question_search);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    questions: (0, _selectors.asSortedArray)(state),
+    query: state.filters.query
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    updateFilter: function updateFilter(filter, value) {
+      return dispatch((0, _filter_actions.updateFilter)(filter, value));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_search2.default);
+
+/***/ }),
+/* 420 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactModal = __webpack_require__(140);
+
+var _reactModal2 = _interopRequireDefault(_reactModal);
+
+var _create_question_form = __webpack_require__(139);
+
+var _question_search_input = __webpack_require__(421);
+
+var _question_search_input2 = _interopRequireDefault(_question_search_input);
+
+var _question_search_item = __webpack_require__(422);
+
+var _question_search_item2 = _interopRequireDefault(_question_search_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var appElement = document.getElementById('main-page');
+console.log("did this work");
+_reactModal2.default.setAppElement(appElement);
+
+var QuestionSearch = function (_React$Component) {
+  _inherits(QuestionSearch, _React$Component);
+
+  function QuestionSearch(props) {
+    _classCallCheck(this, QuestionSearch);
+
+    var _this = _possibleConstructorReturn(this, (QuestionSearch.__proto__ || Object.getPrototypeOf(QuestionSearch)).call(this, props));
+
+    _this.state = {
+      searchModalIsOpen: false
+    };
+
+    _this.openModal = _this.openModal.bind(_this);
+    // this.afterOpenModal = this.afterOpenModal.bind(this);
+    _this.closeModal = _this.closeModal.bind(_this);
+    return _this;
+  }
+
+  _createClass(QuestionSearch, [{
+    key: 'openModal',
+    value: function openModal() {
+      this.setState({ searchModalIsOpen: true });
+    }
+  }, {
+    key: 'afterOpenModal',
+    value: function afterOpenModal() {
+      // references are now sync'd and can be accessed.
+      // this.subtitle.style.color = '#f00';
+    }
+  }, {
+    key: 'closeModal',
+    value: function closeModal() {
+      this.setState({ searchModalIsOpen: false });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          questions = _props.questions,
+          query = _props.query,
+          updateFilter = _props.updateFilter;
+
+      var QuestionItems = questions.map(function (question) {
+        return _react2.default.createElement(_question_search_item2.default, { question: question });
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'question-search' },
+        _react2.default.createElement(_question_search_input2.default, {
+          className: 'search-input',
+          query: query,
+          updateFilter: updateFilter,
+          openModal: this.openModal
+        }),
+        _react2.default.createElement(
+          'ul',
+          { className: 'question-search-list' },
+          QuestionItems
+        )
+      );
+    }
+  }]);
+
+  return QuestionSearch;
+}(_react2.default.Component);
+
+exports.default = QuestionSearch;
+
+/***/ }),
+/* 421 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var handleChange = function handleChange(filter, updateFilter, openModal) {
+  return function (e) {
+    // openModal();
+    return updateFilter(filter, e.currentTarget.value);
+  };
+};
+
+var QuestionSearchInput = function QuestionSearchInput(_ref) {
+  var query = _ref.query,
+      updateFilter = _ref.updateFilter,
+      openModal = _ref.openModal;
+  return _react2.default.createElement("input", { type: "text", className: "question-search-bar", rows: "1", placeholder: "Search Quera", onChange: handleChange('query', updateFilter, openModal) });
+};
+
+exports.default = QuestionSearchInput;
+
+/***/ }),
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(19);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestionSearchItem = function (_React$Component) {
+  _inherits(QuestionSearchItem, _React$Component);
+
+  function QuestionSearchItem(props) {
+    _classCallCheck(this, QuestionSearchItem);
+
+    return _possibleConstructorReturn(this, (QuestionSearchItem.__proto__ || Object.getPrototypeOf(QuestionSearchItem)).call(this, props));
+  }
+
+  _createClass(QuestionSearchItem, [{
+    key: 'render',
+    value: function render() {
+      var question = this.props.question;
+
+      if (Object.keys(question).length === 0) {
+        console.log("loading");
+        return _react2.default.createElement(
+          'h1',
+          null,
+          'Loading!'
+        );
+      } else {
+        var body = question.body;
+
+        return _react2.default.createElement(
+          'li',
+          { className: 'question-list-item' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/questions/' + question.id, activeClassName: 'active' },
+            body
+          )
+        );
+      }
+    }
+  }]);
+
+  return QuestionSearchItem;
+}(_react2.default.Component);
+
+exports.default = QuestionSearchItem;
+
+/***/ }),
+/* 423 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _merge = __webpack_require__(28);
+
+var _merge2 = _interopRequireDefault(_merge);
+
+var _question_actions = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defaultState = {};
+
+var SearchQuestionsReducer = function SearchQuestionsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _question_actions.RECEIVE_SEARCH_QUESTIONS:
+      return action.questions;
+    default:
+      return state;
+  }
+};
+
+exports.default = SearchQuestionsReducer;
 
 /***/ })
 /******/ ]);

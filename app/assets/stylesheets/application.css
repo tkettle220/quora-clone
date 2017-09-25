@@ -45,6 +45,22 @@ Then, if window is less than 800, convert to fixed width of 800px;
    margin: 0px;
  }
 
+ .question-search-list {
+   background: white;
+   border: 1px solid #efefef;
+   position: absolute;
+   padding: 5px;
+   margin-top: 20px;
+   z-index: 9000;
+   width: 400px;
+
+ }
+
+ .question-search-list:empty {
+   display: none;
+ }
+
+
  .question-search-bar {
    width: 400px;
    overflow-x: hidden;
@@ -102,6 +118,7 @@ Then, if window is less than 800, convert to fixed width of 800px;
  }
 
  .ReactModal__Body--open {
+
    overflow-y: hidden;
 }
 
@@ -257,6 +274,8 @@ li {
 .create-question-modal {
   width: 623px;
 }
+
+
 
 .background {
   width: 100%;

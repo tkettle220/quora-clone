@@ -70,7 +70,6 @@ class CreateQuestionModal extends React.Component {
   }
 
   render() {
-    debugger
     const {user} = this.props
     return (
       <div className="modal">

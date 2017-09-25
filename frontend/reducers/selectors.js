@@ -12,10 +12,10 @@ export const selectQuestion = ({ questions }, id) => {
    return question
 };
 
-export const asSortedArray = ({ questions, filters }) => {
+export const asSortedArray = ({ searchQuestions, filters }) => {
   const {query} = filters;
   const keywords = query.split(" ");
   return(
-  Object.values(questions).sort((a,b)=>b.match_score - a.match_score)
+  Object.values(searchQuestions).sort((a,b)=>b.match_score - a.match_score)
   );
 }

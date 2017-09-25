@@ -2,6 +2,8 @@ import * as APIUtil from '../util/topic_api_util'
 
 export const RECEIVE_TOPICS = 'RECEIVE_TOPICS';
 export const RECEIVE_TOPIC = 'RECEIVE_TOPIC';
+export const UPDATE_TOPIC = 'UPDATE_TOPIC';
+
 
 export const receiveTopics = topics => ({
   type: RECEIVE_TOPICS,
@@ -10,6 +12,12 @@ export const receiveTopics = topics => ({
 
 export const receiveTopic = topic => ({
   type: RECEIVE_TOPIC,
+  topic
+});
+
+
+export const updateTopic = topic => ({
+  type: UPDATE_TOPIC,
   topic
 });
 
@@ -23,5 +31,17 @@ export const fetchTopics = () => dispatch => (
 export const fetchTopic = id => dispatch => (
   APIUtil.fetchTopic(id).then(
     topic=>(dispatch(receiveTopic(topic))
+  ))
+);
+
+export const followTopic = (id) => dispatch => (
+  APIUtil.followTopic(id).then(
+    answer=>(dispatch(updateTopic(answer))
+  ))
+);
+
+export const unfollowTopic = (id) => dispatch => (
+  APIUtil.unfollowTopic(id).then(
+    answer=>(dispatch(updateTopic(answer))
   ))
 );

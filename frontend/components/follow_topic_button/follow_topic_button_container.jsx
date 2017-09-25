@@ -2,14 +2,16 @@ import { connect } from 'react-redux';
 import FollowTopicButton from './follow_topic_button';
 
 // Actions
-import { voteOnAnswer } from '../../actions/answer_actions';
+import { followTopic, unfollowTopic } from '../../actions/topic_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.id,
+  followerIds: ownProps.followerIds
 });
 
 const mapDispatchToProps = dispatch => ({
-  voteOnAnswer: (id, type) => dispatch(voteOnAnswer(id, type))
+  followTopic: (id) => dispatch(followTopic(id)),
+  unfollowTopic: (id) => dispatch(unfollowTopic(id))
 });
 
 export default connect(

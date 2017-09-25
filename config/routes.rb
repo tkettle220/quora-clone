@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
     post 'answers/vote', :to => 'answers#vote'
 
+    post 'topics/follow', :to => 'topics#follow'
+    post 'topics/unfollow', :to => 'topics#unfollow'
+
 
   end
 

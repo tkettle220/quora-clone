@@ -18,6 +18,19 @@ class Api::TopicsController < ApplicationController
     render :show
   end
 
+  def follow
+    @topic = Topic.find(params[:topic_id])
+    current_user.follow(@topic)
+    render :show
+  end
+
+  def unfollow
+    @topic = Topic.find(params[:topic_id])
+    current_user.unfollow(@topic)
+    render :show
+
+  end
+
   private
 
   def topic_params

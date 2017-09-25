@@ -7,7 +7,7 @@ class TopicDetail extends React.Component {
     super(props)
   }
 
-  componentWillMount() {
+  componentwillMount() {
     this.props.requestTopic(this.props.topicId);
     window.scrollTo(0, 0);
   }

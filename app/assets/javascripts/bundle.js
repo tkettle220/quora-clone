@@ -4150,7 +4150,7 @@ var createPath = function createPath(location) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchTopic = exports.fetchTopics = exports.receiveTopic = exports.receiveTopics = exports.RECEIVE_TOPIC = exports.RECEIVE_TOPICS = undefined;
+exports.unfollowTopic = exports.followTopic = exports.fetchTopic = exports.fetchTopics = exports.updateTopic = exports.receiveTopic = exports.receiveTopics = exports.UPDATE_TOPIC = exports.RECEIVE_TOPIC = exports.RECEIVE_TOPICS = undefined;
 
 var _topic_api_util = __webpack_require__(319);
 
@@ -4160,6 +4160,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var RECEIVE_TOPICS = exports.RECEIVE_TOPICS = 'RECEIVE_TOPICS';
 var RECEIVE_TOPIC = exports.RECEIVE_TOPIC = 'RECEIVE_TOPIC';
+var UPDATE_TOPIC = exports.UPDATE_TOPIC = 'UPDATE_TOPIC';
 
 var receiveTopics = exports.receiveTopics = function receiveTopics(topics) {
   return {
@@ -4171,6 +4172,13 @@ var receiveTopics = exports.receiveTopics = function receiveTopics(topics) {
 var receiveTopic = exports.receiveTopic = function receiveTopic(topic) {
   return {
     type: RECEIVE_TOPIC,
+    topic: topic
+  };
+};
+
+var updateTopic = exports.updateTopic = function updateTopic(topic) {
+  return {
+    type: UPDATE_TOPIC,
     topic: topic
   };
 };
@@ -4188,6 +4196,22 @@ var fetchTopic = exports.fetchTopic = function fetchTopic(id) {
   return function (dispatch) {
     return APIUtil.fetchTopic(id).then(function (topic) {
       return dispatch(receiveTopic(topic));
+    });
+  };
+};
+
+var followTopic = exports.followTopic = function followTopic(id) {
+  return function (dispatch) {
+    return APIUtil.followTopic(id).then(function (answer) {
+      return dispatch(updateTopic(answer));
+    });
+  };
+};
+
+var unfollowTopic = exports.unfollowTopic = function unfollowTopic(id) {
+  return function (dispatch) {
+    return APIUtil.unfollowTopic(id).then(function (answer) {
+      return dispatch(updateTopic(answer));
     });
   };
 };
@@ -30975,6 +30999,26 @@ var fetchTopic = exports.fetchTopic = function fetchTopic(id) {
   });
 };
 
+var followTopic = exports.followTopic = function followTopic(id) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/topics/follow',
+    data: {
+      topic_id: id
+    }
+  });
+};
+
+var unfollowTopic = exports.unfollowTopic = function unfollowTopic(id) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/topics/unfollow',
+    data: {
+      topic_id: id
+    }
+  });
+};
+
 /***/ }),
 /* 320 */,
 /* 321 */
@@ -34217,8 +34261,6 @@ var _merge3 = _interopRequireDefault(_merge2);
 
 var _topic_actions = __webpack_require__(37);
 
-var _question_actions = __webpack_require__(20);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -34235,6 +34277,10 @@ var TopicsReducer = function TopicsReducer() {
       return action.topics;
     case _topic_actions.RECEIVE_TOPIC:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.topic.id, action.topic));
+    case _topic_actions.UPDATE_TOPIC:
+      var oldState = (0, _merge3.default)({}, state);
+      oldState[action.topic.id] = action.topic;
+      return oldState;
     default:
       return state;
   }
@@ -35893,8 +35939,8 @@ var TopicDetail = function (_React$Component) {
   }
 
   _createClass(TopicDetail, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentwillMount',
+    value: function componentwillMount() {
       this.props.requestTopic(this.props.topicId);
       window.scrollTo(0, 0);
     }
@@ -35953,6 +35999,10 @@ var _question_item_container = __webpack_require__(427);
 
 var _question_item_container2 = _interopRequireDefault(_question_item_container);
 
+var _follow_topic_button_container = __webpack_require__(452);
+
+var _follow_topic_button_container2 = _interopRequireDefault(_follow_topic_button_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35974,10 +36024,12 @@ var TopicDetailItem = function (_React$Component) {
     key: 'render',
     value: function render() {
       var topic = this.props.topic;
-      var name = topic.name,
+      var id = topic.id,
+          name = topic.name,
           description = topic.description,
           num_followers = topic.num_followers,
-          question_ids = topic.question_ids;
+          question_ids = topic.question_ids,
+          follower_ids = topic.follower_ids;
 
 
       var questionItems = question_ids.map(function (id) {
@@ -36000,6 +36052,7 @@ var TopicDetailItem = function (_React$Component) {
             description
           )
         ),
+        _react2.default.createElement(_follow_topic_button_container2.default, { id: id, followerIds: follower_ids }),
         _react2.default.createElement(
           'ul',
           { className: 'question-list' },
@@ -36615,6 +36668,116 @@ var AnswerVoteButton = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = AnswerVoteButton;
+
+/***/ }),
+/* 452 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _follow_topic_button = __webpack_require__(453);
+
+var _follow_topic_button2 = _interopRequireDefault(_follow_topic_button);
+
+var _topic_actions = __webpack_require__(37);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    id: ownProps.id,
+    followerIds: ownProps.followerIds
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    followTopic: function followTopic(id) {
+      return dispatch((0, _topic_actions.followTopic)(id));
+    },
+    unfollowTopic: function unfollowTopic(id) {
+      return dispatch((0, _topic_actions.unfollowTopic)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_follow_topic_button2.default);
+
+/***/ }),
+/* 453 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FollowTopicButton = function (_React$Component) {
+  _inherits(FollowTopicButton, _React$Component);
+
+  function FollowTopicButton(props) {
+    _classCallCheck(this, FollowTopicButton);
+
+    return _possibleConstructorReturn(this, (FollowTopicButton.__proto__ || Object.getPrototypeOf(FollowTopicButton)).call(this, props));
+  }
+
+  _createClass(FollowTopicButton, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        "div",
+        { className: "follow-topic-button" },
+        _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.props.followTopic(_this2.props.id);
+            } },
+          "Follow ",
+          this.props.followerIds
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.props.unfollowTopic(_this2.props.id);
+            } },
+          "Unfollow"
+        )
+      );
+    }
+  }]);
+
+  return FollowTopicButton;
+}(_react2.default.Component);
+
+exports.default = FollowTopicButton;
 
 /***/ })
 /******/ ]);

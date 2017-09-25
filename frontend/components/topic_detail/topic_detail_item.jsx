@@ -1,6 +1,7 @@
 import React from 'react';
 
-import QuestionItemContainer from '../question/question_item_container'
+import QuestionItemContainer from '../question/question_item_container';
+import FollowTopicButtonContainer from '../follow_topic_button/follow_topic_button_container'
 
 class TopicDetailItem extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class TopicDetailItem extends React.Component {
 
   render () {
     const { topic } = this.props;
-    const { name, description, num_followers, question_ids} = topic;
+    const { id, name, description, num_followers, question_ids, follower_ids} = topic;
 
       const questionItems = question_ids.map(id => (
         <QuestionItemContainer
@@ -22,6 +23,7 @@ class TopicDetailItem extends React.Component {
     return (
       <div className="topic-detail-item">
         <h2 className="topic-header">{name}<p>{description}</p></h2>
+        <FollowTopicButtonContainer id={id} followerIds={follower_ids}/>
         <ul className="question-list">{questionItems}</ul>
       </div>
     );

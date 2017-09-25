@@ -33016,6 +33016,17 @@ var QuestionDetail = function (_React$Component) {
       this.props.requestQuestion(this.props.questionId);
       window.scrollTo(0, 0);
     }
+
+    //need this to reload  questions if the search bar question link is clicked
+
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps) {
+      if (nextProps.questionId && this.props.questionId != nextProps.questionId) {
+        nextProps.requestQuestion(nextProps.questionId);
+        window.scrollTo(0, 0);
+      }
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -35951,12 +35962,6 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactModal = __webpack_require__(140);
-
-var _reactModal2 = _interopRequireDefault(_reactModal);
-
-var _create_question_form = __webpack_require__(139);
-
 var _question_search_input = __webpack_require__(421);
 
 var _question_search_input2 = _interopRequireDefault(_question_search_input);
@@ -35973,45 +35978,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var appElement = document.getElementById('main-page');
-console.log("did this work");
-_reactModal2.default.setAppElement(appElement);
-
 var QuestionSearch = function (_React$Component) {
   _inherits(QuestionSearch, _React$Component);
 
   function QuestionSearch(props) {
     _classCallCheck(this, QuestionSearch);
 
-    var _this = _possibleConstructorReturn(this, (QuestionSearch.__proto__ || Object.getPrototypeOf(QuestionSearch)).call(this, props));
-
-    _this.state = {
-      searchModalIsOpen: false
-    };
-
-    _this.openModal = _this.openModal.bind(_this);
-    // this.afterOpenModal = this.afterOpenModal.bind(this);
-    _this.closeModal = _this.closeModal.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (QuestionSearch.__proto__ || Object.getPrototypeOf(QuestionSearch)).call(this, props));
   }
 
   _createClass(QuestionSearch, [{
-    key: 'openModal',
-    value: function openModal() {
-      this.setState({ searchModalIsOpen: true });
-    }
-  }, {
-    key: 'afterOpenModal',
-    value: function afterOpenModal() {
-      // references are now sync'd and can be accessed.
-      // this.subtitle.style.color = '#f00';
-    }
-  }, {
-    key: 'closeModal',
-    value: function closeModal() {
-      this.setState({ searchModalIsOpen: false });
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -36020,7 +35996,7 @@ var QuestionSearch = function (_React$Component) {
           updateFilter = _props.updateFilter;
 
       var QuestionItems = questions.map(function (question) {
-        return _react2.default.createElement(_question_search_item2.default, { question: question });
+        return _react2.default.createElement(_question_search_item2.default, { question: question, updateFilter: updateFilter });
       });
 
       return _react2.default.createElement(
@@ -36029,8 +36005,7 @@ var QuestionSearch = function (_React$Component) {
         _react2.default.createElement(_question_search_input2.default, {
           className: 'search-input',
           query: query,
-          updateFilter: updateFilter,
-          openModal: this.openModal
+          updateFilter: updateFilter
         }),
         _react2.default.createElement(
           'ul',
@@ -36063,18 +36038,16 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var handleChange = function handleChange(filter, updateFilter, openModal) {
+var handleChange = function handleChange(filter, updateFilter) {
   return function (e) {
-    // openModal();
     return updateFilter(filter, e.currentTarget.value);
   };
 };
 
 var QuestionSearchInput = function QuestionSearchInput(_ref) {
   var query = _ref.query,
-      updateFilter = _ref.updateFilter,
-      openModal = _ref.openModal;
-  return _react2.default.createElement("input", { type: "text", className: "question-search-bar", rows: "1", placeholder: "Search Quera", onChange: handleChange('query', updateFilter, openModal) });
+      updateFilter = _ref.updateFilter;
+  return _react2.default.createElement("input", { type: "text", className: "question-search-bar", rows: "1", placeholder: "Search Quera", value: query, onChange: handleChange('query', updateFilter) });
 };
 
 exports.default = QuestionSearchInput;
@@ -36090,8 +36063,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
@@ -36100,51 +36071,35 @@ var _reactRouterDom = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var QuestionSearchItem = function QuestionSearchItem(_ref) {
+  var question = _ref.question,
+      handleChange = _ref.handleChange,
+      updateFilter = _ref.updateFilter;
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  if (Object.keys(question).length === 0) {
+    console.log("loading");
+    return _react2.default.createElement(
+      'h1',
+      null,
+      'Loading!'
+    );
+  } else {
+    var body = question.body;
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var QuestionSearchItem = function (_React$Component) {
-  _inherits(QuestionSearchItem, _React$Component);
-
-  function QuestionSearchItem(props) {
-    _classCallCheck(this, QuestionSearchItem);
-
-    return _possibleConstructorReturn(this, (QuestionSearchItem.__proto__ || Object.getPrototypeOf(QuestionSearchItem)).call(this, props));
+    return _react2.default.createElement(
+      'li',
+      { className: 'question-list-item' },
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/questions/' + question.id, activeClassName: 'active', onClick: function onClick() {
+            return updateFilter("query", "");
+          } },
+        body
+      )
+    );
   }
-
-  _createClass(QuestionSearchItem, [{
-    key: 'render',
-    value: function render() {
-      var question = this.props.question;
-
-      if (Object.keys(question).length === 0) {
-        console.log("loading");
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'Loading!'
-        );
-      } else {
-        var body = question.body;
-
-        return _react2.default.createElement(
-          'li',
-          { className: 'question-list-item' },
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/questions/' + question.id, activeClassName: 'active' },
-            body
-          )
-        );
-      }
-    }
-  }]);
-
-  return QuestionSearchItem;
-}(_react2.default.Component);
+};
 
 exports.default = QuestionSearchItem;
 

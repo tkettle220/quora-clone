@@ -12,6 +12,16 @@ class QuestionDetail extends React.Component {
     window.scrollTo(0, 0);
   }
 
+  //need this to reload  questions if the search bar question link is clicked
+  componentWillUpdate(nextProps) {
+    if (nextProps.questionId && this.props.questionId != nextProps.questionId) {
+      nextProps.requestQuestion(nextProps.questionId);
+      window.scrollTo(0, 0);
+    }
+  }
+
+
+
   render() {
     const {question, questionId} = this.props;
     if (Object.keys(question).length === 0) {

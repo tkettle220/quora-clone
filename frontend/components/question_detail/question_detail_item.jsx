@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AnswerItem from './answer_item'
+import AnswerItem from '../answer_list/answer_item'
 
 class QuestionDetailItem extends React.Component {
   constructor(props) {

@@ -10,7 +10,7 @@ const AnswersReducer = (state = defaultState, action) => {
     case RECEIVE_ANSWERS:
       return merge({}, state, action.answers);
     case RECEIVE_ANSWER:
-      return {[action.answer.id]: action.answer};
+      return merge({},state,{[action.answer.id]: action.answer});
     case UPDATE_ANSWER:
       let oldState = merge({}, state);
       oldState[action.answer.id] = action.answer;

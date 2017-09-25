@@ -12,11 +12,6 @@ const TopicsReducer = (state = defaultState, action) => {
       return action.topics;
     case RECEIVE_TOPIC:
       return merge({},state,{[action.topic.id]: action.topic});
-    case UPDATE_QUESTION:
-      let oldState = merge({}, state);
-      let q_idx = oldState[action.question.topic.id].questions.findIndex((el)=>el.id===action.question.id);
-      oldState[action.question.topic.id].questions[q_idx] = action.question;
-      return oldState;
     default:
       return state;
   }

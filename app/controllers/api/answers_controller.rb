@@ -2,7 +2,8 @@ class Api::AnswersController < ApplicationController
   #modify index to only return current_user.answers or something like that
   #do a before action ensure login
 
-  #shows all of the answers for a question or topic, depending on params
+  #shows all of the answers for a question, topic, or user, depending on params
+
   def index
     if params[:question_id]
       question = Question.find_by_id(params[:question_id])
@@ -11,15 +12,17 @@ class Api::AnswersController < ApplicationController
         return
       end
       @answers = question.answers.includes(:author)
-    else
+    elsif params[:topic_id]
       topic = Topic.find_by_id(params[:topic_id])
       unless topic
         render json: ["Topic not found"], status: 404
         return
       end
       @answers = topic.answers.includes(:author)
+    else
+      @answers = current_user.followed_topics.
+      render :index
     end
-    render :index
   end
 
   #shows an answer
@@ -54,4 +57,5 @@ class Api::AnswersController < ApplicationController
   def answer_params
     params.require(:answer).permit(:body)
   end
+
 end

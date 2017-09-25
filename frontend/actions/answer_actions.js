@@ -22,8 +22,15 @@ export const updateAnswer = answer => ({
 });
 
 //fetches answers for a given topic
-export const fetchAnswerAnswers = (question_id) => dispatch => (
+export const fetchQuestionAnswers = (question_id) => dispatch => (
   APIUtil.fetchQuestionAnswers(question_id).then(
+    answers=>(dispatch(receiveAnswers(answers))
+  ))
+);
+
+//fetches all answers for a given users's topics
+export const fetchAnswers = () => dispatch => (
+  APIUtil.fetchAnswers().then(
     answers=>(dispatch(receiveAnswers(answers))
   ))
 );

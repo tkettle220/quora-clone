@@ -2855,20 +2855,36 @@ var selectTopic = exports.selectTopic = function selectTopic(_ref2, id) {
 
 var allQuestions = exports.allQuestions = function allQuestions(_ref3) {
    var questions = _ref3.questions;
-   return Object.values(questions);
+
+   var returnQuestions = Object.values(questions) || [];
+   return returnQuestions;
 };
 
-var selectQuestion = exports.selectQuestion = function selectQuestion(_ref4, id) {
-   var questions = _ref4.questions;
+var allAnswers = exports.allAnswers = function allAnswers(_ref4) {
+   var answers = _ref4.answers;
+
+   var returnAnswers = Object.values(answers) || [];
+   return returnAnswers;
+};
+
+var selectQuestion = exports.selectQuestion = function selectQuestion(_ref5, id) {
+   var questions = _ref5.questions;
 
    var question = questions[id] || {};
    return question;
 };
 
+var selectAnswer = exports.selectAnswer = function selectAnswer(_ref6, id) {
+   var answers = _ref6.answers;
+
+   var answer = answers[id] || {};
+   return answer;
+};
+
 //I filter here, since I might not have the query elsewhere
-var asSortedArray = exports.asSortedArray = function asSortedArray(_ref5) {
-   var searchQuestions = _ref5.searchQuestions,
-       filters = _ref5.filters;
+var asSortedArray = exports.asSortedArray = function asSortedArray(_ref7) {
+   var searchQuestions = _ref7.searchQuestions,
+       filters = _ref7.filters;
    var query = filters.query;
 
    var keywords = query.split(" ");
@@ -13490,401 +13506,9 @@ var isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
 };
 
 /***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _answer_item = __webpack_require__(139);
-
-var _answer_item2 = _interopRequireDefault(_answer_item);
-
-var _reactRouterDom = __webpack_require__(18);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var QuestionItem = function (_React$Component) {
-  _inherits(QuestionItem, _React$Component);
-
-  function QuestionItem(props) {
-    _classCallCheck(this, QuestionItem);
-
-    return _possibleConstructorReturn(this, (QuestionItem.__proto__ || Object.getPrototypeOf(QuestionItem)).call(this, props));
-  }
-
-  _createClass(QuestionItem, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      // this.props.requestAnswers(this.props.question.id);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          question = _props.question,
-          voteOnAnswer = _props.voteOnAnswer;
-      var id = question.id,
-          body = question.body,
-          author = question.author,
-          answers = question.answers;
-
-      var answerItems = answers.map(function (answer) {
-        return _react2.default.createElement(_answer_item2.default, { key: "answer-" + answer.id, answer: answer, voteOnAnswer: voteOnAnswer });
-      });
-      return _react2.default.createElement(
-        'li',
-        { className: 'question-item' },
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/questions/' + id, activeClassName: 'active', className: 'question-header' },
-          body
-        ),
-        _react2.default.createElement(
-          'ul',
-          { className: 'answer-list' },
-          answerItems[0]
-        )
-      );
-    }
-  }]);
-
-  return QuestionItem;
-}(_react2.default.Component);
-
-exports.default = QuestionItem;
-
-/***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AnswerItem = function (_React$Component) {
-  _inherits(AnswerItem, _React$Component);
-
-  function AnswerItem(props) {
-    _classCallCheck(this, AnswerItem);
-
-    return _possibleConstructorReturn(this, (AnswerItem.__proto__ || Object.getPrototypeOf(AnswerItem)).call(this, props));
-  }
-
-  _createClass(AnswerItem, [{
-    key: "render",
-    value: function render() {
-      var _props = this.props,
-          answer = _props.answer,
-          voteOnAnswer = _props.voteOnAnswer;
-      var id = answer.id,
-          body = answer.body,
-          author = answer.author,
-          time_posted_ago = answer.time_posted_ago,
-          upvoter_ids = answer.upvoter_ids;
-
-      return _react2.default.createElement(
-        "li",
-        { className: "answer-item" },
-        _react2.default.createElement(
-          "div",
-          { className: "answer-header" },
-          _react2.default.createElement("img", { src: author.pro_pic_url, alt: author.name + "'s picture", className: "answerer-pro-pic" }),
-          _react2.default.createElement(
-            "div",
-            { className: "answer-details" },
-            _react2.default.createElement(
-              "h1",
-              null,
-              author.name
-            ),
-            _react2.default.createElement(
-              "h2",
-              null,
-              "Answered ",
-              time_posted_ago
-            )
-          )
-        ),
-        _react2.default.createElement(
-          "p",
-          { className: "answer-body" },
-          body
-        ),
-        _react2.default.createElement(
-          "button",
-          { onClick: function onClick() {
-              return voteOnAnswer(id, "upvote");
-            } },
-          "Upvote ",
-          upvoter_ids
-        ),
-        _react2.default.createElement(
-          "button",
-          { onClick: function onClick() {
-              return voteOnAnswer(id, "cancel_vote");
-            } },
-          "Undo Vote"
-        ),
-        _react2.default.createElement(
-          "button",
-          { onClick: function onClick() {
-              return voteOnAnswer(id, "downvote");
-            } },
-          "Downvote"
-        )
-      );
-    }
-  }]);
-
-  return AnswerItem;
-}(_react2.default.Component);
-
-exports.default = AnswerItem;
-
-/***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.customStyles = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(41);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactModal = __webpack_require__(141);
-
-var _reactModal2 = _interopRequireDefault(_reactModal);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var customStyles = exports.customStyles = {
-  content: {
-    top: '15%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '623px'
-  }
-};
-
-var CreateQuestionForm = function (_React$Component) {
-  _inherits(CreateQuestionForm, _React$Component);
-
-  function CreateQuestionForm() {
-    _classCallCheck(this, CreateQuestionForm);
-
-    var _this = _possibleConstructorReturn(this, (CreateQuestionForm.__proto__ || Object.getPrototypeOf(CreateQuestionForm)).call(this));
-
-    _this.state = {
-      createModalIsOpen: false,
-      successModalIsOpen: false,
-      question: "",
-      asked_question: {}
-    };
-
-    _this.setQuestion = _this.setQuestion.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleSuccessfulSubmit = _this.handleSuccessfulSubmit.bind(_this);
-
-    _this.openModal = _this.openModal.bind(_this);
-    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
-    _this.closeModal = _this.closeModal.bind(_this);
-    return _this;
-  }
-
-  _createClass(CreateQuestionForm, [{
-    key: 'openModal',
-    value: function openModal(modalName) {
-      var desiredState = {};
-      desiredState[modalName + "ModalIsOpen"] = true;
-      this.setState(desiredState);
-    }
-  }, {
-    key: 'afterOpenModal',
-    value: function afterOpenModal(modalName) {
-      // references are now sync'd and can be accessed.
-      // this.background.style.color = 'white';
-    }
-  }, {
-    key: 'closeModal',
-    value: function closeModal(modalName) {
-      var desiredState = {};
-      desiredState[modalName + "ModalIsOpen"] = false;
-      this.setState(desiredState);
-    }
-  }, {
-    key: 'setQuestion',
-    value: function setQuestion(e) {
-      var question = e.target.value ? e.target.value : "";
-      this.setState({ question: question });
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      var _this2 = this;
-
-      e.preventDefault();
-      this.props.createQuestion(this.state.question).then(function (question) {
-        return _this2.handleSuccessfulSubmit(question.question);
-      });
-    }
-  }, {
-    key: 'handleSuccessfulSubmit',
-    value: function handleSuccessfulSubmit(question) {
-      this.closeModal("create");
-      this.setState({ asked_question: question });
-      this.openModal("success");
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
-
-      var user = this.props.user;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'greeting' },
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
-          _react2.default.createElement(
-            'span',
-            null,
-            user.name
-          )
-        ),
-        _react2.default.createElement(
-          'button',
-          { onClick: function onClick() {
-              return _this3.openModal("create");
-            } },
-          'What is your question?'
-        ),
-        _react2.default.createElement(
-          _reactModal2.default,
-          {
-            'class': 'create-question-modal',
-            isOpen: this.state.createModalIsOpen,
-            onAfterOpen: this.afterOpenModal,
-            onRequestClose: function onRequestClose() {
-              return _this3.closeModal("create");
-            },
-            style: customStyles,
-            contentLabel: 'Example Modal'
-          },
-          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
-          _react2.default.createElement(
-            'span',
-            null,
-            user.name,
-            ' asks'
-          ),
-          _react2.default.createElement(
-            'form',
-            { className: 'ask-question-form', onSubmit: this.handleSubmit },
-            _react2.default.createElement('input', { onChange: this.setQuestion, value: this.state.question }),
-            _react2.default.createElement('input', { type: 'submit', value: 'Ask Question' })
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this3.closeModal("create");
-              } },
-            'close'
-          )
-        ),
-        _react2.default.createElement(
-          _reactModal2.default,
-          {
-            'class': 'notice-modal',
-            isOpen: this.state.successModalIsOpen,
-            onAfterOpen: this.afterOpenModal,
-            onRequestClose: function onRequestClose() {
-              return _this3.closeModal("success");
-            },
-            style: customStyles,
-            contentLabel: 'Example Modal'
-          },
-          _react2.default.createElement(
-            'span',
-            null,
-            'You asked ',
-            this.state.asked_question.body
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this3.closeModal("success");
-              } },
-            'close'
-          )
-        )
-      );
-    }
-  }]);
-
-  return CreateQuestionForm;
-}(_react2.default.Component);
-
-exports.default = CreateQuestionForm;
-
-/***/ }),
+/* 138 */,
+/* 139 */,
+/* 140 */,
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14508,7 +14132,7 @@ module.exports = identity;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.voteOnAnswer = exports.fetchAnswer = exports.fetchAnswerAnswers = exports.updateAnswer = exports.receiveAnswer = exports.receiveAnswers = exports.UPDATE_ANSWER = exports.RECEIVE_ANSWER = exports.RECEIVE_ANSWERS = undefined;
+exports.voteOnAnswer = exports.fetchAnswer = exports.fetchAnswers = exports.fetchQuestionAnswers = exports.updateAnswer = exports.receiveAnswer = exports.receiveAnswers = exports.UPDATE_ANSWER = exports.RECEIVE_ANSWER = exports.RECEIVE_ANSWERS = undefined;
 
 var _answer_api_util = __webpack_require__(422);
 
@@ -14542,9 +14166,18 @@ var updateAnswer = exports.updateAnswer = function updateAnswer(answer) {
 };
 
 //fetches answers for a given topic
-var fetchAnswerAnswers = exports.fetchAnswerAnswers = function fetchAnswerAnswers(question_id) {
+var fetchQuestionAnswers = exports.fetchQuestionAnswers = function fetchQuestionAnswers(question_id) {
   return function (dispatch) {
     return APIUtil.fetchQuestionAnswers(question_id).then(function (answers) {
+      return dispatch(receiveAnswers(answers));
+    });
+  };
+};
+
+//fetches all answers for a given users's topics
+var fetchAnswers = exports.fetchAnswers = function fetchAnswers() {
+  return function (dispatch) {
+    return APIUtil.fetchAnswers().then(function (answers) {
       return dispatch(receiveAnswers(answers));
     });
   };
@@ -30945,31 +30578,31 @@ var _session_form_container = __webpack_require__(313);
 
 var _session_form_container2 = _interopRequireDefault(_session_form_container);
 
-var _topic_list_container = __webpack_require__(316);
+var _topic_list_container = __webpack_require__(424);
 
 var _topic_list_container2 = _interopRequireDefault(_topic_list_container);
 
-var _create_question_form_container = __webpack_require__(320);
+var _create_question_form_container = __webpack_require__(431);
 
 var _create_question_form_container2 = _interopRequireDefault(_create_question_form_container);
 
-var _nav_bar_container = __webpack_require__(328);
+var _nav_bar_container = __webpack_require__(433);
 
 var _nav_bar_container2 = _interopRequireDefault(_nav_bar_container);
 
-var _feed_sidebar_container = __webpack_require__(334);
+var _feed_sidebar_container = __webpack_require__(439);
 
 var _feed_sidebar_container2 = _interopRequireDefault(_feed_sidebar_container);
 
-var _topic_detail_container = __webpack_require__(336);
+var _topic_detail_container = __webpack_require__(441);
 
 var _topic_detail_container2 = _interopRequireDefault(_topic_detail_container);
 
-var _question_detail_container = __webpack_require__(339);
+var _question_detail_container = __webpack_require__(444);
 
 var _question_detail_container2 = _interopRequireDefault(_question_detail_container);
 
-var _question_list_container = __webpack_require__(342);
+var _question_list_container = __webpack_require__(447);
 
 var _question_list_container2 = _interopRequireDefault(_question_list_container);
 
@@ -31315,226 +30948,9 @@ var SessionForm = function (_React$Component) {
 exports.default = (0, _reactRouterDom.withRouter)(SessionForm);
 
 /***/ }),
-/* 316 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(14);
-
-var _selectors = __webpack_require__(23);
-
-var _topic_list = __webpack_require__(317);
-
-var _topic_list2 = _interopRequireDefault(_topic_list);
-
-var _topic_actions = __webpack_require__(37);
-
-var _question_actions = __webpack_require__(20);
-
-var _answer_actions = __webpack_require__(161);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    topics: (0, _selectors.allTopics)(state),
-    questions: (0, _selectors.allQuestions)(state),
-    errors: state.errors
-  };
-};
-
-// Actions
-
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    requestTopics: function requestTopics() {
-      return dispatch((0, _topic_actions.fetchTopics)());
-    },
-    requestQuestions: function requestQuestions() {
-      return dispatch((0, _question_actions.fetchQuestions)());
-    },
-    voteOnAnswer: function voteOnAnswer(id, type) {
-      return dispatch((0, _answer_actions.voteOnAnswer)(id, type));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_topic_list2.default);
-
-/***/ }),
-/* 317 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _topic_list_item = __webpack_require__(318);
-
-var _topic_list_item2 = _interopRequireDefault(_topic_list_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TopicList = function (_React$Component) {
-  _inherits(TopicList, _React$Component);
-
-  function TopicList(props) {
-    _classCallCheck(this, TopicList);
-
-    return _possibleConstructorReturn(this, (TopicList.__proto__ || Object.getPrototypeOf(TopicList)).call(this, props));
-  }
-
-  _createClass(TopicList, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.props.requestTopics();
-      this.props.requestQuestions();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          topics = _props.topics,
-          voteOnAnswer = _props.voteOnAnswer,
-          questions = _props.questions;
-
-      var topicItems = topics.map(function (topic) {
-        return _react2.default.createElement(_topic_list_item2.default, { key: "topic-" + topic.id, topic: topic, voteOnAnswer: voteOnAnswer, questions: questions });
-      });
-      return _react2.default.createElement(
-        'div',
-        { id: 'topics-container' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'topic-list' },
-          topicItems
-        )
-      );
-    }
-  }]);
-
-  return TopicList;
-}(_react2.default.Component);
-
-exports.default = TopicList;
-
-/***/ }),
-/* 318 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(18);
-
-var _question_item = __webpack_require__(138);
-
-var _question_item2 = _interopRequireDefault(_question_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TopicListItem = function (_React$Component) {
-  _inherits(TopicListItem, _React$Component);
-
-  function TopicListItem(props) {
-    _classCallCheck(this, TopicListItem);
-
-    return _possibleConstructorReturn(this, (TopicListItem.__proto__ || Object.getPrototypeOf(TopicListItem)).call(this, props));
-  }
-
-  _createClass(TopicListItem, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          topic = _props.topic,
-          voteOnAnswer = _props.voteOnAnswer,
-          questions = _props.questions;
-      var name = topic.name,
-          description = topic.description,
-          num_followers = topic.num_followers,
-          question_ids = topic.question_ids;
-
-      var topic_questions = questions.filter(function (question) {
-        return question_ids.includes(question.id);
-      });
-      var questionItems = topic_questions.map(function (question) {
-        return _react2.default.createElement(_question_item2.default, {
-          key: "question-" + question.id,
-          question: question,
-          voteOnAnswer: voteOnAnswer
-        });
-      });
-
-      return _react2.default.createElement(
-        'li',
-        { className: 'topic-list-item' },
-        _react2.default.createElement(
-          'h2',
-          { className: 'topic-header' },
-          name
-        ),
-        _react2.default.createElement(
-          'ul',
-          { className: 'question-list' },
-          questionItems
-        ),
-        _react2.default.createElement(
-          'footer',
-          { className: 'topic-list-item-footer' },
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/topics/' + topic.id, activeClassName: 'active' },
-            'View All'
-          )
-        )
-      );
-    }
-  }]);
-
-  return TopicListItem;
-}(_react2.default.Component);
-
-exports.default = TopicListItem;
-
-/***/ }),
+/* 316 */,
+/* 317 */,
+/* 318 */,
 /* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31560,46 +30976,7 @@ var fetchTopic = exports.fetchTopic = function fetchTopic(id) {
 };
 
 /***/ }),
-/* 320 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(14);
-
-var _create_question_form = __webpack_require__(140);
-
-var _create_question_form2 = _interopRequireDefault(_create_question_form);
-
-var _question_actions = __webpack_require__(20);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    user: state.session.currentUser
-  };
-};
-
-// Actions
-
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    createQuestion: function createQuestion(body) {
-      return dispatch((0, _question_actions.createQuestion)(body));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_create_question_form2.default);
-
-/***/ }),
+/* 320 */,
 /* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32475,1294 +31852,23 @@ var unfollowQuestion = exports.unfollowQuestion = function unfollowQuestion(id) 
 };
 
 /***/ }),
-/* 328 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(14);
-
-var _nav_bar = __webpack_require__(329);
-
-var _nav_bar2 = _interopRequireDefault(_nav_bar);
-
-var _question_actions = __webpack_require__(20);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Actions
-
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-  return {
-    user: state.session.currentUser
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    createQuestion: function createQuestion(body) {
-      return dispatch((0, _question_actions.createQuestion)(body));
-    }
-
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_nav_bar2.default);
-
-/***/ }),
-/* 329 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(41);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactModal = __webpack_require__(141);
-
-var _reactModal2 = _interopRequireDefault(_reactModal);
-
-var _reactRouterDom = __webpack_require__(18);
-
-var _create_question_form = __webpack_require__(140);
-
-var _question_search_container = __webpack_require__(330);
-
-var _question_search_container2 = _interopRequireDefault(_question_search_container);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NavBar = function (_React$Component) {
-  _inherits(NavBar, _React$Component);
-
-  function NavBar(props) {
-    _classCallCheck(this, NavBar);
-
-    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
-
-    _this.state = {
-      createModalIsOpen: false,
-      successModalIsOpen: false,
-      question: "",
-      asked_question: {}
-    };
-
-    _this.setQuestion = _this.setQuestion.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleSuccessfulSubmit = _this.handleSuccessfulSubmit.bind(_this);
-
-    _this.openModal = _this.openModal.bind(_this);
-    // this.afterOpenModal = this.afterOpenModal.bind(this);
-    _this.closeModal = _this.closeModal.bind(_this);
-    return _this;
-  }
-
-  _createClass(NavBar, [{
-    key: 'openModal',
-    value: function openModal(modalName) {
-      var desiredState = {};
-      desiredState[modalName + "ModalIsOpen"] = true;
-      this.setState(desiredState);
-    }
-  }, {
-    key: 'afterOpenModal',
-    value: function afterOpenModal() {
-      // references are now sync'd and can be accessed.
-      // this.subtitle.style.color = '#f00';
-    }
-  }, {
-    key: 'closeModal',
-    value: function closeModal(modalName) {
-      var desiredState = {};
-      desiredState[modalName + "ModalIsOpen"] = false;
-      this.setState(desiredState);
-    }
-  }, {
-    key: 'setQuestion',
-    value: function setQuestion(e) {
-      var question = e.target.value ? e.target.value : "";
-      this.setState({ question: question });
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      var _this2 = this;
-
-      e.preventDefault();
-      this.props.createQuestion(this.state.question).then(function (question) {
-        return _this2.handleSuccessfulSubmit(question.question);
-      });
-    }
-  }, {
-    key: 'handleSuccessfulSubmit',
-    value: function handleSuccessfulSubmit(question) {
-      this.closeModal("create");
-      this.setState({ asked_question: question });
-      this.openModal("success");
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
-
-      var user = this.props.user;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'nav-bar' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'nav-bar-items' },
-          _react2.default.createElement(
-            'li',
-            null,
-            'Quera'
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/', activeClassName: 'active' },
-              'Home'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/questions', activeClassName: 'active' },
-              'Answer'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(_question_search_container2.default, null)
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'button',
-              { onClick: function onClick() {
-                  return _this3.openModal("create");
-                } },
-              'Ask Question'
-            )
-          ),
-          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'nav-pro-pic' }),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'form',
-              { name: 'sign-out', method: 'POST', action: '/users/sign_out' },
-              _react2.default.createElement('input', { type: 'hidden', name: '_method', value: 'delete' }),
-              _react2.default.createElement(
-                'label',
-                null,
-                _react2.default.createElement('input', { name: 'submit2', type: 'submit', id: 'submit2', value: 'Sign out' })
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          _reactModal2.default,
-          {
-            'class': 'create-question-modal',
-            isOpen: this.state.createModalIsOpen,
-            onAfterOpen: this.afterOpenModal,
-            onRequestClose: function onRequestClose() {
-              return _this3.closeModal("create");
-            },
-            style: _create_question_form.customStyles,
-            contentLabel: 'Example Modal'
-          },
-          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
-          _react2.default.createElement(
-            'span',
-            null,
-            user.name,
-            ' asks'
-          ),
-          _react2.default.createElement(
-            'form',
-            { className: 'ask-question-form', onSubmit: this.handleSubmit },
-            _react2.default.createElement('input', { onChange: this.setQuestion, value: this.state.question }),
-            _react2.default.createElement('input', { type: 'submit', value: 'Ask Question' })
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this3.closeModal("create");
-              } },
-            'close'
-          )
-        ),
-        _react2.default.createElement(
-          _reactModal2.default,
-          {
-            'class': 'notice-modal',
-            isOpen: this.state.successModalIsOpen,
-            onAfterOpen: this.afterOpenModal,
-            onRequestClose: function onRequestClose() {
-              return _this3.closeModal("success");
-            },
-            style: _create_question_form.customStyles,
-            contentLabel: 'Example Modal'
-          },
-          _react2.default.createElement(
-            'span',
-            null,
-            'You asked ',
-            this.state.asked_question.body
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this3.closeModal("success");
-              } },
-            'close'
-          )
-        )
-      );
-    }
-  }]);
-
-  return NavBar;
-}(_react2.default.Component);
-
-exports.default = NavBar;
-
-/***/ }),
-/* 330 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(14);
-
-var _filter_actions = __webpack_require__(85);
-
-var _selectors = __webpack_require__(23);
-
-var _question_search = __webpack_require__(331);
-
-var _question_search2 = _interopRequireDefault(_question_search);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    questions: (0, _selectors.asSortedArray)(state),
-    query: state.filters.query
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    updateFilter: function updateFilter(filter, value) {
-      return dispatch((0, _filter_actions.updateFilter)(filter, value));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_search2.default);
-
-/***/ }),
-/* 331 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _question_search_input = __webpack_require__(332);
-
-var _question_search_input2 = _interopRequireDefault(_question_search_input);
-
-var _question_search_item = __webpack_require__(333);
-
-var _question_search_item2 = _interopRequireDefault(_question_search_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var QuestionSearch = function (_React$Component) {
-  _inherits(QuestionSearch, _React$Component);
-
-  function QuestionSearch(props) {
-    _classCallCheck(this, QuestionSearch);
-
-    return _possibleConstructorReturn(this, (QuestionSearch.__proto__ || Object.getPrototypeOf(QuestionSearch)).call(this, props));
-  }
-
-  _createClass(QuestionSearch, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          questions = _props.questions,
-          query = _props.query,
-          updateFilter = _props.updateFilter;
-
-      var QuestionItems = questions.map(function (question) {
-        return _react2.default.createElement(_question_search_item2.default, { question: question, updateFilter: updateFilter });
-      });
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'question-search' },
-        _react2.default.createElement(_question_search_input2.default, {
-          className: 'search-input',
-          query: query,
-          updateFilter: updateFilter
-        }),
-        _react2.default.createElement(
-          'ul',
-          { className: 'question-search-list' },
-          QuestionItems
-        )
-      );
-    }
-  }]);
-
-  return QuestionSearch;
-}(_react2.default.Component);
-
-exports.default = QuestionSearch;
-
-/***/ }),
-/* 332 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var handleChange = function handleChange(filter, updateFilter) {
-  return function (e) {
-    return updateFilter(filter, e.currentTarget.value);
-  };
-};
-
-var QuestionSearchInput = function QuestionSearchInput(_ref) {
-  var query = _ref.query,
-      updateFilter = _ref.updateFilter;
-  return _react2.default.createElement("input", { type: "text", className: "question-search-bar", rows: "1", placeholder: "Search Quera", value: query, onChange: handleChange('query', updateFilter) });
-};
-
-exports.default = QuestionSearchInput;
-
-/***/ }),
-/* 333 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(18);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var QuestionSearchItem = function QuestionSearchItem(_ref) {
-  var question = _ref.question,
-      handleChange = _ref.handleChange,
-      updateFilter = _ref.updateFilter;
-
-  if (Object.keys(question).length === 0) {
-    console.log("loading");
-    return _react2.default.createElement(
-      'h1',
-      null,
-      'Loading!'
-    );
-  } else {
-    var body = question.body;
-
-
-    return _react2.default.createElement(
-      'li',
-      { className: 'question-list-item' },
-      _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: '/questions/' + question.id, activeClassName: 'active', onClick: function onClick() {
-            return updateFilter("query", "");
-          } },
-        body
-      )
-    );
-  }
-};
-
-exports.default = QuestionSearchItem;
-
-/***/ }),
-/* 334 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(14);
-
-var _selectors = __webpack_require__(23);
-
-var _feed_sidebar = __webpack_require__(335);
-
-var _feed_sidebar2 = _interopRequireDefault(_feed_sidebar);
-
-var _topic_actions = __webpack_require__(37);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    topics: (0, _selectors.allTopics)(state)
-  };
-};
-
-// Actions
-
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    requestTopics: function requestTopics() {
-      return dispatch((0, _topic_actions.fetchTopics)());
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_feed_sidebar2.default);
-
-/***/ }),
-/* 335 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(18);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var FeedSidebar = function (_React$Component) {
-  _inherits(FeedSidebar, _React$Component);
-
-  function FeedSidebar(props) {
-    _classCallCheck(this, FeedSidebar);
-
-    return _possibleConstructorReturn(this, (FeedSidebar.__proto__ || Object.getPrototypeOf(FeedSidebar)).call(this, props));
-  }
-
-  _createClass(FeedSidebar, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.props.requestTopics();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var topics = this.props.topics;
-
-      var topicItems = topics.map(function (topic) {
-        return _react2.default.createElement(
-          'li',
-          { key: "topic-" + topic.id },
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/topics/' + topic.id, activeClassName: 'active' },
-            topic.name
-          )
-        );
-      });
-      return _react2.default.createElement(
-        'div',
-        { className: 'feed-sidebar' },
-        _react2.default.createElement(
-          'h2',
-          null,
-          'Feeds'
-        ),
-        _react2.default.createElement(
-          'ul',
-          { className: 'sidebar-topic-list' },
-          topicItems
-        )
-      );
-    }
-  }]);
-
-  return FeedSidebar;
-}(_react2.default.Component);
-
-exports.default = FeedSidebar;
-
-/***/ }),
-/* 336 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(14);
-
-var _selectors = __webpack_require__(23);
-
-var _topic_detail = __webpack_require__(337);
-
-var _topic_detail2 = _interopRequireDefault(_topic_detail);
-
-var _topic_actions = __webpack_require__(37);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state, _ref) {
-  var match = _ref.match;
-
-  var topicId = parseInt(match.params.topicId);
-  var topic = (0, _selectors.selectTopic)(state, match.params.topicId);
-  return {
-    topicId: topicId,
-    topic: topic
-  };
-};
-
-// Actions
-
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    requestTopic: function requestTopic(id) {
-      return dispatch((0, _topic_actions.fetchTopic)(id));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_topic_detail2.default);
-
-/***/ }),
-/* 337 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _topic_detail_item = __webpack_require__(338);
-
-var _topic_detail_item2 = _interopRequireDefault(_topic_detail_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TopicDetail = function (_React$Component) {
-  _inherits(TopicDetail, _React$Component);
-
-  function TopicDetail(props) {
-    _classCallCheck(this, TopicDetail);
-
-    return _possibleConstructorReturn(this, (TopicDetail.__proto__ || Object.getPrototypeOf(TopicDetail)).call(this, props));
-  }
-
-  _createClass(TopicDetail, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.props.requestTopic(this.props.topicId);
-      window.scrollTo(0, 0);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          topic = _props.topic,
-          topicId = _props.topicId;
-
-      if (Object.keys(topic).length === 0) {
-        console.log("No topic, gotta load");
-        return _react2.default.createElement(
-          'div',
-          null,
-          'Loading'
-        );
-      } else {
-        return _react2.default.createElement(
-          'div',
-          { id: 'topic-detail' },
-          _react2.default.createElement('div', { className: 'topic-detail-header' }),
-          _react2.default.createElement(
-            'ul',
-            { className: 'topic-detail-questions' },
-            _react2.default.createElement(_topic_detail_item2.default, { key: "topic-" + topic.id, topic: topic })
-          )
-        );
-      }
-    }
-  }]);
-
-  return TopicDetail;
-}(_react2.default.Component);
-
-exports.default = TopicDetail;
-
-/***/ }),
-/* 338 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _question_item = __webpack_require__(138);
-
-var _question_item2 = _interopRequireDefault(_question_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TopicDetailItem = function (_React$Component) {
-  _inherits(TopicDetailItem, _React$Component);
-
-  function TopicDetailItem(props) {
-    _classCallCheck(this, TopicDetailItem);
-
-    return _possibleConstructorReturn(this, (TopicDetailItem.__proto__ || Object.getPrototypeOf(TopicDetailItem)).call(this, props));
-  }
-
-  _createClass(TopicDetailItem, [{
-    key: 'render',
-    value: function render() {
-      var topic = this.props.topic;
-      var name = topic.name,
-          description = topic.description,
-          num_followers = topic.num_followers,
-          questions = topic.questions;
-
-      var questionItems = questions.map(function (question) {
-        return _react2.default.createElement(_question_item2.default, {
-          key: "question-" + question.id,
-          question: question
-        });
-      });
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'topic-detail-item' },
-        _react2.default.createElement(
-          'h2',
-          { className: 'topic-header' },
-          name,
-          _react2.default.createElement(
-            'p',
-            null,
-            description
-          )
-        ),
-        _react2.default.createElement(
-          'ul',
-          { className: 'question-list' },
-          questionItems
-        )
-      );
-    }
-  }]);
-
-  return TopicDetailItem;
-}(_react2.default.Component);
-
-exports.default = TopicDetailItem;
-
-/***/ }),
-/* 339 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(14);
-
-var _selectors = __webpack_require__(23);
-
-var _question_detail = __webpack_require__(340);
-
-var _question_detail2 = _interopRequireDefault(_question_detail);
-
-var _question_actions = __webpack_require__(20);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state, _ref) {
-  var match = _ref.match;
-
-  var questionId = parseInt(match.params.questionId);
-  var question = (0, _selectors.selectQuestion)(state, match.params.questionId);
-  return {
-    questionId: questionId,
-    question: question
-  };
-};
-
-// Actions
-
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    requestQuestion: function requestQuestion(id) {
-      return dispatch((0, _question_actions.fetchQuestion)(id));
-    },
-    voteOnQuestion: function voteOnQuestion(id, type) {
-      return dispatch((0, _question_actions.voteOnQuestion)(id, type));
-    },
-    followQuestion: function followQuestion(id) {
-      return dispatch((0, _question_actions.followQuestion)(id));
-    },
-    unfollowQuestion: function unfollowQuestion(id) {
-      return dispatch((0, _question_actions.unfollowQuestion)(id));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_detail2.default);
-
-/***/ }),
-/* 340 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _question_detail_item = __webpack_require__(341);
-
-var _question_detail_item2 = _interopRequireDefault(_question_detail_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var QuestionDetail = function (_React$Component) {
-  _inherits(QuestionDetail, _React$Component);
-
-  function QuestionDetail(props) {
-    _classCallCheck(this, QuestionDetail);
-
-    return _possibleConstructorReturn(this, (QuestionDetail.__proto__ || Object.getPrototypeOf(QuestionDetail)).call(this, props));
-  }
-
-  _createClass(QuestionDetail, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.props.requestQuestion(this.props.questionId);
-      window.scrollTo(0, 0);
-    }
-
-    //need this to reload  questions if the search bar question link is clicked
-
-  }, {
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate(nextProps) {
-      if (nextProps.questionId && this.props.questionId != nextProps.questionId) {
-        nextProps.requestQuestion(nextProps.questionId);
-        window.scrollTo(0, 0);
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          question = _props.question,
-          questionId = _props.questionId,
-          voteOnQuestion = _props.voteOnQuestion,
-          followQuestion = _props.followQuestion,
-          unfollowQuestion = _props.unfollowQuestion;
-
-      if (Object.keys(question).length === 0) {
-        console.log("No question, gotta load");
-        return _react2.default.createElement(
-          'div',
-          null,
-          'Loading'
-        );
-      } else {
-        return _react2.default.createElement(_question_detail_item2.default, { key: "question-" + question.id, question: question,
-          voteOnQuestion: voteOnQuestion,
-          followQuestion: followQuestion,
-          unfollowQuestion: unfollowQuestion });
-      }
-    }
-  }]);
-
-  return QuestionDetail;
-}(_react2.default.Component);
-
-exports.default = QuestionDetail;
-
-/***/ }),
-/* 341 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _answer_item = __webpack_require__(139);
-
-var _answer_item2 = _interopRequireDefault(_answer_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var QuestionDetailItem = function (_React$Component) {
-  _inherits(QuestionDetailItem, _React$Component);
-
-  function QuestionDetailItem(props) {
-    _classCallCheck(this, QuestionDetailItem);
-
-    return _possibleConstructorReturn(this, (QuestionDetailItem.__proto__ || Object.getPrototypeOf(QuestionDetailItem)).call(this, props));
-  }
-
-  _createClass(QuestionDetailItem, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          question = _props.question,
-          voteOnQuestion = _props.voteOnQuestion,
-          followQuestion = _props.followQuestion,
-          unfollowQuestion = _props.unfollowQuestion;
-      var id = question.id,
-          body = question.body,
-          answers = question.answers,
-          follower_ids = question.follower_ids;
-
-      var answerItems = answers.map(function (answer) {
-        return _react2.default.createElement(_answer_item2.default, {
-          key: "answer-" + answer.id,
-          answer: answer
-        });
-      });
-      if (answerItems.length === 0) {
-        return _react2.default.createElement(
-          'div',
-          { className: 'question-detail-item' },
-          _react2.default.createElement(
-            'h2',
-            { className: 'question-header' },
-            body
-          ),
-          _react2.default.createElement(
-            'h3',
-            null,
-            'No answers for this question written yet!'
-          )
-        );
-      } else {
-        return _react2.default.createElement(
-          'div',
-          { className: 'question-detail-item' },
-          _react2.default.createElement(
-            'h2',
-            { className: 'question-header' },
-            body
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return voteOnQuestion(id, "downvote");
-              } },
-            'Downvote'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return voteOnQuestion(id, "cancel_vote");
-              } },
-            'Cancel Downvote'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return followQuestion(id);
-              } },
-            'Follow ',
-            follower_ids
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return unfollowQuestion(id);
-              } },
-            'Unfollow'
-          ),
-          _react2.default.createElement(
-            'ul',
-            { className: 'answer-list' },
-            answerItems
-          )
-        );
-      }
-    }
-  }]);
-
-  return QuestionDetailItem;
-}(_react2.default.Component);
-
-exports.default = QuestionDetailItem;
-
-/***/ }),
-/* 342 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(14);
-
-var _selectors = __webpack_require__(23);
-
-var _question_list = __webpack_require__(343);
-
-var _question_list2 = _interopRequireDefault(_question_list);
-
-var _question_actions = __webpack_require__(20);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    questions: (0, _selectors.allQuestions)(state),
-    errors: state.errors
-  };
-};
-
-// Actions
-
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    requestQuestions: function requestQuestions() {
-      return dispatch((0, _question_actions.fetchQuestions)());
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_list2.default);
-
-/***/ }),
-/* 343 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _question_list_item = __webpack_require__(344);
-
-var _question_list_item2 = _interopRequireDefault(_question_list_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var QuestionList = function (_React$Component) {
-  _inherits(QuestionList, _React$Component);
-
-  function QuestionList(props) {
-    _classCallCheck(this, QuestionList);
-
-    return _possibleConstructorReturn(this, (QuestionList.__proto__ || Object.getPrototypeOf(QuestionList)).call(this, props));
-  }
-
-  _createClass(QuestionList, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.props.requestQuestions();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var questions = this.props.questions;
-
-      var questionItems = questions.map(function (question) {
-        return _react2.default.createElement(_question_list_item2.default, { key: "question-" + question.id, question: question });
-      }).reverse();
-      return _react2.default.createElement(
-        'div',
-        { id: 'questions-container' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'question-list' },
-          questionItems
-        )
-      );
-    }
-  }]);
-
-  return QuestionList;
-}(_react2.default.Component);
-
-exports.default = QuestionList;
-
-/***/ }),
-/* 344 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(18);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var QuestionListItem = function (_React$Component) {
-  _inherits(QuestionListItem, _React$Component);
-
-  function QuestionListItem(props) {
-    _classCallCheck(this, QuestionListItem);
-
-    return _possibleConstructorReturn(this, (QuestionListItem.__proto__ || Object.getPrototypeOf(QuestionListItem)).call(this, props));
-  }
-
-  _createClass(QuestionListItem, [{
-    key: 'render',
-    value: function render() {
-      var question = this.props.question;
-
-
-      if (Object.keys(question).length === 0) {
-        console.log("loading");
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'Loading!'
-        );
-      } else {
-        var body = question.body,
-            time_posted_ago = question.time_posted_ago,
-            topic = question.topic,
-            num_answers = question.num_answers;
-
-        var questionHead = void 0;
-        if (topic) {
-          questionHead = [_react2.default.createElement(
-            'h3',
-            null,
-            'Question asked \xB7 ',
-            topic.name,
-            ' \xB7 ',
-            time_posted_ago
-          )];
-        } else {
-          questionHead = [_react2.default.createElement(
-            'h3',
-            null,
-            'Question asked \xB7 ',
-            time_posted_ago
-          )];
-        }
-        return _react2.default.createElement(
-          'li',
-          { className: 'question-list-item' },
-          questionHead,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/questions/' + question.id, activeClassName: 'active' },
-            body
-          ),
-          _react2.default.createElement(
-            'h3',
-            null,
-            'Last asked ',
-            time_posted_ago,
-            ' \xB7 ',
-            num_answers
-          )
-        );
-      }
-    }
-  }]);
-
-  return QuestionListItem;
-}(_react2.default.Component);
-
-exports.default = QuestionListItem;
-
-/***/ }),
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
 /* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -36129,13 +34235,6 @@ var TopicsReducer = function TopicsReducer() {
       return action.topics;
     case _topic_actions.RECEIVE_TOPIC:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.topic.id, action.topic));
-    case _question_actions.UPDATE_QUESTION:
-      var oldState = (0, _merge3.default)({}, state);
-      var q_idx = oldState[action.question.topic.id].questions.findIndex(function (el) {
-        return el.id === action.question.id;
-      });
-      oldState[action.question.topic.id].questions[q_idx] = action.question;
-      return oldState;
     default:
       return state;
   }
@@ -36234,9 +34333,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _merge = __webpack_require__(24);
+var _merge2 = __webpack_require__(24);
 
-var _merge2 = _interopRequireDefault(_merge);
+var _merge3 = _interopRequireDefault(_merge2);
 
 var _answer_actions = __webpack_require__(161);
 
@@ -36253,11 +34352,11 @@ var AnswersReducer = function AnswersReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _answer_actions.RECEIVE_ANSWERS:
-      return (0, _merge2.default)({}, state, action.answers);
+      return (0, _merge3.default)({}, state, action.answers);
     case _answer_actions.RECEIVE_ANSWER:
-      return _defineProperty({}, action.answer.id, action.answer);
+      return (0, _merge3.default)({}, state, _defineProperty({}, action.answer.id, action.answer));
     case _answer_actions.UPDATE_ANSWER:
-      var oldState = (0, _merge2.default)({}, state);
+      var oldState = (0, _merge3.default)({}, state);
       oldState[action.answer.id] = action.answer;
       return oldState;
     default:
@@ -36292,6 +34391,13 @@ var fetchAnswer = exports.fetchAnswer = function fetchAnswer(id) {
   return $.ajax({
     method: 'GET',
     url: 'api/answers/' + id
+  });
+};
+
+var fetchAnswers = exports.fetchAnswers = function fetchAnswers() {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/answers'
   });
 };
 
@@ -36345,6 +34451,2084 @@ var FiltersReducer = function FiltersReducer() {
 };
 
 exports.default = FiltersReducer;
+
+/***/ }),
+/* 424 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _selectors = __webpack_require__(23);
+
+var _topic_list = __webpack_require__(425);
+
+var _topic_list2 = _interopRequireDefault(_topic_list);
+
+var _topic_actions = __webpack_require__(37);
+
+var _question_actions = __webpack_require__(20);
+
+var _answer_actions = __webpack_require__(161);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Actions
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    topics: (0, _selectors.allTopics)(state),
+    questions: (0, _selectors.allQuestions)(state),
+    errors: state.errors
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestTopics: function requestTopics() {
+      return dispatch((0, _topic_actions.fetchTopics)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_topic_list2.default);
+
+/***/ }),
+/* 425 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _topic_list_item = __webpack_require__(426);
+
+var _topic_list_item2 = _interopRequireDefault(_topic_list_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopicList = function (_React$Component) {
+  _inherits(TopicList, _React$Component);
+
+  function TopicList(props) {
+    _classCallCheck(this, TopicList);
+
+    return _possibleConstructorReturn(this, (TopicList.__proto__ || Object.getPrototypeOf(TopicList)).call(this, props));
+  }
+
+  _createClass(TopicList, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.requestTopics();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          topics = _props.topics,
+          voteOnAnswer = _props.voteOnAnswer,
+          questions = _props.questions;
+
+      var topicItems = topics.map(function (topic) {
+        return _react2.default.createElement(_topic_list_item2.default, { key: "topic-" + topic.id, topic: topic, voteOnAnswer: voteOnAnswer, questions: questions });
+      });
+      return _react2.default.createElement(
+        'div',
+        { id: 'topics-container' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'topic-list' },
+          topicItems
+        )
+      );
+    }
+  }]);
+
+  return TopicList;
+}(_react2.default.Component);
+
+exports.default = TopicList;
+
+/***/ }),
+/* 426 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(18);
+
+var _question_item_container = __webpack_require__(427);
+
+var _question_item_container2 = _interopRequireDefault(_question_item_container);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopicListItem = function (_React$Component) {
+  _inherits(TopicListItem, _React$Component);
+
+  function TopicListItem(props) {
+    _classCallCheck(this, TopicListItem);
+
+    return _possibleConstructorReturn(this, (TopicListItem.__proto__ || Object.getPrototypeOf(TopicListItem)).call(this, props));
+  }
+
+  _createClass(TopicListItem, [{
+    key: 'render',
+    value: function render() {
+      var topic = this.props.topic;
+
+
+      if (Object.keys(topic).length === 0) {
+        console.log("Need to load topics");
+        return _react2.default.createElement(
+          'h1',
+          null,
+          'Loading Topics'
+        );
+      } else {
+        var name = topic.name,
+            description = topic.description,
+            num_followers = topic.num_followers,
+            question_ids = topic.question_ids;
+
+
+        var questionItems = question_ids.map(function (id) {
+          return _react2.default.createElement(_question_item_container2.default, {
+            key: "question-" + id,
+            id: id
+          });
+        });
+
+        return _react2.default.createElement(
+          'li',
+          { className: 'topic-list-item' },
+          _react2.default.createElement(
+            'h2',
+            { className: 'topic-header' },
+            name
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'question-list' },
+            questionItems
+          ),
+          _react2.default.createElement(
+            'footer',
+            { className: 'topic-list-item-footer' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/topics/' + topic.id, activeClassName: 'active' },
+              'View All'
+            )
+          )
+        );
+      }
+    }
+  }]);
+
+  return TopicListItem;
+}(_react2.default.Component);
+
+exports.default = TopicListItem;
+
+/***/ }),
+/* 427 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _selectors = __webpack_require__(23);
+
+var _question_item = __webpack_require__(428);
+
+var _question_item2 = _interopRequireDefault(_question_item);
+
+var _question_actions = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    question: (0, _selectors.selectQuestion)(state, ownProps.id),
+    id: ownProps.id,
+    errors: state.errors
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestQuestion: function requestQuestion(id) {
+      return dispatch((0, _question_actions.fetchQuestion)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_item2.default);
+
+/***/ }),
+/* 428 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _answer_item_container = __webpack_require__(429);
+
+var _answer_item_container2 = _interopRequireDefault(_answer_item_container);
+
+var _reactRouterDom = __webpack_require__(18);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestionItem = function (_React$Component) {
+  _inherits(QuestionItem, _React$Component);
+
+  function QuestionItem(props) {
+    _classCallCheck(this, QuestionItem);
+
+    return _possibleConstructorReturn(this, (QuestionItem.__proto__ || Object.getPrototypeOf(QuestionItem)).call(this, props));
+  }
+
+  _createClass(QuestionItem, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.requestQuestion(this.props.id);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var question = this.props.question;
+
+      if (Object.keys(question).length === 0) {
+
+        console.log("Need to load questions");
+        return _react2.default.createElement(
+          'h1',
+          null,
+          'Loading Questions'
+        );
+      } else {
+        var id = question.id,
+            body = question.body,
+            author = question.author,
+            answer_ids = question.answer_ids;
+
+
+        var answerItems = answer_ids.map(function (id) {
+          return _react2.default.createElement(_answer_item_container2.default, { key: "answer-" + id, id: id });
+        });
+
+        return _react2.default.createElement(
+          'li',
+          { className: 'question-item' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/questions/' + id, activeClassName: 'active', className: 'question-header' },
+            body
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'answer-list' },
+            answerItems[0]
+          )
+        );
+      }
+    }
+  }]);
+
+  return QuestionItem;
+}(_react2.default.Component);
+
+exports.default = QuestionItem;
+
+/***/ }),
+/* 429 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _selectors = __webpack_require__(23);
+
+var _answer_item = __webpack_require__(430);
+
+var _answer_item2 = _interopRequireDefault(_answer_item);
+
+var _answer_actions = __webpack_require__(161);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    answer: (0, _selectors.selectAnswer)(state, ownProps.id),
+    id: ownProps.id,
+    errors: state.errors
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestAnswer: function requestAnswer(id) {
+      return dispatch((0, _answer_actions.fetchAnswer)(id));
+    },
+    voteOnAnswer: function voteOnAnswer(id, type) {
+      return dispatch((0, _answer_actions.voteOnAnswer)(id, type));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_answer_item2.default);
+
+/***/ }),
+/* 430 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AnswerItem = function (_React$Component) {
+  _inherits(AnswerItem, _React$Component);
+
+  function AnswerItem(props) {
+    _classCallCheck(this, AnswerItem);
+
+    return _possibleConstructorReturn(this, (AnswerItem.__proto__ || Object.getPrototypeOf(AnswerItem)).call(this, props));
+  }
+
+  _createClass(AnswerItem, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      this.props.requestAnswer(this.props.id);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          answer = _props.answer,
+          voteOnAnswer = _props.voteOnAnswer;
+
+      if (Object.keys(answer).length === 0) {
+        console.log("Need to load answers");
+        return _react2.default.createElement(
+          "h1",
+          null,
+          "Loading Answers"
+        );
+      } else {
+        var id = answer.id,
+            body = answer.body,
+            author = answer.author,
+            time_posted_ago = answer.time_posted_ago,
+            upvoter_ids = answer.upvoter_ids;
+
+        return _react2.default.createElement(
+          "li",
+          { className: "answer-item" },
+          _react2.default.createElement(
+            "div",
+            { className: "answer-header" },
+            _react2.default.createElement("img", { src: author.pro_pic_url, alt: author.name + "'s picture", className: "answerer-pro-pic" }),
+            _react2.default.createElement(
+              "div",
+              { className: "answer-details" },
+              _react2.default.createElement(
+                "h1",
+                null,
+                author.name
+              ),
+              _react2.default.createElement(
+                "h2",
+                null,
+                "Answered ",
+                time_posted_ago
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "p",
+            { className: "answer-body" },
+            body
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: function onClick() {
+                return voteOnAnswer(id, "upvote");
+              } },
+            "Upvote ",
+            upvoter_ids
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: function onClick() {
+                return voteOnAnswer(id, "cancel_vote");
+              } },
+            "Undo Vote"
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: function onClick() {
+                return voteOnAnswer(id, "downvote");
+              } },
+            "Downvote"
+          )
+        );
+      }
+    }
+  }]);
+
+  return AnswerItem;
+}(_react2.default.Component);
+
+exports.default = AnswerItem;
+
+/***/ }),
+/* 431 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _create_question_form = __webpack_require__(432);
+
+var _create_question_form2 = _interopRequireDefault(_create_question_form);
+
+var _question_actions = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: state.session.currentUser
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createQuestion: function createQuestion(body) {
+      return dispatch((0, _question_actions.createQuestion)(body));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_create_question_form2.default);
+
+/***/ }),
+/* 432 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.customStyles = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(41);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactModal = __webpack_require__(141);
+
+var _reactModal2 = _interopRequireDefault(_reactModal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var customStyles = exports.customStyles = {
+  content: {
+    top: '15%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    width: '623px'
+  }
+};
+
+var CreateQuestionForm = function (_React$Component) {
+  _inherits(CreateQuestionForm, _React$Component);
+
+  function CreateQuestionForm() {
+    _classCallCheck(this, CreateQuestionForm);
+
+    var _this = _possibleConstructorReturn(this, (CreateQuestionForm.__proto__ || Object.getPrototypeOf(CreateQuestionForm)).call(this));
+
+    _this.state = {
+      createModalIsOpen: false,
+      successModalIsOpen: false,
+      question: "",
+      asked_question: {}
+    };
+
+    _this.setQuestion = _this.setQuestion.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleSuccessfulSubmit = _this.handleSuccessfulSubmit.bind(_this);
+
+    _this.openModal = _this.openModal.bind(_this);
+    _this.afterOpenModal = _this.afterOpenModal.bind(_this);
+    _this.closeModal = _this.closeModal.bind(_this);
+    return _this;
+  }
+
+  _createClass(CreateQuestionForm, [{
+    key: 'openModal',
+    value: function openModal(modalName) {
+      var desiredState = {};
+      desiredState[modalName + "ModalIsOpen"] = true;
+      this.setState(desiredState);
+    }
+  }, {
+    key: 'afterOpenModal',
+    value: function afterOpenModal(modalName) {
+      // references are now sync'd and can be accessed.
+      // this.background.style.color = 'white';
+    }
+  }, {
+    key: 'closeModal',
+    value: function closeModal(modalName) {
+      var desiredState = {};
+      desiredState[modalName + "ModalIsOpen"] = false;
+      this.setState(desiredState);
+    }
+  }, {
+    key: 'setQuestion',
+    value: function setQuestion(e) {
+      var question = e.target.value ? e.target.value : "";
+      this.setState({ question: question });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.props.createQuestion(this.state.question).then(function (question) {
+        return _this2.handleSuccessfulSubmit(question.question);
+      });
+    }
+  }, {
+    key: 'handleSuccessfulSubmit',
+    value: function handleSuccessfulSubmit(question) {
+      this.closeModal("create");
+      this.setState({ asked_question: question });
+      this.openModal("success");
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var user = this.props.user;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'greeting' },
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            user.name
+          )
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this3.openModal("create");
+            } },
+          'What is your question?'
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            'class': 'create-question-modal',
+            isOpen: this.state.createModalIsOpen,
+            onAfterOpen: this.afterOpenModal,
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal("create");
+            },
+            style: customStyles,
+            contentLabel: 'Example Modal'
+          },
+          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            user.name,
+            ' asks'
+          ),
+          _react2.default.createElement(
+            'form',
+            { className: 'ask-question-form', onSubmit: this.handleSubmit },
+            _react2.default.createElement('input', { onChange: this.setQuestion, value: this.state.question }),
+            _react2.default.createElement('input', { type: 'submit', value: 'Ask Question' })
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this3.closeModal("create");
+              } },
+            'close'
+          )
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            'class': 'notice-modal',
+            isOpen: this.state.successModalIsOpen,
+            onAfterOpen: this.afterOpenModal,
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal("success");
+            },
+            style: customStyles,
+            contentLabel: 'Example Modal'
+          },
+          _react2.default.createElement(
+            'span',
+            null,
+            'You asked ',
+            this.state.asked_question.body
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this3.closeModal("success");
+              } },
+            'close'
+          )
+        )
+      );
+    }
+  }]);
+
+  return CreateQuestionForm;
+}(_react2.default.Component);
+
+exports.default = CreateQuestionForm;
+
+/***/ }),
+/* 433 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _nav_bar = __webpack_require__(434);
+
+var _nav_bar2 = _interopRequireDefault(_nav_bar);
+
+var _question_actions = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Actions
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    user: state.session.currentUser
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createQuestion: function createQuestion(body) {
+      return dispatch((0, _question_actions.createQuestion)(body));
+    }
+
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_nav_bar2.default);
+
+/***/ }),
+/* 434 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(41);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactModal = __webpack_require__(141);
+
+var _reactModal2 = _interopRequireDefault(_reactModal);
+
+var _reactRouterDom = __webpack_require__(18);
+
+var _create_question_form = __webpack_require__(432);
+
+var _question_search_container = __webpack_require__(435);
+
+var _question_search_container2 = _interopRequireDefault(_question_search_container);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NavBar = function (_React$Component) {
+  _inherits(NavBar, _React$Component);
+
+  function NavBar(props) {
+    _classCallCheck(this, NavBar);
+
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.state = {
+      createModalIsOpen: false,
+      successModalIsOpen: false,
+      question: "",
+      asked_question: {}
+    };
+
+    _this.setQuestion = _this.setQuestion.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleSuccessfulSubmit = _this.handleSuccessfulSubmit.bind(_this);
+
+    _this.openModal = _this.openModal.bind(_this);
+    // this.afterOpenModal = this.afterOpenModal.bind(this);
+    _this.closeModal = _this.closeModal.bind(_this);
+    return _this;
+  }
+
+  _createClass(NavBar, [{
+    key: 'openModal',
+    value: function openModal(modalName) {
+      var desiredState = {};
+      desiredState[modalName + "ModalIsOpen"] = true;
+      this.setState(desiredState);
+    }
+  }, {
+    key: 'afterOpenModal',
+    value: function afterOpenModal() {
+      // references are now sync'd and can be accessed.
+      // this.subtitle.style.color = '#f00';
+    }
+  }, {
+    key: 'closeModal',
+    value: function closeModal(modalName) {
+      var desiredState = {};
+      desiredState[modalName + "ModalIsOpen"] = false;
+      this.setState(desiredState);
+    }
+  }, {
+    key: 'setQuestion',
+    value: function setQuestion(e) {
+      var question = e.target.value ? e.target.value : "";
+      this.setState({ question: question });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.props.createQuestion(this.state.question).then(function (question) {
+        return _this2.handleSuccessfulSubmit(question.question);
+      });
+    }
+  }, {
+    key: 'handleSuccessfulSubmit',
+    value: function handleSuccessfulSubmit(question) {
+      this.closeModal("create");
+      this.setState({ asked_question: question });
+      this.openModal("success");
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var user = this.props.user;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'nav-bar' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'nav-bar-items' },
+          _react2.default.createElement(
+            'li',
+            null,
+            'Quera'
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/', activeClassName: 'active' },
+              'Home'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/questions', activeClassName: 'active' },
+              'Answer'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(_question_search_container2.default, null)
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this3.openModal("create");
+                } },
+              'Ask Question'
+            )
+          ),
+          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'nav-pro-pic' }),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'form',
+              { name: 'sign-out', method: 'POST', action: '/users/sign_out' },
+              _react2.default.createElement('input', { type: 'hidden', name: '_method', value: 'delete' }),
+              _react2.default.createElement(
+                'label',
+                null,
+                _react2.default.createElement('input', { name: 'submit2', type: 'submit', id: 'submit2', value: 'Sign out' })
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            'class': 'create-question-modal',
+            isOpen: this.state.createModalIsOpen,
+            onAfterOpen: this.afterOpenModal,
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal("create");
+            },
+            style: _create_question_form.customStyles,
+            contentLabel: 'Example Modal'
+          },
+          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            user.name,
+            ' asks'
+          ),
+          _react2.default.createElement(
+            'form',
+            { className: 'ask-question-form', onSubmit: this.handleSubmit },
+            _react2.default.createElement('input', { onChange: this.setQuestion, value: this.state.question }),
+            _react2.default.createElement('input', { type: 'submit', value: 'Ask Question' })
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this3.closeModal("create");
+              } },
+            'close'
+          )
+        ),
+        _react2.default.createElement(
+          _reactModal2.default,
+          {
+            'class': 'notice-modal',
+            isOpen: this.state.successModalIsOpen,
+            onAfterOpen: this.afterOpenModal,
+            onRequestClose: function onRequestClose() {
+              return _this3.closeModal("success");
+            },
+            style: _create_question_form.customStyles,
+            contentLabel: 'Example Modal'
+          },
+          _react2.default.createElement(
+            'span',
+            null,
+            'You asked ',
+            this.state.asked_question.body
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this3.closeModal("success");
+              } },
+            'close'
+          )
+        )
+      );
+    }
+  }]);
+
+  return NavBar;
+}(_react2.default.Component);
+
+exports.default = NavBar;
+
+/***/ }),
+/* 435 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _filter_actions = __webpack_require__(85);
+
+var _selectors = __webpack_require__(23);
+
+var _question_search = __webpack_require__(436);
+
+var _question_search2 = _interopRequireDefault(_question_search);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    questions: (0, _selectors.asSortedArray)(state),
+    query: state.filters.query
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    updateFilter: function updateFilter(filter, value) {
+      return dispatch((0, _filter_actions.updateFilter)(filter, value));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_search2.default);
+
+/***/ }),
+/* 436 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _question_search_input = __webpack_require__(437);
+
+var _question_search_input2 = _interopRequireDefault(_question_search_input);
+
+var _question_search_item = __webpack_require__(438);
+
+var _question_search_item2 = _interopRequireDefault(_question_search_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestionSearch = function (_React$Component) {
+  _inherits(QuestionSearch, _React$Component);
+
+  function QuestionSearch(props) {
+    _classCallCheck(this, QuestionSearch);
+
+    return _possibleConstructorReturn(this, (QuestionSearch.__proto__ || Object.getPrototypeOf(QuestionSearch)).call(this, props));
+  }
+
+  _createClass(QuestionSearch, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          questions = _props.questions,
+          query = _props.query,
+          updateFilter = _props.updateFilter;
+
+      var QuestionItems = questions.map(function (question) {
+        return _react2.default.createElement(_question_search_item2.default, { question: question, updateFilter: updateFilter });
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'question-search' },
+        _react2.default.createElement(_question_search_input2.default, {
+          className: 'search-input',
+          query: query,
+          updateFilter: updateFilter
+        }),
+        _react2.default.createElement(
+          'ul',
+          { className: 'question-search-list' },
+          QuestionItems
+        )
+      );
+    }
+  }]);
+
+  return QuestionSearch;
+}(_react2.default.Component);
+
+exports.default = QuestionSearch;
+
+/***/ }),
+/* 437 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var handleChange = function handleChange(filter, updateFilter) {
+  return function (e) {
+    return updateFilter(filter, e.currentTarget.value);
+  };
+};
+
+var QuestionSearchInput = function QuestionSearchInput(_ref) {
+  var query = _ref.query,
+      updateFilter = _ref.updateFilter;
+  return _react2.default.createElement("input", { type: "text", className: "question-search-bar", rows: "1", placeholder: "Search Quera", value: query, onChange: handleChange('query', updateFilter) });
+};
+
+exports.default = QuestionSearchInput;
+
+/***/ }),
+/* 438 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(18);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var QuestionSearchItem = function QuestionSearchItem(_ref) {
+  var question = _ref.question,
+      handleChange = _ref.handleChange,
+      updateFilter = _ref.updateFilter;
+
+  if (Object.keys(question).length === 0) {
+    console.log("loading");
+    return _react2.default.createElement(
+      'h1',
+      null,
+      'Loading!'
+    );
+  } else {
+    var body = question.body;
+
+
+    return _react2.default.createElement(
+      'li',
+      { className: 'question-list-item' },
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/questions/' + question.id, activeClassName: 'active', onClick: function onClick() {
+            return updateFilter("query", "");
+          } },
+        body
+      )
+    );
+  }
+};
+
+exports.default = QuestionSearchItem;
+
+/***/ }),
+/* 439 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _selectors = __webpack_require__(23);
+
+var _feed_sidebar = __webpack_require__(440);
+
+var _feed_sidebar2 = _interopRequireDefault(_feed_sidebar);
+
+var _topic_actions = __webpack_require__(37);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    topics: (0, _selectors.allTopics)(state)
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestTopics: function requestTopics() {
+      return dispatch((0, _topic_actions.fetchTopics)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_feed_sidebar2.default);
+
+/***/ }),
+/* 440 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(18);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FeedSidebar = function (_React$Component) {
+  _inherits(FeedSidebar, _React$Component);
+
+  function FeedSidebar(props) {
+    _classCallCheck(this, FeedSidebar);
+
+    return _possibleConstructorReturn(this, (FeedSidebar.__proto__ || Object.getPrototypeOf(FeedSidebar)).call(this, props));
+  }
+
+  _createClass(FeedSidebar, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.requestTopics();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var topics = this.props.topics;
+
+      var topicItems = topics.map(function (topic) {
+        return _react2.default.createElement(
+          'li',
+          { key: "topic-" + topic.id },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/topics/' + topic.id, activeClassName: 'active' },
+            topic.name
+          )
+        );
+      });
+      return _react2.default.createElement(
+        'div',
+        { className: 'feed-sidebar' },
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Feeds'
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'sidebar-topic-list' },
+          topicItems
+        )
+      );
+    }
+  }]);
+
+  return FeedSidebar;
+}(_react2.default.Component);
+
+exports.default = FeedSidebar;
+
+/***/ }),
+/* 441 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _selectors = __webpack_require__(23);
+
+var _topic_detail = __webpack_require__(442);
+
+var _topic_detail2 = _interopRequireDefault(_topic_detail);
+
+var _topic_actions = __webpack_require__(37);
+
+var _question_actions = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Actions
+var mapStateToProps = function mapStateToProps(state, _ref) {
+  var match = _ref.match;
+
+  var topicId = parseInt(match.params.topicId);
+  var topic = (0, _selectors.selectTopic)(state, match.params.topicId);
+  var questions = (0, _selectors.allQuestions)(state);
+  return {
+    topicId: topicId,
+    topic: topic,
+    questions: questions
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestTopic: function requestTopic(id) {
+      return dispatch((0, _topic_actions.fetchTopic)(id));
+    },
+    requestQuestions: function requestQuestions() {
+      return dispatch((0, _question_actions.fetchQuestions)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_topic_detail2.default);
+
+/***/ }),
+/* 442 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _topic_detail_item = __webpack_require__(443);
+
+var _topic_detail_item2 = _interopRequireDefault(_topic_detail_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopicDetail = function (_React$Component) {
+  _inherits(TopicDetail, _React$Component);
+
+  function TopicDetail(props) {
+    _classCallCheck(this, TopicDetail);
+
+    return _possibleConstructorReturn(this, (TopicDetail.__proto__ || Object.getPrototypeOf(TopicDetail)).call(this, props));
+  }
+
+  _createClass(TopicDetail, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.requestTopic(this.props.topicId);
+      this.props.requestQuestions();
+      window.scrollTo(0, 0);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          topic = _props.topic,
+          topicId = _props.topicId,
+          questions = _props.questions;
+
+      if (Object.keys(topic).length === 0) {
+        console.log("No topic, gotta load");
+        return _react2.default.createElement(
+          'div',
+          null,
+          'Loading'
+        );
+      } else {
+        return _react2.default.createElement(
+          'div',
+          { id: 'topic-detail' },
+          _react2.default.createElement('div', { className: 'topic-detail-header' }),
+          _react2.default.createElement(
+            'ul',
+            { className: 'topic-detail-questions' },
+            _react2.default.createElement(_topic_detail_item2.default, { key: "topic-" + topic.id, topic: topic, questions: questions })
+          )
+        );
+      }
+    }
+  }]);
+
+  return TopicDetail;
+}(_react2.default.Component);
+
+exports.default = TopicDetail;
+
+/***/ }),
+/* 443 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _question_item = __webpack_require__(428);
+
+var _question_item2 = _interopRequireDefault(_question_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopicDetailItem = function (_React$Component) {
+  _inherits(TopicDetailItem, _React$Component);
+
+  function TopicDetailItem(props) {
+    _classCallCheck(this, TopicDetailItem);
+
+    return _possibleConstructorReturn(this, (TopicDetailItem.__proto__ || Object.getPrototypeOf(TopicDetailItem)).call(this, props));
+  }
+
+  _createClass(TopicDetailItem, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          topic = _props.topic,
+          questions = _props.questions;
+      var name = topic.name,
+          description = topic.description,
+          num_followers = topic.num_followers,
+          question_ids = topic.question_ids;
+
+      if (questions.length === 0) {
+        console.log("No topic, gotta load");
+        return _react2.default.createElement(
+          'div',
+          null,
+          'Loading'
+        );
+      } else {
+        var topic_questions = questions.filter(function (question) {
+          return topic.question_ids.includes(question.id);
+        });
+        var questionItems = topic_questions.map(function (question) {
+          return _react2.default.createElement(_question_item2.default, {
+            key: "question-" + question.id,
+            question: question
+
+          });
+        });
+
+        return _react2.default.createElement(
+          'div',
+          { className: 'topic-detail-item' },
+          _react2.default.createElement(
+            'h2',
+            { className: 'topic-header' },
+            name,
+            _react2.default.createElement(
+              'p',
+              null,
+              description
+            )
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'question-list' },
+            questionItems
+          )
+        );
+      }
+    }
+  }]);
+
+  return TopicDetailItem;
+}(_react2.default.Component);
+
+exports.default = TopicDetailItem;
+
+/***/ }),
+/* 444 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _selectors = __webpack_require__(23);
+
+var _question_detail = __webpack_require__(445);
+
+var _question_detail2 = _interopRequireDefault(_question_detail);
+
+var _question_actions = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, _ref) {
+  var match = _ref.match;
+
+  var questionId = parseInt(match.params.questionId);
+  var question = (0, _selectors.selectQuestion)(state, match.params.questionId);
+  return {
+    questionId: questionId,
+    question: question
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestQuestion: function requestQuestion(id) {
+      return dispatch((0, _question_actions.fetchQuestion)(id));
+    },
+    voteOnQuestion: function voteOnQuestion(id, type) {
+      return dispatch((0, _question_actions.voteOnQuestion)(id, type));
+    },
+    followQuestion: function followQuestion(id) {
+      return dispatch((0, _question_actions.followQuestion)(id));
+    },
+    unfollowQuestion: function unfollowQuestion(id) {
+      return dispatch((0, _question_actions.unfollowQuestion)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_detail2.default);
+
+/***/ }),
+/* 445 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _question_detail_item = __webpack_require__(446);
+
+var _question_detail_item2 = _interopRequireDefault(_question_detail_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestionDetail = function (_React$Component) {
+  _inherits(QuestionDetail, _React$Component);
+
+  function QuestionDetail(props) {
+    _classCallCheck(this, QuestionDetail);
+
+    return _possibleConstructorReturn(this, (QuestionDetail.__proto__ || Object.getPrototypeOf(QuestionDetail)).call(this, props));
+  }
+
+  _createClass(QuestionDetail, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.requestQuestion(this.props.questionId);
+      window.scrollTo(0, 0);
+    }
+
+    //need this to reload  questions if the search bar question link is clicked
+
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps) {
+      if (nextProps.questionId && this.props.questionId != nextProps.questionId) {
+        nextProps.requestQuestion(nextProps.questionId);
+        window.scrollTo(0, 0);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          question = _props.question,
+          questionId = _props.questionId,
+          voteOnQuestion = _props.voteOnQuestion,
+          followQuestion = _props.followQuestion,
+          unfollowQuestion = _props.unfollowQuestion;
+
+      if (Object.keys(question).length === 0) {
+        console.log("No question, gotta load");
+        return _react2.default.createElement(
+          'div',
+          null,
+          'Loading'
+        );
+      } else {
+        return _react2.default.createElement(_question_detail_item2.default, { key: "question-" + question.id, question: question,
+          voteOnQuestion: voteOnQuestion,
+          followQuestion: followQuestion,
+          unfollowQuestion: unfollowQuestion });
+      }
+    }
+  }]);
+
+  return QuestionDetail;
+}(_react2.default.Component);
+
+exports.default = QuestionDetail;
+
+/***/ }),
+/* 446 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _answer_item = __webpack_require__(430);
+
+var _answer_item2 = _interopRequireDefault(_answer_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestionDetailItem = function (_React$Component) {
+  _inherits(QuestionDetailItem, _React$Component);
+
+  function QuestionDetailItem(props) {
+    _classCallCheck(this, QuestionDetailItem);
+
+    return _possibleConstructorReturn(this, (QuestionDetailItem.__proto__ || Object.getPrototypeOf(QuestionDetailItem)).call(this, props));
+  }
+
+  _createClass(QuestionDetailItem, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          question = _props.question,
+          voteOnQuestion = _props.voteOnQuestion,
+          followQuestion = _props.followQuestion,
+          unfollowQuestion = _props.unfollowQuestion;
+      var id = question.id,
+          body = question.body,
+          answers = question.answers,
+          follower_ids = question.follower_ids;
+
+      var answerItems = answers.map(function (answer) {
+        return _react2.default.createElement(_answer_item2.default, {
+          key: "answer-" + answer.id,
+          answer: answer
+        });
+      });
+      if (answerItems.length === 0) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'question-detail-item' },
+          _react2.default.createElement(
+            'h2',
+            { className: 'question-header' },
+            body
+          ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            'No answers for this question written yet!'
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          'div',
+          { className: 'question-detail-item' },
+          _react2.default.createElement(
+            'h2',
+            { className: 'question-header' },
+            body
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return voteOnQuestion(id, "downvote");
+              } },
+            'Downvote'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return voteOnQuestion(id, "cancel_vote");
+              } },
+            'Cancel Downvote'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return followQuestion(id);
+              } },
+            'Follow ',
+            follower_ids
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return unfollowQuestion(id);
+              } },
+            'Unfollow'
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'answer-list' },
+            answerItems
+          )
+        );
+      }
+    }
+  }]);
+
+  return QuestionDetailItem;
+}(_react2.default.Component);
+
+exports.default = QuestionDetailItem;
+
+/***/ }),
+/* 447 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _selectors = __webpack_require__(23);
+
+var _question_list = __webpack_require__(448);
+
+var _question_list2 = _interopRequireDefault(_question_list);
+
+var _question_actions = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    questions: (0, _selectors.allQuestions)(state),
+    errors: state.errors
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestQuestions: function requestQuestions() {
+      return dispatch((0, _question_actions.fetchQuestions)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_list2.default);
+
+/***/ }),
+/* 448 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _question_list_item = __webpack_require__(449);
+
+var _question_list_item2 = _interopRequireDefault(_question_list_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestionList = function (_React$Component) {
+  _inherits(QuestionList, _React$Component);
+
+  function QuestionList(props) {
+    _classCallCheck(this, QuestionList);
+
+    return _possibleConstructorReturn(this, (QuestionList.__proto__ || Object.getPrototypeOf(QuestionList)).call(this, props));
+  }
+
+  _createClass(QuestionList, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.requestQuestions();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var questions = this.props.questions;
+
+      var questionItems = questions.map(function (question) {
+        return _react2.default.createElement(_question_list_item2.default, { key: "question-" + question.id, question: question });
+      }).reverse();
+      return _react2.default.createElement(
+        'div',
+        { id: 'questions-container' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'question-list' },
+          questionItems
+        )
+      );
+    }
+  }]);
+
+  return QuestionList;
+}(_react2.default.Component);
+
+exports.default = QuestionList;
+
+/***/ }),
+/* 449 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(18);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestionListItem = function (_React$Component) {
+  _inherits(QuestionListItem, _React$Component);
+
+  function QuestionListItem(props) {
+    _classCallCheck(this, QuestionListItem);
+
+    return _possibleConstructorReturn(this, (QuestionListItem.__proto__ || Object.getPrototypeOf(QuestionListItem)).call(this, props));
+  }
+
+  _createClass(QuestionListItem, [{
+    key: 'render',
+    value: function render() {
+      var question = this.props.question;
+
+
+      if (Object.keys(question).length === 0) {
+        console.log("loading");
+        return _react2.default.createElement(
+          'h1',
+          null,
+          'Loading!'
+        );
+      } else {
+        var body = question.body,
+            time_posted_ago = question.time_posted_ago,
+            topic = question.topic,
+            num_answers = question.num_answers;
+
+        var questionHead = void 0;
+        if (topic) {
+          questionHead = [_react2.default.createElement(
+            'h3',
+            null,
+            'Question asked \xB7 ',
+            topic.name,
+            ' \xB7 ',
+            time_posted_ago
+          )];
+        } else {
+          questionHead = [_react2.default.createElement(
+            'h3',
+            null,
+            'Question asked \xB7 ',
+            time_posted_ago
+          )];
+        }
+        return _react2.default.createElement(
+          'li',
+          { className: 'question-list-item' },
+          questionHead,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/questions/' + question.id, activeClassName: 'active' },
+            body
+          ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Last asked ',
+            time_posted_ago,
+            ' \xB7 ',
+            num_answers
+          )
+        );
+      }
+    }
+  }]);
+
+  return QuestionListItem;
+}(_react2.default.Component);
+
+exports.default = QuestionListItem;
 
 /***/ })
 /******/ ]);

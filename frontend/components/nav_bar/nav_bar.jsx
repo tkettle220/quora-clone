@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
-import { customStyles } from './create_question_form';
-import QuestionSearchContainer from './question_search_container';
+import { customStyles } from '../create_question_form/create_question_form';
+import QuestionSearchContainer from '../question_search/question_search_container';
 
 class NavBar extends React.Component {
   constructor(props) {

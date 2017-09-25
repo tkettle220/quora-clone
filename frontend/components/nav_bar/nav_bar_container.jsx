@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import NavBar from './nav_bar';
 
-import { createQuestion } from '../actions/question_actions';
+import { createQuestion } from '../../actions/question_actions';
 
 // Actions
 

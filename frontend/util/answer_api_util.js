@@ -16,6 +16,13 @@ export const fetchAnswer = (id) => (
   })
 );
 
+export const fetchAnswers = () => (
+  $.ajax({
+    method: 'GET',
+    url: `api/answers`,
+  })
+);
+
 export const voteOnAnswer = (id, type) => (
   $.ajax({
     method: 'POST',

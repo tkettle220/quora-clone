@@ -3,13 +3,13 @@ import { Provider } from 'react-redux';
 import { Route, Redirect, Switch, Link, HashRouter} from 'react-router-dom';
 
 import SessionFormContainer from './session_form/session_form_container';
-import TopicListContainer from './topic_list_container';
-import CreateQuestionFormContainer from './create_question_form_container';
-import NavBarContainer from './nav_bar_container';
-import FeedSidebarContainer from './feed_sidebar_container';
-import TopicDetailContainer from './topic_detail_container';
-import QuestionDetailContainer from './question_detail_container';
-import QuestionListContainer from './question_list_container';
+import TopicListContainer from './topic_list/topic_list_container';
+import CreateQuestionFormContainer from './create_question_form/create_question_form_container';
+import NavBarContainer from './nav_bar/nav_bar_container';
+import FeedSidebarContainer from './feed_sidebar/feed_sidebar_container';
+import TopicDetailContainer from './topic_detail/topic_detail_container';
+import QuestionDetailContainer from './question_detail/question_detail_container';
+import QuestionListContainer from './question_list/question_list_container';
 
 
 const App = () => (

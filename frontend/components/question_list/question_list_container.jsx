@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { allQuestions } from '../reducers/selectors';
+import { allQuestions } from '../../reducers/selectors';
 import QuestionList from './question_list';
 
 // Actions
-import { fetchQuestions } from '../actions/question_actions';
+import { fetchQuestions } from '../../actions/question_actions';
 
 const mapStateToProps = state => ({
   questions: allQuestions(state),

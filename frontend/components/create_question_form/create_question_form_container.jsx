@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import QuestionForm from './create_question_form';
 
 // Actions
-import { createQuestion } from '../actions/question_actions';
+import { createQuestion } from '../../actions/question_actions';
 
 const mapStateToProps = (state) => {
   return {

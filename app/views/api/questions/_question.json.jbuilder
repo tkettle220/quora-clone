@@ -6,10 +6,7 @@ end
 
 json.time_posted_ago question.time_posted_ago
 
-
-json.answers do
-  json.partial! 'api/answers/answer', collection: question.answers, as: :answer
-end
+json.answer_ids question.answers.map{|answer| answer.id}
 
 json.topic question.topics.first
 

@@ -9,11 +9,10 @@ class TopicList extends React.Component {
 
   componentWillMount() {
     this.props.requestTopics();
-    this.props.requestQuestions();
   }
 
   render() {
-    const {topics, voteOnAnswer, questions} = this.props;
+    const {topics, voteOnAnswer, questions } = this.props;
     const topicItems = topics.map( topic => (
       <TopicListItem key={ "topic-" + topic.id } topic={topic} voteOnAnswer={voteOnAnswer} questions={questions}/>
       ));

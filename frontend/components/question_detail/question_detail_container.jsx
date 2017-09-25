@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { selectQuestion } from '../reducers/selectors';
+import { selectQuestion } from '../../reducers/selectors';
 import QuestionDetail from './question_detail';
 
 // Actions
-import { fetchQuestion, voteOnQuestion, followQuestion, unfollowQuestion } from '../actions/question_actions';
+import { fetchQuestion, voteOnQuestion, followQuestion, unfollowQuestion } from '../../actions/question_actions';
 
 const mapStateToProps = (state, {match}) => {
   const questionId = parseInt(match.params.questionId);

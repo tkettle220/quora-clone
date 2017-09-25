@@ -12,9 +12,9 @@ class TopicList extends React.Component {
   }
 
   render() {
-    const {topics} = this.props;
+    const {topics, voteOnAnswer} = this.props;
     const topicItems = topics.map( topic => (
-      <TopicListItem key={ "topic-" + topic.id } topic={topic}/>
+      <TopicListItem key={ "topic-" + topic.id } topic={topic} voteOnAnswer={voteOnAnswer}/>
       ));
     return(
       <div id="topics-container">

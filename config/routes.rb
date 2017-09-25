@@ -7,9 +7,13 @@ Rails.application.routes.draw do
     resources :questions, only: [:index, :show, :create, :update, :destroy]
     resources :topics, only: [:index, :show, :create, :update, :destroy]
     resources :answers, only: [:index, :show, :create, :destroy]
+
     post 'questions/vote', :to => 'questions#vote'
     post 'questions/follow', :to => 'questions#follow'
     post 'questions/unfollow', :to => 'questions#unfollow'
+
+    post 'answers/vote', :to => 'answers#vote'
+
 
   end
 

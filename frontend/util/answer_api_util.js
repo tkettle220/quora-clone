@@ -15,3 +15,14 @@ export const fetchAnswer = (id) => (
     url: `api/answers/${id}`,
   })
 );
+
+export const voteOnAnswer = (id, type) => (
+  $.ajax({
+    method: 'POST',
+    url: `api/answers/vote`,
+    data: {
+      answer_id: id,
+      type
+    }
+  })
+);

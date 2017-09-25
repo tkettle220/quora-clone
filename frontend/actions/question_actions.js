@@ -57,3 +57,15 @@ export const voteOnQuestion = (id, type) => dispatch => (
     question=>(dispatch(updateQuestion(question))
   ))
 );
+
+export const followQuestion = (id) => dispatch => (
+  APIUtil.followQuestion(id).then(
+    question=>(dispatch(updateQuestion(question))
+  ))
+);
+
+export const unfollowQuestion = (id) => dispatch => (
+  APIUtil.unfollowQuestion(id).then(
+    question=>(dispatch(updateQuestion(question))
+  ))
+);

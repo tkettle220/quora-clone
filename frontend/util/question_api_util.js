@@ -36,3 +36,23 @@ export const voteOnQuestion = (id, type) => (
     }
   })
 );
+
+export const followQuestion = (id) => (
+  $.ajax({
+    method: 'POST',
+    url: `api/questions/follow`,
+    data: {
+      question_id: id,
+    }
+  })
+);
+
+export const unfollowQuestion = (id) => (
+  $.ajax({
+    method: 'POST',
+    url: `api/questions/unfollow`,
+    data: {
+      question_id: id,
+    }
+  })
+);

@@ -8,8 +8,8 @@ class QuestionDetailItem extends React.Component {
   }
 
   render () {
-    const { question } = this.props;
-    const { body, answers} = question;
+    const { question, voteOnQuestion, followQuestion, unfollowQuestion } = this.props;
+    const { id, body, answers, follower_ids} = question;
     const answerItems = answers.map(answer => (
       <AnswerItem
         key={ "answer-" + answer.id }
@@ -17,7 +17,6 @@ class QuestionDetailItem extends React.Component {
         />
       )
     );
-
     if(answerItems.length === 0) {
       return (
         <div className="question-detail-item">
@@ -29,6 +28,11 @@ class QuestionDetailItem extends React.Component {
       return (
         <div className="question-detail-item">
           <h2 className="question-header">{body}</h2>
+            <button onClick={()=>voteOnQuestion(id, "downvote")}>Downvote
+            </button>
+            <button onClick={()=>voteOnQuestion(id, "cancel_vote")}>Cancel Downvote</button>
+            <button onClick={()=>followQuestion(id)}>Follow {follower_ids}</button>
+            <button onClick={()=>unfollowQuestion(id)}>Unfollow</button>
           <ul className="answer-list">{answerItems}</ul>
         </div>
       )

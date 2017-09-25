@@ -23,13 +23,16 @@ class QuestionDetail extends React.Component {
 
 
   render() {
-    const {question, questionId} = this.props;
+    const {question, questionId, voteOnQuestion, followQuestion, unfollowQuestion} = this.props;
     if (Object.keys(question).length === 0) {
       console.log("No question, gotta load");
       return (<div>Loading</div>)
     } else {
       return(
-        <QuestionDetailItem key={ "question-" + question.id } question={question}/>
+        <QuestionDetailItem key={ "question-" + question.id } question={question}
+        voteOnQuestion={voteOnQuestion}
+        followQuestion={followQuestion}
+        unfollowQuestion={unfollowQuestion}/>
       );
     }
 

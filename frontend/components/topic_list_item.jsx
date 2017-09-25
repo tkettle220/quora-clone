@@ -9,12 +9,13 @@ class TopicListItem extends React.Component {
   }
 
   render () {
-    const { topic } = this.props;
+    const { topic, voteOnAnswer } = this.props;
     const { name, description, num_followers, questions} = topic;
     const questionItems = questions.map(question => (
       <QuestionItem
         key={ "question-" + question.id }
         question={ question }
+        voteOnAnswer={voteOnAnswer}
         />
       )
     );

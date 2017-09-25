@@ -2268,7 +2268,7 @@ module.exports = DOMProperty;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.voteOnQuestion = exports.createQuestion = exports.fetchQuestion = exports.fetchSearchQuestions = exports.fetchQuestions = exports.updateQuestion = exports.receiveQuestion = exports.receiveSearchQuestions = exports.receiveQuestions = exports.UPDATE_QUESTION = exports.RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
+exports.unfollowQuestion = exports.followQuestion = exports.voteOnQuestion = exports.createQuestion = exports.fetchQuestion = exports.fetchSearchQuestions = exports.fetchQuestions = exports.updateQuestion = exports.receiveQuestion = exports.receiveSearchQuestions = exports.receiveQuestions = exports.UPDATE_QUESTION = exports.RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
 
 var _question_api_util = __webpack_require__(327);
 
@@ -2345,6 +2345,22 @@ var createQuestion = exports.createQuestion = function createQuestion(body) {
 var voteOnQuestion = exports.voteOnQuestion = function voteOnQuestion(id, type) {
   return function (dispatch) {
     return APIUtil.voteOnQuestion(id, type).then(function (question) {
+      return dispatch(updateQuestion(question));
+    });
+  };
+};
+
+var followQuestion = exports.followQuestion = function followQuestion(id) {
+  return function (dispatch) {
+    return APIUtil.followQuestion(id).then(function (question) {
+      return dispatch(updateQuestion(question));
+    });
+  };
+};
+
+var unfollowQuestion = exports.unfollowQuestion = function unfollowQuestion(id) {
+  return function (dispatch) {
+    return APIUtil.unfollowQuestion(id).then(function (question) {
       return dispatch(updateQuestion(question));
     });
   };
@@ -13521,14 +13537,16 @@ var QuestionItem = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var question = this.props.question;
+      var _props = this.props,
+          question = _props.question,
+          voteOnAnswer = _props.voteOnAnswer;
       var id = question.id,
           body = question.body,
           author = question.author,
           answers = question.answers;
 
       var answerItems = answers.map(function (answer) {
-        return _react2.default.createElement(_answer_item2.default, { key: "answer-" + answer.id, answer: answer });
+        return _react2.default.createElement(_answer_item2.default, { key: "answer-" + answer.id, answer: answer, voteOnAnswer: voteOnAnswer });
       });
       return _react2.default.createElement(
         'li',
@@ -14464,7 +14482,7 @@ module.exports = identity;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchAnswer = exports.fetchQuestionAnswers = exports.receiveAnswer = exports.receiveAnswers = exports.RECEIVE_ANSWER = exports.RECEIVE_ANSWERS = undefined;
+exports.voteOnAnswer = exports.fetchAnswer = exports.fetchAnswerAnswers = exports.updateAnswer = exports.receiveAnswer = exports.receiveAnswers = exports.UPDATE_ANSWER = exports.RECEIVE_ANSWER = exports.RECEIVE_ANSWERS = undefined;
 
 var _answer_api_util = __webpack_require__(422);
 
@@ -14474,6 +14492,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var RECEIVE_ANSWERS = exports.RECEIVE_ANSWERS = 'RECEIVE_ANSWERS';
 var RECEIVE_ANSWER = exports.RECEIVE_ANSWER = 'RECEIVE_ANSWER';
+var UPDATE_ANSWER = exports.UPDATE_ANSWER = 'UPDATE_ANSWER';
 
 var receiveAnswers = exports.receiveAnswers = function receiveAnswers(answers) {
   return {
@@ -14489,8 +14508,15 @@ var receiveAnswer = exports.receiveAnswer = function receiveAnswer(answer) {
   };
 };
 
+var updateAnswer = exports.updateAnswer = function updateAnswer(answer) {
+  return {
+    type: UPDATE_ANSWER,
+    answer: answer
+  };
+};
+
 //fetches answers for a given topic
-var fetchQuestionAnswers = exports.fetchQuestionAnswers = function fetchQuestionAnswers(question_id) {
+var fetchAnswerAnswers = exports.fetchAnswerAnswers = function fetchAnswerAnswers(question_id) {
   return function (dispatch) {
     return APIUtil.fetchQuestionAnswers(question_id).then(function (answers) {
       return dispatch(receiveAnswers(answers));
@@ -14502,6 +14528,14 @@ var fetchAnswer = exports.fetchAnswer = function fetchAnswer(id) {
   return function (dispatch) {
     return APIUtil.fetchAnswer(id).then(function (answer) {
       return dispatch(receiveAnswer(answer));
+    });
+  };
+};
+
+var voteOnAnswer = exports.voteOnAnswer = function voteOnAnswer(id, type) {
+  return function (dispatch) {
+    return APIUtil.voteOnAnswer(id, type).then(function (answer) {
+      return dispatch(updateAnswer(answer));
     });
   };
 };
@@ -14566,7 +14600,9 @@ window.fetchQuestionAnswers = _answer_actions.fetchQuestionAnswers;
 window.fetchAnswer = _answer_actions.fetchAnswer;
 window.updateFilter = _filter_actions.updateFilter;
 window.asSortedArray = _selectors.asSortedArray;
-window.voteOnQuestion = _question_actions.voteOnQuestion;
+// window.voteOnQuestion = voteOnQuestion;
+// window.followQuestion = followQuestion;
+// window.unfollowQuestion = unfollowQuestion;
 
 /***/ }),
 /* 163 */
@@ -31273,8 +31309,11 @@ var _topic_list2 = _interopRequireDefault(_topic_list);
 
 var _topic_actions = __webpack_require__(37);
 
+var _answer_actions = __webpack_require__(161);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Actions
 var mapStateToProps = function mapStateToProps(state) {
   return {
     topics: (0, _selectors.allTopics)(state),
@@ -31282,13 +31321,13 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-// Actions
-
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     requestTopics: function requestTopics() {
       return dispatch((0, _topic_actions.fetchTopics)());
+    },
+    voteOnAnswer: function voteOnAnswer(id, type) {
+      return dispatch((0, _answer_actions.voteOnAnswer)(id, type));
     }
   };
 };
@@ -31341,10 +31380,12 @@ var TopicList = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var topics = this.props.topics;
+      var _props = this.props,
+          topics = _props.topics,
+          voteOnAnswer = _props.voteOnAnswer;
 
       var topicItems = topics.map(function (topic) {
-        return _react2.default.createElement(_topic_list_item2.default, { key: "topic-" + topic.id, topic: topic });
+        return _react2.default.createElement(_topic_list_item2.default, { key: "topic-" + topic.id, topic: topic, voteOnAnswer: voteOnAnswer });
       });
       return _react2.default.createElement(
         'div',
@@ -31406,7 +31447,9 @@ var TopicListItem = function (_React$Component) {
   _createClass(TopicListItem, [{
     key: 'render',
     value: function render() {
-      var topic = this.props.topic;
+      var _props = this.props,
+          topic = _props.topic,
+          voteOnAnswer = _props.voteOnAnswer;
       var name = topic.name,
           description = topic.description,
           num_followers = topic.num_followers,
@@ -31415,7 +31458,8 @@ var TopicListItem = function (_React$Component) {
       var questionItems = questions.map(function (question) {
         return _react2.default.createElement(_question_item2.default, {
           key: "question-" + question.id,
-          question: question
+          question: question,
+          voteOnAnswer: voteOnAnswer
         });
       });
 
@@ -32370,6 +32414,26 @@ var voteOnQuestion = exports.voteOnQuestion = function voteOnQuestion(id, type) 
   });
 };
 
+var followQuestion = exports.followQuestion = function followQuestion(id) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/questions/follow',
+    data: {
+      question_id: id
+    }
+  });
+};
+
+var unfollowQuestion = exports.unfollowQuestion = function unfollowQuestion(id) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/questions/unfollow',
+    data: {
+      question_id: id
+    }
+  });
+};
+
 /***/ }),
 /* 328 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -33221,6 +33285,15 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     requestQuestion: function requestQuestion(id) {
       return dispatch((0, _question_actions.fetchQuestion)(id));
+    },
+    voteOnQuestion: function voteOnQuestion(id, type) {
+      return dispatch((0, _question_actions.voteOnQuestion)(id, type));
+    },
+    followQuestion: function followQuestion(id) {
+      return dispatch((0, _question_actions.followQuestion)(id));
+    },
+    unfollowQuestion: function unfollowQuestion(id) {
+      return dispatch((0, _question_actions.unfollowQuestion)(id));
     }
   };
 };
@@ -33287,7 +33360,10 @@ var QuestionDetail = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           question = _props.question,
-          questionId = _props.questionId;
+          questionId = _props.questionId,
+          voteOnQuestion = _props.voteOnQuestion,
+          followQuestion = _props.followQuestion,
+          unfollowQuestion = _props.unfollowQuestion;
 
       if (Object.keys(question).length === 0) {
         console.log("No question, gotta load");
@@ -33297,7 +33373,10 @@ var QuestionDetail = function (_React$Component) {
           'Loading'
         );
       } else {
-        return _react2.default.createElement(_question_detail_item2.default, { key: "question-" + question.id, question: question });
+        return _react2.default.createElement(_question_detail_item2.default, { key: "question-" + question.id, question: question,
+          voteOnQuestion: voteOnQuestion,
+          followQuestion: followQuestion,
+          unfollowQuestion: unfollowQuestion });
       }
     }
   }]);
@@ -33348,9 +33427,15 @@ var QuestionDetailItem = function (_React$Component) {
   _createClass(QuestionDetailItem, [{
     key: 'render',
     value: function render() {
-      var question = this.props.question;
-      var body = question.body,
-          answers = question.answers;
+      var _props = this.props,
+          question = _props.question,
+          voteOnQuestion = _props.voteOnQuestion,
+          followQuestion = _props.followQuestion,
+          unfollowQuestion = _props.unfollowQuestion;
+      var id = question.id,
+          body = question.body,
+          answers = question.answers,
+          follower_ids = question.follower_ids;
 
       var answerItems = answers.map(function (answer) {
         return _react2.default.createElement(_answer_item2.default, {
@@ -33358,7 +33443,6 @@ var QuestionDetailItem = function (_React$Component) {
           answer: answer
         });
       });
-
       if (answerItems.length === 0) {
         return _react2.default.createElement(
           'div',
@@ -33382,6 +33466,35 @@ var QuestionDetailItem = function (_React$Component) {
             'h2',
             { className: 'question-header' },
             body
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return voteOnQuestion(id, "downvote");
+              } },
+            'Downvote'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return voteOnQuestion(id, "cancel_vote");
+              } },
+            'Cancel Downvote'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return followQuestion(id);
+              } },
+            'Follow ',
+            follower_ids
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return unfollowQuestion(id);
+              } },
+            'Unfollow'
           ),
           _react2.default.createElement(
             'ul',
@@ -36103,6 +36216,10 @@ var AnswersReducer = function AnswersReducer() {
       return (0, _merge2.default)({}, state, action.answers);
     case _answer_actions.RECEIVE_ANSWER:
       return _defineProperty({}, action.answer.id, action.answer);
+    case _answer_actions.UPDATE_ANSWER:
+      var oldState = (0, _merge2.default)({}, state);
+      oldState[action.answer.id] = action.answer;
+      return oldState;
     default:
       return state;
   }
@@ -36135,6 +36252,17 @@ var fetchAnswer = exports.fetchAnswer = function fetchAnswer(id) {
   return $.ajax({
     method: 'GET',
     url: 'api/answers/' + id
+  });
+};
+
+var voteOnAnswer = exports.voteOnAnswer = function voteOnAnswer(id, type) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/answers/vote',
+    data: {
+      answer_id: id,
+      type: type
+    }
   });
 };
 

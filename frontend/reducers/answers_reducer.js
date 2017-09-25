@@ -1,6 +1,6 @@
 import merge from 'lodash/merge';
 
-import {RECEIVE_ANSWERS, RECEIVE_ANSWER} from '../actions/answer_actions.js'
+import {RECEIVE_ANSWERS, RECEIVE_ANSWER, UPDATE_ANSWER} from '../actions/answer_actions.js'
 
 const defaultState = {};
 
@@ -11,6 +11,10 @@ const AnswersReducer = (state = defaultState, action) => {
       return merge({}, state, action.answers);
     case RECEIVE_ANSWER:
       return {[action.answer.id]: action.answer};
+    case UPDATE_ANSWER:
+      let oldState = merge({}, state);
+      oldState[action.answer.id] = action.answer;
+      return oldState;
     default:
       return state;
   }

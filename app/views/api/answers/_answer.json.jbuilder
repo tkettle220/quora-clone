@@ -5,3 +5,5 @@ json.author do
 
 end
 json.time_posted_ago answer.time_posted_ago
+
+json.upvoter_ids answer.upvoter_ids

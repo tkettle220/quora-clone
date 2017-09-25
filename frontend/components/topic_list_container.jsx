@@ -4,6 +4,7 @@ import TopicList from './topic_list';
 
 // Actions
 import { fetchTopics } from '../actions/topic_actions';
+import { voteOnAnswer } from '../actions/answer_actions';
 
 const mapStateToProps = state => ({
   topics: allTopics(state),
@@ -11,7 +12,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  requestTopics: () => dispatch(fetchTopics())
+  requestTopics: () => dispatch(fetchTopics()),
+  voteOnAnswer: (id, type) => dispatch(voteOnAnswer(id, type))
 });
 
 export default connect(

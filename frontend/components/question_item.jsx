@@ -12,10 +12,10 @@ class QuestionItem extends React.Component {
   }
 
   render () {
-    const { question } = this.props;
+    const { question, voteOnAnswer } = this.props;
     const { id, body, author, answers} = question;
     const answerItems = answers.map( answer => (
-      <AnswerItem key={ "answer-" + answer.id } answer={answer}/>
+      <AnswerItem key={ "answer-" + answer.id } answer={answer} voteOnAnswer={voteOnAnswer}/>
       ));
     return (
       <li className="question-item">

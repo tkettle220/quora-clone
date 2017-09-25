@@ -35,6 +35,20 @@ class Api::AnswersController < ApplicationController
     render :show
   end
 
+  def vote
+    @answer = Answer.find_by_id(params[:answer_id])
+    type = params[:type]
+    case type
+    when "upvote"
+      current_user.upvote(@answer)
+    when "downvote"
+      current_user.downvote(@answer)
+    when "cancel_vote"
+      current_user.cancel_vote(@answer)
+    end
+    render :show
+  end
+
   private
 
   def answer_params

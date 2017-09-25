@@ -2268,7 +2268,7 @@ module.exports = DOMProperty;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createQuestion = exports.fetchQuestion = exports.fetchSearchQuestions = exports.fetchQuestions = exports.receiveQuestion = exports.receiveSearchQuestions = exports.receiveQuestions = exports.RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
+exports.upvoteQuestion = exports.createQuestion = exports.fetchQuestion = exports.fetchSearchQuestions = exports.fetchQuestions = exports.receiveQuestion = exports.receiveSearchQuestions = exports.receiveQuestions = exports.RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
 
 var _question_api_util = __webpack_require__(327);
 
@@ -2325,9 +2325,18 @@ var fetchQuestion = exports.fetchQuestion = function fetchQuestion(id) {
     });
   };
 };
+
 var createQuestion = exports.createQuestion = function createQuestion(body) {
   return function (dispatch) {
     return APIUtil.createQuestion(body).then(function (question) {
+      return dispatch(receiveQuestion(question));
+    });
+  };
+};
+
+var upvoteQuestion = exports.upvoteQuestion = function upvoteQuestion(id) {
+  return function (dispatch) {
+    return APIUtil.upvoteQuestion(id).then(function (question) {
       return dispatch(receiveQuestion(question));
     });
   };
@@ -14552,6 +14561,7 @@ window.fetchQuestionAnswers = _answer_actions.fetchQuestionAnswers;
 window.fetchAnswer = _answer_actions.fetchAnswer;
 window.updateFilter = _filter_actions.updateFilter;
 window.asSortedArray = _selectors.asSortedArray;
+window.upvoteQuestion = _question_actions.upvoteQuestion;
 
 /***/ }),
 /* 163 */
@@ -32340,6 +32350,16 @@ var createQuestion = exports.createQuestion = function createQuestion(body) {
       question: {
         body: body
       }
+    }
+  });
+};
+
+var upvoteQuestion = exports.upvoteQuestion = function upvoteQuestion(id) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/questions/upvote',
+    data: {
+      question_id: id
     }
   });
 };

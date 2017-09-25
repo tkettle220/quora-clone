@@ -25,3 +25,13 @@ export const createQuestion = (body) => (
     }
   })
 );
+
+export const upvoteQuestion = (id) => (
+  $.ajax({
+    method: 'POST',
+    url: `api/questions/upvote`,
+    data: {
+      question_id: id
+    }
+  })
+);

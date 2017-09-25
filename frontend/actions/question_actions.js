@@ -39,8 +39,15 @@ export const fetchQuestion = id => dispatch => (
     question=>(dispatch(receiveQuestion(question))
   ))
 );
+
 export const createQuestion = (body) => dispatch => (
   APIUtil.createQuestion(body).then(
+    question=>(dispatch(receiveQuestion(question))
+  ))
+);
+
+export const upvoteQuestion = (id) => dispatch => (
+  APIUtil.upvoteQuestion(id).then(
     question=>(dispatch(receiveQuestion(question))
   ))
 );

@@ -17,3 +17,6 @@ json.num_answers question.num_answers_str
 keywords ||= []
 
 json.match_score question.match_score(keywords)
+
+json.follower_ids question.follower_ids
+json.upvoter_ids question.upvoter_ids

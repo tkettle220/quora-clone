@@ -1,6 +1,6 @@
 import React from 'react';
 
-import QuestionItem from '../question/question_item'
+import QuestionItemContainer from '../question/question_item_container'
 
 class TopicDetailItem extends React.Component {
   constructor(props) {
@@ -8,29 +8,24 @@ class TopicDetailItem extends React.Component {
   }
 
   render () {
-    const { topic, questions} = this.props;
+    const { topic } = this.props;
     const { name, description, num_followers, question_ids} = topic;
-    if (questions.length === 0) {
-      console.log("No topic, gotta load");
-      return (<div>Loading</div>)
-    } else {
-        const topic_questions = questions.filter(question => topic.question_ids.includes(question.id))
-        const questionItems = topic_questions.map(question => (
-          <QuestionItem
-            key={ "question-" + question.id }
-            question={ question }
 
-            />
-        )
-      );
+      const questionItems = question_ids.map(id => (
+        <QuestionItemContainer
+          key={ "question-" + id }
+          id={ id }
+          />
+      )
+    );
 
-      return (
-        <div className="topic-detail-item">
-          <h2 className="topic-header">{name}<p>{description}</p></h2>
-          <ul className="question-list">{questionItems}</ul>
-        </div>
-      );
-    }
+    return (
+      <div className="topic-detail-item">
+        <h2 className="topic-header">{name}<p>{description}</p></h2>
+        <ul className="question-list">{questionItems}</ul>
+      </div>
+    );
+
   }
 }
 

@@ -35845,31 +35845,26 @@ var _topic_detail2 = _interopRequireDefault(_topic_detail);
 
 var _topic_actions = __webpack_require__(37);
 
-var _question_actions = __webpack_require__(20);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Actions
 var mapStateToProps = function mapStateToProps(state, _ref) {
   var match = _ref.match;
 
   var topicId = parseInt(match.params.topicId);
   var topic = (0, _selectors.selectTopic)(state, match.params.topicId);
-  var questions = (0, _selectors.allQuestions)(state);
   return {
     topicId: topicId,
-    topic: topic,
-    questions: questions
+    topic: topic
   };
 };
+
+// Actions
+
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     requestTopic: function requestTopic(id) {
       return dispatch((0, _topic_actions.fetchTopic)(id));
-    },
-    requestQuestions: function requestQuestions() {
-      return dispatch((0, _question_actions.fetchQuestions)());
     }
   };
 };
@@ -35918,7 +35913,6 @@ var TopicDetail = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.requestTopic(this.props.topicId);
-      this.props.requestQuestions();
       window.scrollTo(0, 0);
     }
   }, {
@@ -35926,8 +35920,7 @@ var TopicDetail = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           topic = _props.topic,
-          topicId = _props.topicId,
-          questions = _props.questions;
+          topicId = _props.topicId;
 
       if (Object.keys(topic).length === 0) {
         console.log("No topic, gotta load");
@@ -35944,7 +35937,7 @@ var TopicDetail = function (_React$Component) {
           _react2.default.createElement(
             'ul',
             { className: 'topic-detail-questions' },
-            _react2.default.createElement(_topic_detail_item2.default, { key: "topic-" + topic.id, topic: topic, questions: questions })
+            _react2.default.createElement(_topic_detail_item2.default, { key: "topic-" + topic.id, topic: topic })
           )
         );
       }
@@ -35973,9 +35966,9 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _question_item = __webpack_require__(428);
+var _question_item_container = __webpack_require__(427);
 
-var _question_item2 = _interopRequireDefault(_question_item);
+var _question_item_container2 = _interopRequireDefault(_question_item_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35997,53 +35990,39 @@ var TopicDetailItem = function (_React$Component) {
   _createClass(TopicDetailItem, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          topic = _props.topic,
-          questions = _props.questions;
+      var topic = this.props.topic;
       var name = topic.name,
           description = topic.description,
           num_followers = topic.num_followers,
           question_ids = topic.question_ids;
 
-      if (questions.length === 0) {
-        console.log("No topic, gotta load");
-        return _react2.default.createElement(
-          'div',
-          null,
-          'Loading'
-        );
-      } else {
-        var topic_questions = questions.filter(function (question) {
-          return topic.question_ids.includes(question.id);
-        });
-        var questionItems = topic_questions.map(function (question) {
-          return _react2.default.createElement(_question_item2.default, {
-            key: "question-" + question.id,
-            question: question
 
-          });
+      var questionItems = question_ids.map(function (id) {
+        return _react2.default.createElement(_question_item_container2.default, {
+          key: "question-" + id,
+          id: id
         });
+      });
 
-        return _react2.default.createElement(
-          'div',
-          { className: 'topic-detail-item' },
+      return _react2.default.createElement(
+        'div',
+        { className: 'topic-detail-item' },
+        _react2.default.createElement(
+          'h2',
+          { className: 'topic-header' },
+          name,
           _react2.default.createElement(
-            'h2',
-            { className: 'topic-header' },
-            name,
-            _react2.default.createElement(
-              'p',
-              null,
-              description
-            )
-          ),
-          _react2.default.createElement(
-            'ul',
-            { className: 'question-list' },
-            questionItems
+            'p',
+            null,
+            description
           )
-        );
-      }
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'question-list' },
+          questionItems
+        )
+      );
     }
   }]);
 

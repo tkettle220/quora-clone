@@ -9,12 +9,11 @@ class TopicDetail extends React.Component {
 
   componentWillMount() {
     this.props.requestTopic(this.props.topicId);
-    this.props.requestQuestions();
     window.scrollTo(0, 0);
   }
 
   render() {
-    const {topic, topicId, questions} = this.props;
+    const {topic, topicId} = this.props;
     if (Object.keys(topic).length === 0) {
       console.log("No topic, gotta load");
       return (<div>Loading</div>)
@@ -24,7 +23,7 @@ class TopicDetail extends React.Component {
           <div className="topic-detail-header">
           </div>
           <ul className="topic-detail-questions">
-            <TopicDetailItem key={ "topic-" + topic.id } topic={topic} questions={questions}/>
+            <TopicDetailItem key={ "topic-" + topic.id } topic={topic}/ >
           </ul>
         </div>
       );

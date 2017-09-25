@@ -2268,7 +2268,7 @@ module.exports = DOMProperty;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.upvoteQuestion = exports.createQuestion = exports.fetchQuestion = exports.fetchSearchQuestions = exports.fetchQuestions = exports.receiveQuestion = exports.receiveSearchQuestions = exports.receiveQuestions = exports.RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
+exports.voteOnQuestion = exports.createQuestion = exports.fetchQuestion = exports.fetchSearchQuestions = exports.fetchQuestions = exports.updateQuestion = exports.receiveQuestion = exports.receiveSearchQuestions = exports.receiveQuestions = exports.UPDATE_QUESTION = exports.RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_QUESTION = exports.RECEIVE_QUESTIONS = undefined;
 
 var _question_api_util = __webpack_require__(327);
 
@@ -2279,6 +2279,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var RECEIVE_QUESTIONS = exports.RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 var RECEIVE_QUESTION = exports.RECEIVE_QUESTION = 'RECEIVE_QUESTION';
 var RECEIVE_SEARCH_QUESTIONS = exports.RECEIVE_SEARCH_QUESTIONS = 'RECEIVE_SEARCH_QUESTIONS';
+var UPDATE_QUESTION = exports.UPDATE_QUESTION = 'UPDATE_QUESTION';
 
 var receiveQuestions = exports.receiveQuestions = function receiveQuestions(questions) {
   return {
@@ -2297,6 +2298,13 @@ var receiveSearchQuestions = exports.receiveSearchQuestions = function receiveSe
 var receiveQuestion = exports.receiveQuestion = function receiveQuestion(question) {
   return {
     type: RECEIVE_QUESTION,
+    question: question
+  };
+};
+
+var updateQuestion = exports.updateQuestion = function updateQuestion(question) {
+  return {
+    type: UPDATE_QUESTION,
     question: question
   };
 };
@@ -2334,10 +2342,10 @@ var createQuestion = exports.createQuestion = function createQuestion(body) {
   };
 };
 
-var upvoteQuestion = exports.upvoteQuestion = function upvoteQuestion(id) {
+var voteOnQuestion = exports.voteOnQuestion = function voteOnQuestion(id, type) {
   return function (dispatch) {
-    return APIUtil.upvoteQuestion(id).then(function (question) {
-      return dispatch(receiveQuestion(question));
+    return APIUtil.voteOnQuestion(id, type).then(function (question) {
+      return dispatch(updateQuestion(question));
     });
   };
 };
@@ -2819,9 +2827,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var allTopics = exports.allTopics = function allTopics(_ref) {
    var topics = _ref.topics;
-   return Object.keys(topics).map(function (id) {
-      return topics[id];
-   });
+   return Object.values(topics);
 };
 
 var selectTopic = exports.selectTopic = function selectTopic(_ref2, id) {
@@ -2833,9 +2839,7 @@ var selectTopic = exports.selectTopic = function selectTopic(_ref2, id) {
 
 var allQuestions = exports.allQuestions = function allQuestions(_ref3) {
    var questions = _ref3.questions;
-   return Object.keys(questions).map(function (id) {
-      return questions[id];
-   });
+   return Object.values(questions);
 };
 
 var selectQuestion = exports.selectQuestion = function selectQuestion(_ref4, id) {
@@ -2845,6 +2849,7 @@ var selectQuestion = exports.selectQuestion = function selectQuestion(_ref4, id)
    return question;
 };
 
+//I filter here, since I might not have the query elsewhere
 var asSortedArray = exports.asSortedArray = function asSortedArray(_ref5) {
    var searchQuestions = _ref5.searchQuestions,
        filters = _ref5.filters;
@@ -14561,7 +14566,7 @@ window.fetchQuestionAnswers = _answer_actions.fetchQuestionAnswers;
 window.fetchAnswer = _answer_actions.fetchAnswer;
 window.updateFilter = _filter_actions.updateFilter;
 window.asSortedArray = _selectors.asSortedArray;
-window.upvoteQuestion = _question_actions.upvoteQuestion;
+window.voteOnQuestion = _question_actions.voteOnQuestion;
 
 /***/ }),
 /* 163 */
@@ -32354,12 +32359,13 @@ var createQuestion = exports.createQuestion = function createQuestion(body) {
   });
 };
 
-var upvoteQuestion = exports.upvoteQuestion = function upvoteQuestion(id) {
+var voteOnQuestion = exports.voteOnQuestion = function voteOnQuestion(id, type) {
   return $.ajax({
     method: 'POST',
-    url: 'api/questions/upvote',
+    url: 'api/questions/vote',
     data: {
-      question_id: id
+      question_id: id,
+      type: type
     }
   });
 };
@@ -35952,6 +35958,8 @@ var _merge3 = _interopRequireDefault(_merge2);
 
 var _topic_actions = __webpack_require__(37);
 
+var _question_actions = __webpack_require__(20);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -35968,6 +35976,13 @@ var TopicsReducer = function TopicsReducer() {
       return action.topics;
     case _topic_actions.RECEIVE_TOPIC:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.topic.id, action.topic));
+    case _question_actions.UPDATE_QUESTION:
+      var oldState = (0, _merge3.default)({}, state);
+      var q_idx = oldState[action.question.topic.id].questions.findIndex(function (el) {
+        return el.id === action.question.id;
+      });
+      oldState[action.question.topic.id].questions[q_idx] = action.question;
+      return oldState;
     default:
       return state;
   }
@@ -36008,6 +36023,10 @@ var QuestionsReducer = function QuestionsReducer() {
       return action.questions;
     case _question_actions.RECEIVE_QUESTION:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.question.id, action.question));
+    case _question_actions.UPDATE_QUESTION:
+      var oldState = (0, _merge3.default)({}, state);
+      oldState[action.question.id] = action.question;
+      return oldState;
     default:
       return state;
   }

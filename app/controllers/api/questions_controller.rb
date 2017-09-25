@@ -21,6 +21,9 @@ class Api::QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    unless @question
+      @question = {}
+    end
     render :show
   end
 
@@ -31,21 +34,17 @@ class Api::QuestionsController < ApplicationController
     render :show
   end
 
-  def upvote
+  def vote
     @question = Question.find_by_id(params[:question_id])
-    current_user.upvote(@question)
-    render :show
-  end
-
-  def downvote
-    @question = Question.find_by_id(params[:question_id])
-    current_user.downvote(@question)
-    render :show
-  end
-
-  def cancel_vote
-    @question = Question.find_by_id(params[:question_id])
-    current_user.cancel_vote(@question)
+    type = params[:type]
+    case type
+    when "upvote"
+      current_user.upvote(@question)
+    when "downvote"
+      current_user.downvote(@question)
+    when "cancel_vote"
+      current_user.cancel_vote(@question)
+    end
     render :show
   end
 

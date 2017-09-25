@@ -4,6 +4,7 @@ import * as APIUtil from '../util/question_api_util'
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const RECEIVE_QUESTION = 'RECEIVE_QUESTION';
 export const RECEIVE_SEARCH_QUESTIONS = 'RECEIVE_SEARCH_QUESTIONS';
+export const UPDATE_QUESTION = 'UPDATE_QUESTION';
 
 export const receiveQuestions = questions => ({
   type: RECEIVE_QUESTIONS,
@@ -17,6 +18,11 @@ export const receiveSearchQuestions = questions => ({
 
 export const receiveQuestion = question => ({
   type: RECEIVE_QUESTION,
+  question
+});
+
+export const updateQuestion = question => ({
+  type: UPDATE_QUESTION,
   question
 });
 
@@ -46,8 +52,8 @@ export const createQuestion = (body) => dispatch => (
   ))
 );
 
-export const upvoteQuestion = (id) => dispatch => (
-  APIUtil.upvoteQuestion(id).then(
-    question=>(dispatch(receiveQuestion(question))
+export const voteOnQuestion = (id, type) => dispatch => (
+  APIUtil.voteOnQuestion(id, type).then(
+    question=>(dispatch(updateQuestion(question))
   ))
 );

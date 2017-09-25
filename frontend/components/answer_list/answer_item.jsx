@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AnswerVoteButtonContainer from '../answer_vote_button/answer_vote_button_container';
+
 class AnswerItem extends React.Component {
   constructor(props) {
     super(props)
@@ -26,11 +28,7 @@ class AnswerItem extends React.Component {
             </div>
           </div>
           <p className="answer-body">{body}</p>
-          <button onClick={()=>voteOnAnswer(id, "upvote")}>Upvote {upvoter_ids}
-          </button>
-          <button onClick={()=>voteOnAnswer(id, "cancel_vote")}>Undo Vote
-          </button>
-          <button onClick={()=>voteOnAnswer(id, "downvote")}>Downvote</button>
+          <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids}/>
         </li>
       );
     }

@@ -34868,6 +34868,10 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _answer_vote_button_container = __webpack_require__(450);
+
+var _answer_vote_button_container2 = _interopRequireDefault(_answer_vote_button_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34886,12 +34890,12 @@ var AnswerItem = function (_React$Component) {
   }
 
   _createClass(AnswerItem, [{
-    key: "componentWillMount",
+    key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.requestAnswer(this.props.id);
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _props = this.props,
           answer = _props.answer,
@@ -34900,9 +34904,9 @@ var AnswerItem = function (_React$Component) {
       if (Object.keys(answer).length === 0) {
         console.log("Need to load answers");
         return _react2.default.createElement(
-          "h1",
+          'h1',
           null,
-          "Loading Answers"
+          'Loading Answers'
         );
       } else {
         var id = answer.id,
@@ -34912,55 +34916,34 @@ var AnswerItem = function (_React$Component) {
             upvoter_ids = answer.upvoter_ids;
 
         return _react2.default.createElement(
-          "li",
-          { className: "answer-item" },
+          'li',
+          { className: 'answer-item' },
           _react2.default.createElement(
-            "div",
-            { className: "answer-header" },
-            _react2.default.createElement("img", { src: author.pro_pic_url, alt: author.name + "'s picture", className: "answerer-pro-pic" }),
+            'div',
+            { className: 'answer-header' },
+            _react2.default.createElement('img', { src: author.pro_pic_url, alt: author.name + '\'s picture', className: 'answerer-pro-pic' }),
             _react2.default.createElement(
-              "div",
-              { className: "answer-details" },
+              'div',
+              { className: 'answer-details' },
               _react2.default.createElement(
-                "h1",
+                'h1',
                 null,
                 author.name
               ),
               _react2.default.createElement(
-                "h2",
+                'h2',
                 null,
-                "Answered ",
+                'Answered ',
                 time_posted_ago
               )
             )
           ),
           _react2.default.createElement(
-            "p",
-            { className: "answer-body" },
+            'p',
+            { className: 'answer-body' },
             body
           ),
-          _react2.default.createElement(
-            "button",
-            { onClick: function onClick() {
-                return voteOnAnswer(id, "upvote");
-              } },
-            "Upvote ",
-            upvoter_ids
-          ),
-          _react2.default.createElement(
-            "button",
-            { onClick: function onClick() {
-                return voteOnAnswer(id, "cancel_vote");
-              } },
-            "Undo Vote"
-          ),
-          _react2.default.createElement(
-            "button",
-            { onClick: function onClick() {
-                return voteOnAnswer(id, "downvote");
-              } },
-            "Downvote"
-          )
+          _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids })
         );
       }
     }
@@ -36518,6 +36501,120 @@ var QuestionListItem = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = QuestionListItem;
+
+/***/ }),
+/* 450 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _answer_vote_button = __webpack_require__(451);
+
+var _answer_vote_button2 = _interopRequireDefault(_answer_vote_button);
+
+var _answer_actions = __webpack_require__(161);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    id: ownProps.id,
+    upvoterIds: ownProps.upvoterIds
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    voteOnAnswer: function voteOnAnswer(id, type) {
+      return dispatch((0, _answer_actions.voteOnAnswer)(id, type));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_answer_vote_button2.default);
+
+/***/ }),
+/* 451 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AnswerVoteButton = function (_React$Component) {
+  _inherits(AnswerVoteButton, _React$Component);
+
+  function AnswerVoteButton(props) {
+    _classCallCheck(this, AnswerVoteButton);
+
+    return _possibleConstructorReturn(this, (AnswerVoteButton.__proto__ || Object.getPrototypeOf(AnswerVoteButton)).call(this, props));
+  }
+
+  _createClass(AnswerVoteButton, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        "div",
+        { className: "answer-vote-buttons" },
+        _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.props.voteOnAnswer(_this2.props.id, "upvote");
+            } },
+          "Upvote ",
+          this.props.upvoterIds
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.props.voteOnAnswer(_this2.props.id, "cancel_vote");
+            } },
+          "Undo Vote"
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.props.voteOnAnswer(_this2.props.id, "downvote");
+            } },
+          "Downvote"
+        )
+      );
+    }
+  }]);
+
+  return AnswerVoteButton;
+}(_react2.default.Component);
+
+exports.default = AnswerVoteButton;
 
 /***/ })
 /******/ ]);

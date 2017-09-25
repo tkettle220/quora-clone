@@ -13,16 +13,22 @@ class QuestionList extends React.Component {
 
   render() {
     const {questions} = this.props;
-    const questionItems = questions.map( question => (
-      <QuestionListItem key={ "question-" + question.id } question={question}/>
+    if(Object.keys(questions).length === 0) {
+      console.log("loading questions");
+      return(<h1>Loading Questions!</h1>);
+    } else {
+      const questionItems = questions.map( question => (
+        <QuestionListItem key={ "question-" + question.id } question={question}/>
       )).reverse();
-    return(
-      <div id="questions-container">
-        <ul className="question-list">
-          {questionItems}
-        </ul>
-      </div>
-    );
+      return(
+        <div id="questions-container">
+          <ul className="question-list">
+            {questionItems}
+          </ul>
+        </div>
+      );
+      
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AnswerItem from '../answer_list/answer_item'
+import AnswerItemContainer from '../answer_list/answer_item_container'
 
 class QuestionDetailItem extends React.Component {
   constructor(props) {
@@ -9,11 +9,11 @@ class QuestionDetailItem extends React.Component {
 
   render () {
     const { question, voteOnQuestion, followQuestion, unfollowQuestion } = this.props;
-    const { id, body, answers, follower_ids} = question;
-    const answerItems = answers.map(answer => (
-      <AnswerItem
-        key={ "answer-" + answer.id }
-        answer={ answer }
+    const { id, body, follower_ids, answer_ids} = question;
+    const answerItems = answer_ids.map(id => (
+      <AnswerItemContainer
+        key={ "answer-" + id }
+        id={id}
         />
       )
     );

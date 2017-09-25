@@ -36173,6 +36173,7 @@ var QuestionDetail = function (_React$Component) {
           followQuestion = _props.followQuestion,
           unfollowQuestion = _props.unfollowQuestion;
 
+
       if (Object.keys(question).length === 0) {
         console.log("No question, gotta load");
         return _react2.default.createElement(
@@ -36211,9 +36212,9 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _answer_item = __webpack_require__(430);
+var _answer_item_container = __webpack_require__(429);
 
-var _answer_item2 = _interopRequireDefault(_answer_item);
+var _answer_item_container2 = _interopRequireDefault(_answer_item_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36242,13 +36243,13 @@ var QuestionDetailItem = function (_React$Component) {
           unfollowQuestion = _props.unfollowQuestion;
       var id = question.id,
           body = question.body,
-          answers = question.answers,
-          follower_ids = question.follower_ids;
+          follower_ids = question.follower_ids,
+          answer_ids = question.answer_ids;
 
-      var answerItems = answers.map(function (answer) {
-        return _react2.default.createElement(_answer_item2.default, {
-          key: "answer-" + answer.id,
-          answer: answer
+      var answerItems = answer_ids.map(function (id) {
+        return _react2.default.createElement(_answer_item_container2.default, {
+          key: "answer-" + id,
+          id: id
         });
       });
       if (answerItems.length === 0) {
@@ -36410,18 +36411,27 @@ var QuestionList = function (_React$Component) {
     value: function render() {
       var questions = this.props.questions;
 
-      var questionItems = questions.map(function (question) {
-        return _react2.default.createElement(_question_list_item2.default, { key: "question-" + question.id, question: question });
-      }).reverse();
-      return _react2.default.createElement(
-        'div',
-        { id: 'questions-container' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'question-list' },
-          questionItems
-        )
-      );
+      if (Object.keys(questions).length === 0) {
+        console.log("loading questions");
+        return _react2.default.createElement(
+          'h1',
+          null,
+          'Loading Questions!'
+        );
+      } else {
+        var questionItems = questions.map(function (question) {
+          return _react2.default.createElement(_question_list_item2.default, { key: "question-" + question.id, question: question });
+        }).reverse();
+        return _react2.default.createElement(
+          'div',
+          { id: 'questions-container' },
+          _react2.default.createElement(
+            'ul',
+            { className: 'question-list' },
+            questionItems
+          )
+        );
+      }
     }
   }]);
 

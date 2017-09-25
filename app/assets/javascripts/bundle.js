@@ -2853,38 +2853,45 @@ var selectTopic = exports.selectTopic = function selectTopic(_ref2, id) {
    return topic;
 };
 
-var allQuestions = exports.allQuestions = function allQuestions(_ref3) {
-   var questions = _ref3.questions;
+var selectDetailTopic = exports.selectDetailTopic = function selectDetailTopic(_ref3, id) {
+   var detailTopic = _ref3.detailTopic;
+
+   var topic = detailTopic[id] || {};
+   return topic;
+};
+
+var allQuestions = exports.allQuestions = function allQuestions(_ref4) {
+   var questions = _ref4.questions;
 
    var returnQuestions = Object.values(questions) || [];
    return returnQuestions;
 };
 
-var allAnswers = exports.allAnswers = function allAnswers(_ref4) {
-   var answers = _ref4.answers;
+var allAnswers = exports.allAnswers = function allAnswers(_ref5) {
+   var answers = _ref5.answers;
 
    var returnAnswers = Object.values(answers) || [];
    return returnAnswers;
 };
 
-var selectQuestion = exports.selectQuestion = function selectQuestion(_ref5, id) {
-   var questions = _ref5.questions;
+var selectQuestion = exports.selectQuestion = function selectQuestion(_ref6, id) {
+   var questions = _ref6.questions;
 
    var question = questions[id] || {};
    return question;
 };
 
-var selectAnswer = exports.selectAnswer = function selectAnswer(_ref6, id) {
-   var answers = _ref6.answers;
+var selectAnswer = exports.selectAnswer = function selectAnswer(_ref7, id) {
+   var answers = _ref7.answers;
 
    var answer = answers[id] || {};
    return answer;
 };
 
 //I filter here, since I might not have the query elsewhere
-var asSortedArray = exports.asSortedArray = function asSortedArray(_ref7) {
-   var searchQuestions = _ref7.searchQuestions,
-       filters = _ref7.filters;
+var asSortedArray = exports.asSortedArray = function asSortedArray(_ref8) {
+   var searchQuestions = _ref8.searchQuestions,
+       filters = _ref8.filters;
    var query = filters.query;
 
    var keywords = query.split(" ");
@@ -32008,6 +32015,10 @@ var _topics_reducer = __webpack_require__(418);
 
 var _topics_reducer2 = _interopRequireDefault(_topics_reducer);
 
+var _detail_topic_reducer = __webpack_require__(454);
+
+var _detail_topic_reducer2 = _interopRequireDefault(_detail_topic_reducer);
+
 var _questions_reducer = __webpack_require__(419);
 
 var _questions_reducer2 = _interopRequireDefault(_questions_reducer);
@@ -32030,6 +32041,7 @@ var RootReducer = (0, _redux.combineReducers)({
   session: _session_reducer2.default,
   errors: _errors_reducer2.default,
   topics: _topics_reducer2.default,
+  detailTopic: _detail_topic_reducer2.default,
   questions: _questions_reducer2.default,
   answers: _answers_reducer2.default,
   filters: _filters_reducer2.default,
@@ -35880,7 +35892,7 @@ var mapStateToProps = function mapStateToProps(state, _ref) {
   var match = _ref.match;
 
   var topicId = parseInt(match.params.topicId);
-  var topic = (0, _selectors.selectTopic)(state, match.params.topicId);
+  var topic = (0, _selectors.selectDetailTopic)(state, match.params.topicId);
   return {
     topicId: topicId,
     topic: topic
@@ -35939,10 +35951,22 @@ var TopicDetail = function (_React$Component) {
   }
 
   _createClass(TopicDetail, [{
-    key: 'componentwillMount',
-    value: function componentwillMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      console.log("requesting topics");
       this.props.requestTopic(this.props.topicId);
       window.scrollTo(0, 0);
+    }
+
+    //need this to reload if the topic sidebar link is clicked
+
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps) {
+      if (nextProps.topicId && this.props.topicId != nextProps.topicId) {
+        nextProps.requestTopic(nextProps.topicId);
+        window.scrollTo(0, 0);
+      }
     }
   }, {
     key: 'render',
@@ -35952,7 +35976,7 @@ var TopicDetail = function (_React$Component) {
           topicId = _props.topicId;
 
       if (Object.keys(topic).length === 0) {
-        console.log("No topic, gotta load");
+        console.log("No detail topic, gotta load");
         return _react2.default.createElement(
           'div',
           null,
@@ -36778,6 +36802,48 @@ var FollowTopicButton = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = FollowTopicButton;
+
+/***/ }),
+/* 454 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _merge2 = __webpack_require__(24);
+
+var _merge3 = _interopRequireDefault(_merge2);
+
+var _topic_actions = __webpack_require__(37);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var defaultState = {};
+
+var DetailTopicReducer = function DetailTopicReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _topic_actions.RECEIVE_TOPIC:
+      return (0, _merge3.default)({}, state, _defineProperty({}, action.topic.id, action.topic));
+    case _topic_actions.UPDATE_TOPIC:
+      var oldState = (0, _merge3.default)({}, state);
+      oldState[action.topic.id] = action.topic;
+      return oldState;
+    default:
+      return state;
+  }
+};
+
+exports.default = DetailTopicReducer;
 
 /***/ })
 /******/ ]);

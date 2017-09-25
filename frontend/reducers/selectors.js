@@ -5,6 +5,11 @@ export const selectTopic = ({ topics }, id) => {
    return topic
 };
 
+export const selectDetailTopic = ({ detailTopic }, id) => {
+   const topic = detailTopic[id] || {};
+   return topic
+};
+
 
 export const allQuestions = ({ questions }) => {
    const returnQuestions = Object.values(questions) || [];

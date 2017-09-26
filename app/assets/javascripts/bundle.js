@@ -34738,6 +34738,8 @@ var _filter_actions = __webpack_require__(109);
 
 var _selectors = __webpack_require__(19);
 
+var _comment_actions = __webpack_require__(589);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -34763,6 +34765,7 @@ window.fetchQuestionAnswers = _answer_actions.fetchQuestionAnswers;
 window.fetchAnswer = _answer_actions.fetchAnswer;
 window.updateFilter = _filter_actions.updateFilter;
 window.asSortedArray = _selectors.asSortedArray;
+window.createComment = _comment_actions.createComment;
 // window.voteOnQuestion = voteOnQuestion;
 // window.followQuestion = followQuestion;
 // window.unfollowQuestion = unfollowQuestion;
@@ -55938,7 +55941,6 @@ var AnswerForm = function (_React$Component) {
     value: function successfulSubmit(_ref) {
       var answer = _ref.answer;
 
-      debugger;
       this.props.history.push('/answers/' + answer.id);
     }
   }, {
@@ -60339,6 +60341,10 @@ var _filters_reducer = __webpack_require__(587);
 
 var _filters_reducer2 = _interopRequireDefault(_filters_reducer);
 
+var _comments_reducer = __webpack_require__(588);
+
+var _comments_reducer2 = _interopRequireDefault(_comments_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RootReducer = (0, _redux.combineReducers)({
@@ -60349,7 +60355,8 @@ var RootReducer = (0, _redux.combineReducers)({
   questions: _questions_reducer2.default,
   answers: _answers_reducer2.default,
   filters: _filters_reducer2.default,
-  searchQuestions: _search_questions_reducer2.default
+  searchQuestions: _search_questions_reducer2.default,
+  comments: _comments_reducer2.default
 });
 
 exports.default = RootReducer;
@@ -61566,6 +61573,214 @@ var FiltersReducer = function FiltersReducer() {
 };
 
 exports.default = FiltersReducer;
+
+/***/ }),
+/* 588 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _merge2 = __webpack_require__(27);
+
+var _merge3 = _interopRequireDefault(_merge2);
+
+var _comment_actions = __webpack_require__(589);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var defaultState = {};
+
+var CommentsReducer = function CommentsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _comment_actions.RECEIVE_COMMENTS:
+      return (0, _merge3.default)({}, state, action.comments);
+    case _comment_actions.RECEIVE_COMMENT:
+      return (0, _merge3.default)({}, state, _defineProperty({}, action.comment.id, action.comment));
+    case _comment_actions.UPDATE_COMMENT:
+      var oldState = (0, _merge3.default)({}, state);
+      oldState[action.comment.id] = action.comment;
+      return oldState;
+    default:
+      return state;
+  }
+};
+
+exports.default = CommentsReducer;
+
+/***/ }),
+/* 589 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createComment = exports.voteOnComment = exports.fetchComment = exports.fetchUserComments = exports.fetchAnswerComments = exports.fetchQuestionComments = exports.updateComment = exports.receiveComment = exports.receiveComments = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = exports.RECEIVE_COMMENTS = undefined;
+
+var _comment_api_util = __webpack_require__(590);
+
+var APIUtil = _interopRequireWildcard(_comment_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_COMMENTS = exports.RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+var RECEIVE_COMMENT = exports.RECEIVE_COMMENT = 'RECEIVE_COMMENT';
+var UPDATE_COMMENT = exports.UPDATE_COMMENT = 'UPDATE_COMMENT';
+
+var receiveComments = exports.receiveComments = function receiveComments(comments) {
+  return {
+    type: RECEIVE_COMMENTS,
+    comments: comments
+  };
+};
+
+var receiveComment = exports.receiveComment = function receiveComment(comment) {
+  return {
+    type: RECEIVE_COMMENT,
+    comment: comment
+  };
+};
+
+var updateComment = exports.updateComment = function updateComment(comment) {
+  return {
+    type: UPDATE_COMMENT,
+    comment: comment
+  };
+};
+
+//fetches comments for a given question
+var fetchQuestionComments = exports.fetchQuestionComments = function fetchQuestionComments(question_id) {
+  return function (dispatch) {
+    return APIUtil.fetchQuestionComments(question_id).then(function (comments) {
+      return dispatch(receiveComments(comments));
+    });
+  };
+};
+
+var fetchAnswerComments = exports.fetchAnswerComments = function fetchAnswerComments(answer_id) {
+  return function (dispatch) {
+    return APIUtil.fetchAnswerComments(answer_id).then(function (comments) {
+      return dispatch(receiveComments(comments));
+    });
+  };
+};
+
+//fetches all of a users comments
+var fetchUserComments = exports.fetchUserComments = function fetchUserComments(user_id) {
+  return function (dispatch) {
+    return APIUtil.fetchUserComments(user_id).then(function (comments) {
+      return dispatch(receiveComments(comments));
+    });
+  };
+};
+
+var fetchComment = exports.fetchComment = function fetchComment(id) {
+  return function (dispatch) {
+    return APIUtil.fetchComment(id).then(function (comment) {
+      return dispatch(receiveComment(comment));
+    });
+  };
+};
+
+var voteOnComment = exports.voteOnComment = function voteOnComment(id, type) {
+  return function (dispatch) {
+    return APIUtil.voteOnComment(id, type).then(function (comment) {
+      return dispatch(updateComment(comment));
+    });
+  };
+};
+
+var createComment = exports.createComment = function createComment(commentableClass, commentableId, body) {
+  return function (dispatch) {
+    return APIUtil.createComment(commentableClass, commentableId, body).then(function (comment) {
+      return dispatch(receiveComment(comment));
+    });
+  };
+};
+
+/***/ }),
+/* 590 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//assumes fetching answers for a single question
+var fetchQuestionComments = exports.fetchQuestionComments = function fetchQuestionComments(question_id) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/comments',
+    data: {
+      question_id: question_id
+    }
+  });
+};
+
+var fetchAnswerComments = exports.fetchAnswerComments = function fetchAnswerComments(answer_id) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/comments',
+    data: {
+      answer_id: answer_id
+    }
+  });
+};
+
+var fetchUserComments = exports.fetchUserComments = function fetchUserComments(user_id) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/comments',
+    data: {
+      user_id: user_id
+    }
+  });
+};
+
+var fetchComment = exports.fetchComment = function fetchComment(id) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/comments/' + id
+  });
+};
+
+var voteOnComment = exports.voteOnComment = function voteOnComment(id, type) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/comments/vote',
+    data: {
+      comment_id: id,
+      type: type
+    }
+  });
+};
+
+var createComment = exports.createComment = function createComment(commentableClass, commentableId, body) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/comments',
+    data: {
+      commentableClass: commentableClass,
+      commentableId: commentableId,
+      body: body
+    }
+  });
+};
 
 /***/ })
 /******/ ]);

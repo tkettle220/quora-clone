@@ -17,7 +17,6 @@ class AnswerForm extends React.Component {
  }
 
  successfulSubmit({answer}) {
-   debugger
    this.props.history.push(`/answers/${answer.id}`);
  }
 

@@ -15,7 +15,7 @@ class Answer < ApplicationRecord
       source: :topics
 
   acts_as_votable
-
+  acts_as_commentable
 
   def upvoter_ids
     get_likes.reject{|v| v.vote_scope}.map{|v| v.voter_id}

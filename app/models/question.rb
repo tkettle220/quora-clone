@@ -32,7 +32,7 @@ class Question < ApplicationRecord
     class_name: :Answer
 
   acts_as_votable
-
+  acts_as_commentable
 
   def follower_ids
     get_likes(:vote_scope => 'follow').map{|v| v.voter_id}

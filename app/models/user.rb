@@ -112,6 +112,14 @@ class User < ApplicationRecord
     self.find_up_voted_items.select{|item| item.class == Answer && item.up_voter_ids.include?(self.id)}.uniq
   end
 
+  def upvoted?(entity)
+    self.voted_up_on? entity
+  end
+
+  def downvoted?(entity)
+    self.voted_down_on? entity
+  end
+
 
 
 

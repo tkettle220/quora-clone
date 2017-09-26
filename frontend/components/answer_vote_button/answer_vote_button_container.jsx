@@ -6,7 +6,9 @@ import { voteOnAnswer } from '../../actions/answer_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.id,
-  upvoterIds: ownProps.upvoterIds
+  upvoterIds: ownProps.upvoterIds,
+  upvoted: ownProps.upvoted,
+  downvoted: ownProps.downvoted
 });
 
 const mapDispatchToProps = dispatch => ({

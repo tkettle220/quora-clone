@@ -44128,7 +44128,9 @@ var AnswerItem = function (_React$Component) {
             body = answer.body,
             author = answer.author,
             time_posted_ago = answer.time_posted_ago,
-            upvoter_ids = answer.upvoter_ids;
+            upvoter_ids = answer.upvoter_ids,
+            upvoted = answer.upvoted,
+            downvoted = answer.downvoted;
 
         return _react2.default.createElement(
           'li',
@@ -44158,7 +44160,7 @@ var AnswerItem = function (_React$Component) {
             { className: 'answer-body' },
             (0, _reactHtmlParser2.default)(body)
           ),
-          _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids })
+          _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids, upvoted: upvoted, downvoted: downvoted })
         );
       }
     }
@@ -44193,7 +44195,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     id: ownProps.id,
-    upvoterIds: ownProps.upvoterIds
+    upvoterIds: ownProps.upvoterIds,
+    upvoted: ownProps.upvoted,
+    downvoted: ownProps.downvoted
   };
 };
 
@@ -44241,13 +44245,60 @@ var AnswerVoteButton = function (_React$Component) {
   function AnswerVoteButton(props) {
     _classCallCheck(this, AnswerVoteButton);
 
-    return _possibleConstructorReturn(this, (AnswerVoteButton.__proto__ || Object.getPrototypeOf(AnswerVoteButton)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AnswerVoteButton.__proto__ || Object.getPrototypeOf(AnswerVoteButton)).call(this, props));
+
+    _this.state = {
+      upvoted: false,
+      downvoted: false
+    };
+    _this.handleClick = _this.handleClick.bind(_this);
+    return _this;
   }
 
   _createClass(AnswerVoteButton, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (this.props.upvoted) {
+        this.setState({ upvoted: true });
+      }
+      if (this.props.downvoted) {
+        this.setState({ downvoted: true });
+      }
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(type) {
+      if (type === "upvote") {
+        if (this.state.upvoted) {
+          this.props.voteOnAnswer(this.props.id, "cancel_vote");
+          this.setState({ upvoted: false });
+        } else {
+          this.props.voteOnAnswer(this.props.id, "upvote");
+          this.setState({ upvoted: true });
+        }
+      } else {
+        if (this.state.downvoted) {
+          this.props.voteOnAnswer(this.props.id, "cancel_vote");
+          this.setState({ downvoted: false });
+        } else {
+          this.props.voteOnAnswer(this.props.id, "downvote");
+          this.setState({ downvoted: true });
+        }
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
+
+      var upvoteText = 'Upvote';
+      var downvoteText = 'Downvote';
+      if (this.state.upvoted) {
+        upvoteText = 'Upvoted';
+      }
+      if (this.state.downvoted) {
+        downvoteText = 'Downvoted';
+      }
 
       return _react2.default.createElement(
         "div",
@@ -44255,24 +44306,25 @@ var AnswerVoteButton = function (_React$Component) {
         _react2.default.createElement(
           "button",
           { onClick: function onClick() {
-              return _this2.props.voteOnAnswer(_this2.props.id, "upvote");
+              return _this2.handleClick("upvote");
             } },
-          "Upvote ",
-          this.props.upvoterIds
+          _react2.default.createElement(
+            "div",
+            null,
+            upvoteText
+          ),
+          _react2.default.createElement(
+            "div",
+            null,
+            this.props.upvoterIds.length
+          )
         ),
         _react2.default.createElement(
           "button",
           { onClick: function onClick() {
-              return _this2.props.voteOnAnswer(_this2.props.id, "cancel_vote");
+              return _this2.handleClick("downvote");
             } },
-          "Undo Vote"
-        ),
-        _react2.default.createElement(
-          "button",
-          { onClick: function onClick() {
-              return _this2.props.voteOnAnswer(_this2.props.id, "downvote");
-            } },
-          "Downvote"
+          downvoteText
         )
       );
     }

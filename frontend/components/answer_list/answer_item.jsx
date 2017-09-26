@@ -19,7 +19,7 @@ class AnswerItem extends React.Component {
       console.log("Need to load answers");
       return(<h1>Loading Answers</h1>);
     } else {
-      const {id, body, author, time_posted_ago, upvoter_ids} = answer;
+      const {id, body, author, time_posted_ago, upvoter_ids, upvoted, downvoted} = answer;
       return (
         <li className="answer-item">
           <div className="answer-header">
@@ -30,7 +30,7 @@ class AnswerItem extends React.Component {
             </div>
           </div>
           <div className="answer-body">{ReactHtmlParser(body)}</div>
-          <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids}/>
+          <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids} upvoted={upvoted} downvoted={downvoted}/>
         </li>
       );
     }

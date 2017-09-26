@@ -21,6 +21,14 @@ class Answer < ApplicationRecord
     get_likes.reject{|v| v.vote_scope}.map{|v| v.voter_id}
   end
 
+  def commentIds
+    self.comment_threads.map{|comment| comment.id}
+  end
+
+  def num_comments
+    self.comment_threads.count
+  end
+
   def num_upvotes
     get_likes.reject{|v| v.vote_scope}.count
   end

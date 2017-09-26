@@ -16,6 +16,9 @@ keywords ||= []
 
 json.match_score question.match_score(keywords)
 
+json.commentIds question.commentIds
+
+
 json.follower_ids question.follower_ids
 json.upvoter_ids question.upvoter_ids
 

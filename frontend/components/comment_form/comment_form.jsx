@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-
-
 class CommentForm extends React.Component {
   constructor(props) {
     super(props)
@@ -12,18 +9,19 @@ class CommentForm extends React.Component {
     this.successfulSubmit = this.successfulSubmit.bind(this);
   }
 
-  handleChange(value) {
-   this.setState({ text: value })
+  handleChange(e) {
+   this.setState({ text: e.currentTarget.value })
  }
 
  successfulSubmit({comment}) {
+   this.setState({text: ''})
   //  rerender or something?
   //  this.props.history.push(`/comments/${comment.id}`);
  }
 
 //need to add args here
  submitComment() {
-   this.props.createComment().then(
+   this.props.createComment(this.props.commentableClass, this.props.commentableId, this.state.text).then(
      this.successfulSubmit
    );
   }
@@ -32,7 +30,7 @@ class CommentForm extends React.Component {
     if (this.state.open) {
       return (
         <div className="comment-form">
-          <input onChange={handleChange}>{this.state.text}</input>
+          <input type="text" onChange={this.handleChange} value={this.state.text}></input>
           <button onClick={()=>this.submitComment()}>Submit</button>
         </div>
       );
@@ -45,6 +43,5 @@ class CommentForm extends React.Component {
   }
 
 }
-
 
 export default CommentForm;

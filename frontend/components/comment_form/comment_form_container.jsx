@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CommentForm from './answer_form';
+import CommentForm from './comment_form';
 
 import { withRouter } from 'react-router-dom';
 

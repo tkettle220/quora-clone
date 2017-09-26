@@ -50555,6 +50555,10 @@ var _comment_list_container = __webpack_require__(591);
 
 var _comment_list_container2 = _interopRequireDefault(_comment_list_container);
 
+var _comment_form_container = __webpack_require__(594);
+
+var _comment_form_container2 = _interopRequireDefault(_comment_form_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50598,7 +50602,8 @@ var AnswerItem = function (_React$Component) {
             time_posted_ago = answer.time_posted_ago,
             upvoter_ids = answer.upvoter_ids,
             upvoted = answer.upvoted,
-            downvoted = answer.downvoted;
+            downvoted = answer.downvoted,
+            commentIds = answer.commentIds;
 
         var answerBody = void 0;
         if (downvoted) {
@@ -50645,7 +50650,8 @@ var AnswerItem = function (_React$Component) {
             answerBody
           ),
           _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids, upvoted: upvoted, downvoted: downvoted }),
-          _react2.default.createElement(_comment_list_container2.default, { commentIds: [1, 2, 3, 4, 5, 6, 7], commentableId: id, type: "answer" })
+          _react2.default.createElement(_comment_form_container2.default, { commentableId: id, commentableClass: 'Answer' }),
+          _react2.default.createElement(_comment_list_container2.default, { commentIds: commentIds, commentableId: id, type: "answer" })
         );
       }
     }
@@ -62019,6 +62025,146 @@ var CommentListItem = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = CommentListItem;
+
+/***/ }),
+/* 594 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(7);
+
+var _comment_form = __webpack_require__(595);
+
+var _comment_form2 = _interopRequireDefault(_comment_form);
+
+var _reactRouterDom = __webpack_require__(16);
+
+var _comment_actions = __webpack_require__(589);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    commentableId: ownProps.commentableId,
+    commentableClass: ownProps.commentableClass
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createComment: function createComment(commentableClass, commentableId, body) {
+      return dispatch((0, _comment_actions.createComment)(commentableClass, commentableId, body));
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_comment_form2.default));
+
+/***/ }),
+/* 595 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CommentForm = function (_React$Component) {
+  _inherits(CommentForm, _React$Component);
+
+  function CommentForm(props) {
+    _classCallCheck(this, CommentForm);
+
+    var _this = _possibleConstructorReturn(this, (CommentForm.__proto__ || Object.getPrototypeOf(CommentForm)).call(this, props));
+
+    _this.state = { text: '', open: false };
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.submitComment = _this.submitComment.bind(_this);
+    _this.successfulSubmit = _this.successfulSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(CommentForm, [{
+    key: 'handleChange',
+    value: function handleChange(e) {
+      this.setState({ text: e.currentTarget.value });
+    }
+  }, {
+    key: 'successfulSubmit',
+    value: function successfulSubmit(_ref) {
+      var comment = _ref.comment;
+
+      this.setState({ text: '' });
+      //  rerender or something?
+      //  this.props.history.push(`/comments/${comment.id}`);
+    }
+
+    //need to add args here
+
+  }, {
+    key: 'submitComment',
+    value: function submitComment() {
+      this.props.createComment(this.props.commentableClass, this.props.commentableId, this.state.text).then(this.successfulSubmit);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      if (this.state.open) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'comment-form' },
+          _react2.default.createElement('input', { type: 'text', onChange: this.handleChange, value: this.state.text }),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this2.submitComment();
+              } },
+            'Submit'
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this2.setState({ open: true });
+            } },
+          'Comment'
+        );
+      }
+    }
+  }]);
+
+  return CommentForm;
+}(_react2.default.Component);
+
+exports.default = CommentForm;
 
 /***/ })
 /******/ ]);

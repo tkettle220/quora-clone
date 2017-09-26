@@ -24,8 +24,9 @@ class AnswerForm extends React.Component {
     return (
       <div className="answer-form">
         <ReactQuill value={this.state.text}
-          onChange={this.handleChange}
-          modules={modules}/>
+                    onChange={this.handleChange}
+                    modules={modules}
+                    placeholder={"Write your answer"}/>
         <button onClick={()=>this.submitAnswer()}>Submit</button>
       </div>
     );

@@ -8,9 +8,11 @@ import { fetchQuestion, voteOnQuestion, followQuestion, unfollowQuestion } from 
 const mapStateToProps = (state, {match}) => {
   const questionId = parseInt(match.params.questionId);
   const question = selectQuestion(state, match.params.questionId);
+  const tags = question.tags;
   return {
     questionId,
-    question
+    question,
+    tags
   }
 };
 

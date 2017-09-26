@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import AnswerFormContainer from '../answer_form/answer_form_container';
+
 class QuestionListItem extends React.Component {
   constructor(props) {
     super(props)
@@ -15,7 +17,7 @@ class QuestionListItem extends React.Component {
         <h1>Loading!</h1>
       );
     } else {
-      const { body, time_posted_ago, topic, num_answers } = question;
+      const { id, body, time_posted_ago, topic, num_answers } = question;
       let questionHead;
       if(topic) {
         questionHead = [<h3>Question asked · {topic.name} · {time_posted_ago}</h3>];
@@ -28,6 +30,7 @@ class QuestionListItem extends React.Component {
           <Link to={`/questions/${question.id}`} activeClassName="active">{body}</Link>
 
           <h3>Last asked {time_posted_ago} · {num_answers}</h3>
+          <AnswerFormContainer questionId={id}/>
         </li>
       );
     }

@@ -44399,7 +44399,8 @@ var AnswerForm = function (_React$Component) {
         { className: 'answer-form' },
         _react2.default.createElement(_reactQuill2.default, { value: this.state.text,
           onChange: this.handleChange,
-          modules: modules }),
+          modules: modules,
+          placeholder: "Write your answer" }),
         _react2.default.createElement(
           'button',
           { onClick: function onClick() {
@@ -52041,9 +52042,11 @@ var mapStateToProps = function mapStateToProps(state, _ref) {
 
   var questionId = parseInt(match.params.questionId);
   var question = (0, _selectors.selectQuestion)(state, match.params.questionId);
+  var tags = question.tags;
   return {
     questionId: questionId,
-    question: question
+    question: question,
+    tags: tags
   };
 };
 
@@ -52209,7 +52212,8 @@ var QuestionDetailItem = function (_React$Component) {
       var id = question.id,
           body = question.body,
           follower_ids = question.follower_ids,
-          answer_ids = question.answer_ids;
+          answer_ids = question.answer_ids,
+          tags = question.tags;
 
       var answerItems = answer_ids.map(function (id) {
         return _react2.default.createElement(_answer_item_container2.default, {
@@ -52234,27 +52238,26 @@ var QuestionDetailItem = function (_React$Component) {
           _react2.default.createElement(_answer_form_container2.default, { questionId: id })
         );
       } else {
+        var tagItems = tags.map(function (tag) {
+          return _react2.default.createElement(
+            'li',
+            null,
+            tag
+          );
+        });
         return _react2.default.createElement(
           'div',
           { className: 'question-detail-item' },
           _react2.default.createElement(
+            'ul',
+            null,
+            'Tags:',
+            tagItems
+          ),
+          _react2.default.createElement(
             'h2',
             { className: 'question-header' },
             body
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return voteOnQuestion(id, "downvote");
-              } },
-            'Downvote'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return voteOnQuestion(id, "cancel_vote");
-              } },
-            'Cancel Downvote'
           ),
           _react2.default.createElement(
             'button',
@@ -52271,7 +52274,21 @@ var QuestionDetailItem = function (_React$Component) {
               } },
             'Unfollow'
           ),
-          _react2.default.createElement(_answer_form_container2.default, { questionId: id }),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return voteOnQuestion(id, "downvote");
+              } },
+            'Downvote'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return voteOnQuestion(id, "cancel_vote");
+              } },
+            'Cancel Downvote'
+          ),
+          _react2.default.createElement(_answer_form_container2.default, { id: id }),
           _react2.default.createElement(
             'ul',
             { className: 'answer-list' },
@@ -52426,6 +52443,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(21);
 
+var _answer_form_container = __webpack_require__(166);
+
+var _answer_form_container2 = _interopRequireDefault(_answer_form_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -52457,7 +52478,8 @@ var QuestionListItem = function (_React$Component) {
           'Loading!'
         );
       } else {
-        var body = question.body,
+        var id = question.id,
+            body = question.body,
             time_posted_ago = question.time_posted_ago,
             topic = question.topic,
             num_answers = question.num_answers;
@@ -52496,7 +52518,8 @@ var QuestionListItem = function (_React$Component) {
             time_posted_ago,
             ' \xB7 ',
             num_answers
-          )
+          ),
+          _react2.default.createElement(_answer_form_container2.default, { questionId: id })
         );
       }
     }

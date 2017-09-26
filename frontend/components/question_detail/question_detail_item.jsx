@@ -10,7 +10,7 @@ class QuestionDetailItem extends React.Component {
 
   render () {
     const { question, voteOnQuestion, followQuestion, unfollowQuestion } = this.props;
-    const { id, body, follower_ids, answer_ids} = question;
+    const { id, body, follower_ids, answer_ids, tags} = question;
     const answerItems = answer_ids.map(id => (
       <AnswerItemContainer
         key={ "answer-" + id }
@@ -27,15 +27,21 @@ class QuestionDetailItem extends React.Component {
         </div>
       );
     } else {
+      const tagItems = tags.map(tag => <li>{tag}</li>);
       return (
         <div className="question-detail-item">
+          <ul>
+            Tags:
+            {tagItems}
+          </ul>
           <h2 className="question-header">{body}</h2>
+            <button onClick={()=>followQuestion(id)}>Follow {follower_ids}</button>
+            <button onClick={()=>unfollowQuestion(id)}>Unfollow</button>
             <button onClick={()=>voteOnQuestion(id, "downvote")}>Downvote
             </button>
             <button onClick={()=>voteOnQuestion(id, "cancel_vote")}>Cancel Downvote</button>
-            <button onClick={()=>followQuestion(id)}>Follow {follower_ids}</button>
-            <button onClick={()=>unfollowQuestion(id)}>Unfollow</button>
-            <AnswerFormContainer questionId={id} />
+
+            <AnswerFormContainer id={id} />
           <ul className="answer-list">{answerItems}</ul>
         </div>
       )

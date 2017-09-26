@@ -9,6 +9,7 @@ json.time_posted_ago question.time_posted_ago
 json.answer_ids question.answers.map{|answer| answer.id}
 
 json.topic question.topics.first
+json.tags question.topics.map{|topic| topic.name}
 
 json.num_answers question.num_answers_str
 keywords ||= []

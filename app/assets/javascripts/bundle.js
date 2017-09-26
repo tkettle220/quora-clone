@@ -44274,7 +44274,7 @@ var AnswerVoteButton = function (_React$Component) {
           this.setState({ upvoted: false });
         } else {
           this.props.voteOnAnswer(this.props.id, "upvote");
-          this.setState({ upvoted: true });
+          this.setState({ upvoted: true, downvoted: false });
         }
       } else {
         if (this.state.downvoted) {
@@ -44282,7 +44282,7 @@ var AnswerVoteButton = function (_React$Component) {
           this.setState({ downvoted: false });
         } else {
           this.props.voteOnAnswer(this.props.id, "downvote");
-          this.setState({ downvoted: true });
+          this.setState({ downvoted: true, upvoted: false });
         }
       }
     }

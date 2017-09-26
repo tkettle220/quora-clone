@@ -6,7 +6,9 @@ import { followTopic, unfollowTopic } from '../../actions/topic_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.id,
-  followerIds: ownProps.followerIds
+  followerIds: ownProps.followerIds,
+  followed: ownProps.followed
+
 });
 
 const mapDispatchToProps = dispatch => ({

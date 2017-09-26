@@ -120,6 +120,10 @@ class User < ApplicationRecord
     self.voted_down_on? entity
   end
 
+  def followed?(entity)
+    self.voted_on? entity, vote_scope: 'follow'
+  end
+
 
 
 

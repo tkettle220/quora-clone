@@ -10,7 +10,7 @@ const mapStateToProps = (state, {match}) => {
   const topic = selectDetailTopic(state, match.params.topicId);
   return {
     topicId,
-    topic,
+    topic
   }
 };
 

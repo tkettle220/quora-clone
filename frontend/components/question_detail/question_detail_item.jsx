@@ -2,6 +2,8 @@ import React from 'react';
 
 import AnswerItemContainer from '../answer_list/answer_item_container';
 import AnswerFormContainer from '../answer_form/answer_form_container';
+import QuestionButtonsContainer from '../question_buttons/question_buttons_container';
+
 
 class QuestionDetailItem extends React.Component {
   constructor(props) {
@@ -9,8 +11,8 @@ class QuestionDetailItem extends React.Component {
   }
 
   render () {
-    const { question, voteOnQuestion, followQuestion, unfollowQuestion } = this.props;
-    const { id, body, follower_ids, answer_ids, tags} = question;
+    const { question, voteOnQuestion } = this.props;
+    const { id, body, follower_ids, answer_ids, tags, followed} = question;
     const answerItems = answer_ids.map(id => (
       <AnswerItemContainer
         key={ "answer-" + id }
@@ -35,8 +37,7 @@ class QuestionDetailItem extends React.Component {
             {tagItems}
           </ul>
           <h2 className="question-header">{body}</h2>
-            <button onClick={()=>followQuestion(id)}>Follow {follower_ids}</button>
-            <button onClick={()=>unfollowQuestion(id)}>Unfollow</button>
+            <QuestionButtonsContainer id={id} followerIds={follower_ids} followed={followed}/>
             <button onClick={()=>voteOnQuestion(id, "downvote")}>Downvote
             </button>
             <button onClick={()=>voteOnQuestion(id, "cancel_vote")}>Cancel Downvote</button>

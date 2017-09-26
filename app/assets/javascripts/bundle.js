@@ -51959,7 +51959,8 @@ var TopicDetailItem = function (_React$Component) {
           description = topic.description,
           num_followers = topic.num_followers,
           question_ids = topic.question_ids,
-          follower_ids = topic.follower_ids;
+          follower_ids = topic.follower_ids,
+          followed = topic.followed;
 
 
       var questionItems = question_ids.map(function (id) {
@@ -51982,7 +51983,7 @@ var TopicDetailItem = function (_React$Component) {
             description
           )
         ),
-        _react2.default.createElement(_follow_topic_button_container2.default, { id: id, followerIds: follower_ids }),
+        _react2.default.createElement(_follow_topic_button_container2.default, { id: id, followerIds: follower_ids, followed: followed }),
         _react2.default.createElement(
           'ul',
           { className: 'question-list' },
@@ -52021,7 +52022,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     id: ownProps.id,
-    followerIds: ownProps.followerIds
+    followerIds: ownProps.followerIds,
+    followed: ownProps.followed
+
   };
 };
 
@@ -52302,6 +52305,10 @@ var _answer_form_container = __webpack_require__(166);
 
 var _answer_form_container2 = _interopRequireDefault(_answer_form_container);
 
+var _question_buttons_container = __webpack_require__(586);
+
+var _question_buttons_container2 = _interopRequireDefault(_question_buttons_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -52324,14 +52331,13 @@ var QuestionDetailItem = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           question = _props.question,
-          voteOnQuestion = _props.voteOnQuestion,
-          followQuestion = _props.followQuestion,
-          unfollowQuestion = _props.unfollowQuestion;
+          voteOnQuestion = _props.voteOnQuestion;
       var id = question.id,
           body = question.body,
           follower_ids = question.follower_ids,
           answer_ids = question.answer_ids,
-          tags = question.tags;
+          tags = question.tags,
+          followed = question.followed;
 
       var answerItems = answer_ids.map(function (id) {
         return _react2.default.createElement(_answer_item_container2.default, {
@@ -52377,21 +52383,7 @@ var QuestionDetailItem = function (_React$Component) {
             { className: 'question-header' },
             body
           ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return followQuestion(id);
-              } },
-            'Follow ',
-            follower_ids
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return unfollowQuestion(id);
-              } },
-            'Unfollow'
-          ),
+          _react2.default.createElement(_question_buttons_container2.default, { id: id, followerIds: follower_ids, followed: followed }),
           _react2.default.createElement(
             'button',
             { onClick: function onClick() {
@@ -61409,6 +61401,141 @@ var AnswerDetail = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = AnswerDetail;
+
+/***/ }),
+/* 586 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(9);
+
+var _question_buttons = __webpack_require__(587);
+
+var _question_buttons2 = _interopRequireDefault(_question_buttons);
+
+var _question_actions = __webpack_require__(19);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    id: ownProps.id,
+    followerIds: ownProps.followerIds
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    followQuestion: function followQuestion(id) {
+      return dispatch((0, _question_actions.followQuestion)(id));
+    },
+    unfollowQuestion: function unfollowQuestion(id) {
+      return dispatch((0, _question_actions.unfollowQuestion)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_question_buttons2.default);
+
+/***/ }),
+/* 587 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestionButtons = function (_React$Component) {
+  _inherits(QuestionButtons, _React$Component);
+
+  function QuestionButtons(props) {
+    _classCallCheck(this, QuestionButtons);
+
+    var _this = _possibleConstructorReturn(this, (QuestionButtons.__proto__ || Object.getPrototypeOf(QuestionButtons)).call(this, props));
+
+    _this.state = {
+      followed: false
+    };
+    _this.handleClick = _this.handleClick.bind(_this);
+    return _this;
+  }
+
+  _createClass(QuestionButtons, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (this.props.followed) {
+        this.setState({ followed: true });
+      }
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick() {
+      if (this.state.followed) {
+        this.props.followQuestion(this.props.id);
+        this.setState({ followed: false });
+      } else {
+        this.props.unfollowQuestion(this.props.id);
+        this.setState({ followed: true });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var followText = "Follow";
+      if (this.state.followed) {
+        followText = "Following Question";
+      }
+      return _react2.default.createElement(
+        "div",
+        { className: "follow-topic-button" },
+        _react2.default.createElement(
+          "button",
+          { onClick: this.handleClick },
+          _react2.default.createElement(
+            "div",
+            null,
+            followText
+          ),
+          _react2.default.createElement(
+            "div",
+            null,
+            this.props.followerIds.length
+          )
+        )
+      );
+    }
+  }]);
+
+  return QuestionButtons;
+}(_react2.default.Component);
+
+exports.default = QuestionButtons;
 
 /***/ })
 /******/ ]);

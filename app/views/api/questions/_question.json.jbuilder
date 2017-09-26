@@ -18,3 +18,5 @@ json.match_score question.match_score(keywords)
 
 json.follower_ids question.follower_ids
 json.upvoter_ids question.upvoter_ids
+
+json.followed current_user.followed?(question)

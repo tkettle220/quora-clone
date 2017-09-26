@@ -15561,6 +15561,8 @@ var _answer_form = __webpack_require__(351);
 
 var _answer_form2 = _interopRequireDefault(_answer_form);
 
+var _reactRouterDom = __webpack_require__(21);
+
 var _answer_actions = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -15582,7 +15584,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_answer_form2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_answer_form2.default));
 
 /***/ }),
 /* 167 */
@@ -43406,6 +43408,10 @@ var _question_list_container = __webpack_require__(473);
 
 var _question_list_container2 = _interopRequireDefault(_question_list_container);
 
+var _answer_detail_container = __webpack_require__(584);
+
+var _answer_detail_container2 = _interopRequireDefault(_answer_detail_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -43433,6 +43439,7 @@ var App = function App() {
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _topic_list_container2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { path: '/topics/:topicId', component: _topic_detail_container2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { path: '/questions/:questionId', component: _question_detail_container2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/answers/:answerId', component: _answer_detail_container2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/questions', component: _question_list_container2.default })
         )
       )
@@ -44372,9 +44379,10 @@ var AnswerForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (AnswerForm.__proto__ || Object.getPrototypeOf(AnswerForm)).call(this, props));
 
-    _this.state = { text: '' };
+    _this.state = { text: '', open: false };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.submitAnswer = _this.submitAnswer.bind(_this);
+    _this.successfulSubmit = _this.successfulSubmit.bind(_this);
     return _this;
   }
 
@@ -44384,31 +44392,48 @@ var AnswerForm = function (_React$Component) {
       this.setState({ text: value });
     }
   }, {
+    key: 'successfulSubmit',
+    value: function successfulSubmit(_ref) {
+      var answer = _ref.answer;
+
+      debugger;
+      this.props.history.push('/answers/' + answer.id);
+    }
+  }, {
     key: 'submitAnswer',
     value: function submitAnswer() {
-      this.props.createAnswer(this.state.text, this.props.questionId);
-      //should then take you to the show page for the answer you just created
+      this.props.createAnswer(this.state.text, this.props.questionId).then(this.successfulSubmit);
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'answer-form' },
-        _react2.default.createElement(_reactQuill2.default, { value: this.state.text,
-          onChange: this.handleChange,
-          modules: modules,
-          placeholder: "Write your answer" }),
-        _react2.default.createElement(
+      if (this.state.open) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'answer-form' },
+          _react2.default.createElement(_reactQuill2.default, { value: this.state.text,
+            onChange: this.handleChange,
+            modules: modules,
+            placeholder: "Write your answer" }),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this2.submitAnswer();
+              } },
+            'Submit'
+          )
+        );
+      } else {
+        return _react2.default.createElement(
           'button',
           { onClick: function onClick() {
-              return _this2.submitAnswer();
+              return _this2.setState({ open: true });
             } },
-          'Submit'
-        )
-      );
+          'Answer'
+        );
+      }
     }
   }]);
 
@@ -61124,6 +61149,173 @@ function HtmlParser(html) {
   var nodes = _htmlparser2.default.parseDOM(html, { decodeEntities: decodeEntities });
   return (0, _processNodes2.default)(nodes, transform);
 }
+
+/***/ }),
+/* 584 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(9);
+
+var _selectors = __webpack_require__(22);
+
+var _answer_detail = __webpack_require__(585);
+
+var _answer_detail2 = _interopRequireDefault(_answer_detail);
+
+var _answer_actions = __webpack_require__(35);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, _ref) {
+  var match = _ref.match;
+
+  var id = parseInt(match.params.answerId);
+  var answer = (0, _selectors.selectAnswer)(state, match.params.answerId);
+  return {
+    id: id,
+    answer: answer
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestAnswer: function requestAnswer(id) {
+      return dispatch((0, _answer_actions.fetchAnswer)(id));
+    },
+    voteOnAnswer: function voteOnAnswer(id, type) {
+      return dispatch((0, _answer_actions.voteOnAnswer)(id, type));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_answer_detail2.default);
+
+/***/ }),
+/* 585 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHtmlParser = __webpack_require__(539);
+
+var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+
+var _reactRouterDom = __webpack_require__(21);
+
+var _answer_vote_button_container = __webpack_require__(348);
+
+var _answer_vote_button_container2 = _interopRequireDefault(_answer_vote_button_container);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AnswerDetail = function (_React$Component) {
+  _inherits(AnswerDetail, _React$Component);
+
+  function AnswerDetail(props) {
+    _classCallCheck(this, AnswerDetail);
+
+    return _possibleConstructorReturn(this, (AnswerDetail.__proto__ || Object.getPrototypeOf(AnswerDetail)).call(this, props));
+  }
+
+  _createClass(AnswerDetail, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.requestAnswer(this.props.id);
+      window.scrollTo(0, 0);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          answer = _props.answer,
+          voteOnAnswer = _props.voteOnAnswer;
+
+
+      if (Object.keys(answer).length === 0) {
+        console.log("Need to load answers");
+        return _react2.default.createElement(
+          'h1',
+          null,
+          'Loading Answers'
+        );
+      } else {
+        var id = answer.id,
+            body = answer.body,
+            author = answer.author,
+            time_posted_ago = answer.time_posted_ago,
+            upvoter_ids = answer.upvoter_ids,
+            question = answer.question;
+
+        return _react2.default.createElement(
+          'div',
+          { className: 'answer-detail-view' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/questions/' + question.id, activeClassName: 'active' },
+            question.body
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'answer-header' },
+            _react2.default.createElement('img', { src: author.pro_pic_url, alt: author.name + '\'s picture', className: 'answerer-pro-pic' }),
+            _react2.default.createElement(
+              'div',
+              { className: 'answer-details' },
+              _react2.default.createElement(
+                'h1',
+                null,
+                author.name
+              ),
+              _react2.default.createElement(
+                'h2',
+                null,
+                'Answered ',
+                time_posted_ago
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'answer-body' },
+            (0, _reactHtmlParser2.default)(body)
+          ),
+          _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids })
+        );
+      }
+    }
+  }]);
+
+  return AnswerDetail;
+}(_react2.default.Component);
+
+exports.default = AnswerDetail;
 
 /***/ })
 /******/ ]);

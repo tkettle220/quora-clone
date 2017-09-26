@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import AnswerForm from './answer_form';
 
+import { withRouter } from 'react-router-dom';
+
 // Actions
 import { createAnswer } from '../../actions/answer_actions';
 
@@ -12,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
   createAnswer: (body, questionId) => dispatch(createAnswer(body, questionId))
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(AnswerForm);
+)(AnswerForm));

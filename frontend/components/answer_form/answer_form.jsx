@@ -6,30 +6,44 @@ import ReactQuill from 'react-quill';
 class AnswerForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { text: '' };
+    this.state = { text: '', open: false };
     this.handleChange = this.handleChange.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
+    this.successfulSubmit = this.successfulSubmit.bind(this);
   }
 
   handleChange(value) {
    this.setState({ text: value })
  }
 
- submitAnswer() {
-   this.props.createAnswer(this.state.text, this.props.questionId);
-   //should then take you to the show page for the answer you just created
+ successfulSubmit({answer}) {
+   debugger
+   this.props.history.push(`/answers/${answer.id}`);
  }
 
+ submitAnswer() {
+   this.props.createAnswer(this.state.text, this.props.questionId).then(
+     this.successfulSubmit
+   );
+  }
+
   render () {
-    return (
-      <div className="answer-form">
-        <ReactQuill value={this.state.text}
-                    onChange={this.handleChange}
-                    modules={modules}
-                    placeholder={"Write your answer"}/>
-        <button onClick={()=>this.submitAnswer()}>Submit</button>
-      </div>
-    );
+    if (this.state.open) {
+      return (
+        <div className="answer-form">
+          <ReactQuill value={this.state.text}
+                      onChange={this.handleChange}
+                      modules={modules}
+                      placeholder={"Write your answer"}/>
+          <button onClick={()=>this.submitAnswer()}>Submit</button>
+        </div>
+      );
+    } else {
+      return (
+        <button onClick={()=>this.setState({open: true})}>Answer</button>
+      );
+    }
+
   }
 
 }

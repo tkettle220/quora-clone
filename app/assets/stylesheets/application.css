@@ -495,6 +495,10 @@ label[for="user_login"] {
   left: 0;
 }
 
+.ql-editor {
+  min-height: 150px;
+}
+
 /*Fix sizing for small screens*/
 @media (max-width: 1075px) {
   .main-col {

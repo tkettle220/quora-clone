@@ -35,8 +35,12 @@ class Api::AnswersController < ApplicationController
     @answer = Answer.new(answer_params)
     @answer.author = current_user
     @answer.question_id = params[:question_id]
-    @answer.save
-    render :show
+    if @answer.save
+      render :show
+      return
+    else
+      render json: @answer.errors.full_messages, status: 422
+    end
   end
 
   def vote

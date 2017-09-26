@@ -10,6 +10,7 @@ import FeedSidebarContainer from './feed_sidebar/feed_sidebar_container';
 import TopicDetailContainer from './topic_detail/topic_detail_container';
 import QuestionDetailContainer from './question_detail/question_detail_container';
 import QuestionListContainer from './question_list/question_list_container';
+import AnswerDetailContainer from './answer_detail/answer_detail_container';
 
 
 const App = () => (
@@ -27,6 +28,7 @@ const App = () => (
           <Route exact path="/" component={TopicListContainer} />
           <Route path="/topics/:topicId" component={TopicDetailContainer} />
           <Route path="/questions/:questionId" component={QuestionDetailContainer} />
+          <Route path="/answers/:answerId" component={AnswerDetailContainer} />
           <Route exact path="/questions" component={QuestionListContainer} />
 
         </div>

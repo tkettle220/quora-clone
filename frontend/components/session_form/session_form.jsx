@@ -24,7 +24,7 @@ class SessionForm extends React.Component {
 
   componentWillMount() {
     if (this.props.loggedIn) {
-      this.props.history.push('/')
+      this.props.history.push('/');
     }
   }
 

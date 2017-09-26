@@ -38,9 +38,7 @@ class QuestionDetailItem extends React.Component {
           </ul>
           <h2 className="question-header">{body}</h2>
             <QuestionButtonsContainer id={id} followerIds={follower_ids} followed={followed}/>
-            <button onClick={()=>voteOnQuestion(id, "downvote")}>Downvote
-            </button>
-            <button onClick={()=>voteOnQuestion(id, "cancel_vote")}>Cancel Downvote</button>
+
 
             <AnswerFormContainer id={id} />
           <ul className="answer-list">{answerItems}</ul>

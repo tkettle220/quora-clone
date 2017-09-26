@@ -52384,20 +52384,6 @@ var QuestionDetailItem = function (_React$Component) {
             body
           ),
           _react2.default.createElement(_question_buttons_container2.default, { id: id, followerIds: follower_ids, followed: followed }),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return voteOnQuestion(id, "downvote");
-              } },
-            'Downvote'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return voteOnQuestion(id, "cancel_vote");
-              } },
-            'Cancel Downvote'
-          ),
           _react2.default.createElement(_answer_form_container2.default, { id: id }),
           _react2.default.createElement(
             'ul',
@@ -61440,6 +61426,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     unfollowQuestion: function unfollowQuestion(id) {
       return dispatch((0, _question_actions.unfollowQuestion)(id));
+    },
+    voteOnQuestion: function voteOnQuestion(id, type) {
+      return dispatch((0, _question_actions.voteOnQuestion)(id, type));
     }
   };
 };
@@ -61480,9 +61469,11 @@ var QuestionButtons = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (QuestionButtons.__proto__ || Object.getPrototypeOf(QuestionButtons)).call(this, props));
 
     _this.state = {
-      followed: false
+      followed: false,
+      downvoted: false
     };
     _this.handleClick = _this.handleClick.bind(_this);
+    _this.handleDownvote = _this.handleDownvote.bind(_this);
     return _this;
   }
 
@@ -61492,24 +61483,47 @@ var QuestionButtons = function (_React$Component) {
       if (this.props.followed) {
         this.setState({ followed: true });
       }
+      if (this.props.downvoted) {
+        this.setState({ downvoted: true });
+      }
     }
   }, {
     key: "handleClick",
     value: function handleClick() {
       if (this.state.followed) {
-        this.props.followQuestion(this.props.id);
+        this.props.unfollowQuestion(this.props.id);
         this.setState({ followed: false });
       } else {
-        this.props.unfollowQuestion(this.props.id);
+        this.props.followQuestion(this.props.id);
         this.setState({ followed: true });
+      }
+    }
+
+    //Extra feature: downvoting gives a popup that says the question has been downvoted and will be shown to fewer people
+
+  }, {
+    key: "handleDownvote",
+    value: function handleDownvote() {
+      if (this.state.downvoted) {
+        this.props.voteOnQuestion(this.props.id, "cancel_vote");
+        this.setState({ downvoted: false });
+      } else {
+        this.props.voteOnQuestion(this.props.id, "downvote");
+        this.setState({ downvoted: true });
       }
     }
   }, {
     key: "render",
     value: function render() {
       var followText = "Follow";
+      var downvoteText = "Downvote";
+
       if (this.state.followed) {
         followText = "Following Question";
+      }
+
+      if (this.state.downvoted) {
+        downvoteText = "Downvoted (undo)";
       }
       return _react2.default.createElement(
         "div",
@@ -61527,6 +61541,11 @@ var QuestionButtons = function (_React$Component) {
             null,
             this.props.followerIds.length
           )
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: this.handleDownvote },
+          downvoteText
         )
       );
     }

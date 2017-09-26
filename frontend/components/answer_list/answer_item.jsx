@@ -20,6 +20,12 @@ class AnswerItem extends React.Component {
       return(<h1>Loading Answers</h1>);
     } else {
       const {id, body, author, time_posted_ago, upvoter_ids, upvoted, downvoted} = answer;
+      let answerBody;
+      if(downvoted) {
+        answerBody = <div><h2></h2>You downvoted this answer.<h3>Downvoting low-quality content improves Quora for everyone.</h3></div>
+      } else {
+        answerBody = ReactHtmlParser(body)
+      }
       return (
         <li className="answer-item">
           <div className="answer-header">
@@ -29,7 +35,7 @@ class AnswerItem extends React.Component {
               <h2>Answered {time_posted_ago}</h2>
             </div>
           </div>
-          <div className="answer-body">{ReactHtmlParser(body)}</div>
+          <div className="answer-body">{answerBody}</div>
           <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids} upvoted={upvoted} downvoted={downvoted}/>
         </li>
       );

@@ -44132,6 +44132,22 @@ var AnswerItem = function (_React$Component) {
             upvoted = answer.upvoted,
             downvoted = answer.downvoted;
 
+        var answerBody = void 0;
+        if (downvoted) {
+          answerBody = _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement('h2', null),
+            'You downvoted this answer.',
+            _react2.default.createElement(
+              'h3',
+              null,
+              'Downvoting low-quality content improves Quora for everyone.'
+            )
+          );
+        } else {
+          answerBody = (0, _reactHtmlParser2.default)(body);
+        }
         return _react2.default.createElement(
           'li',
           { className: 'answer-item' },
@@ -44158,7 +44174,7 @@ var AnswerItem = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'answer-body' },
-            (0, _reactHtmlParser2.default)(body)
+            answerBody
           ),
           _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids, upvoted: upvoted, downvoted: downvoted })
         );
@@ -52056,31 +52072,56 @@ var FollowTopicButton = function (_React$Component) {
   function FollowTopicButton(props) {
     _classCallCheck(this, FollowTopicButton);
 
-    return _possibleConstructorReturn(this, (FollowTopicButton.__proto__ || Object.getPrototypeOf(FollowTopicButton)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (FollowTopicButton.__proto__ || Object.getPrototypeOf(FollowTopicButton)).call(this, props));
+
+    _this.state = {
+      followed: false
+    };
+    _this.handleClick = _this.handleClick.bind(_this);
+    return _this;
   }
 
   _createClass(FollowTopicButton, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (this.props.followed) {
+        this.setState({ followed: true });
+      }
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick() {
+      if (this.state.followed) {
+        this.props.followTopic(this.props.id);
+        this.setState({ followed: false });
+      } else {
+        this.props.unfollowTopic(this.props.id);
+        this.setState({ followed: true });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
+      var followText = "Follow";
+      if (this.state.followed) {
+        followText = "Following Topic";
+      }
       return _react2.default.createElement(
         "div",
         { className: "follow-topic-button" },
         _react2.default.createElement(
           "button",
-          { onClick: function onClick() {
-              return _this2.props.followTopic(_this2.props.id);
-            } },
-          "Follow ",
-          this.props.followerIds
-        ),
-        _react2.default.createElement(
-          "button",
-          { onClick: function onClick() {
-              return _this2.props.unfollowTopic(_this2.props.id);
-            } },
-          "Unfollow"
+          { onClick: this.handleClick },
+          _react2.default.createElement(
+            "div",
+            null,
+            followText
+          ),
+          _react2.default.createElement(
+            "div",
+            null,
+            this.props.followerIds.length
+          )
         )
       );
     }

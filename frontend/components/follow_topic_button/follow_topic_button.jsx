@@ -6,25 +6,28 @@ class FollowTopicButton extends React.Component {
     super(props)
     this.state = {
       followed: false,
+      disabled: false
     }
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillMount() {
-    debugger
     if(this.props.followed) {
       this.setState({followed: true});
     }
   }
 
+  handleSuccess(followed) {
+    this.setState({followed: followed, disabled: false});
+  }
+
 
   handleClick() {
+    this.setState({disabled: true})
     if(this.state.followed) {
-      this.props.unfollowTopic(this.props.id);
-      this.setState({followed: false});
+      this.props.unfollowTopic(this.props.id).then(()=>this.handleSuccess(false));
     } else {
-      this.props.followTopic(this.props.id);
-      this.setState({followed: true});
+      this.props.followTopic(this.props.id).then(()=>this.handleSuccess(true));
     }
   }
 
@@ -36,7 +39,7 @@ class FollowTopicButton extends React.Component {
     }
     return(
       <div className="follow-topic-button">
-        <button onClick={this.handleClick}>
+        <button onClick={this.handleClick} disabled={this.state.disabled}>
           <div>{followText}</div>
           <div>{this.props.followerIds.length}</div>
         </button>

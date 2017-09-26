@@ -55551,7 +55551,8 @@ var FollowTopicButton = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (FollowTopicButton.__proto__ || Object.getPrototypeOf(FollowTopicButton)).call(this, props));
 
     _this.state = {
-      followed: false
+      followed: false,
+      disabled: false
     };
     _this.handleClick = _this.handleClick.bind(_this);
     return _this;
@@ -55560,20 +55561,29 @@ var FollowTopicButton = function (_React$Component) {
   _createClass(FollowTopicButton, [{
     key: "componentWillMount",
     value: function componentWillMount() {
-      debugger;
       if (this.props.followed) {
         this.setState({ followed: true });
       }
     }
   }, {
+    key: "handleSuccess",
+    value: function handleSuccess(followed) {
+      this.setState({ followed: followed, disabled: false });
+    }
+  }, {
     key: "handleClick",
     value: function handleClick() {
+      var _this2 = this;
+
+      this.setState({ disabled: true });
       if (this.state.followed) {
-        this.props.unfollowTopic(this.props.id);
-        this.setState({ followed: false });
+        this.props.unfollowTopic(this.props.id).then(function () {
+          return _this2.handleSuccess(false);
+        });
       } else {
-        this.props.followTopic(this.props.id);
-        this.setState({ followed: true });
+        this.props.followTopic(this.props.id).then(function () {
+          return _this2.handleSuccess(true);
+        });
       }
     }
   }, {
@@ -55588,7 +55598,7 @@ var FollowTopicButton = function (_React$Component) {
         { className: "follow-topic-button" },
         _react2.default.createElement(
           "button",
-          { onClick: this.handleClick },
+          { onClick: this.handleClick, disabled: this.state.disabled },
           _react2.default.createElement(
             "div",
             null,

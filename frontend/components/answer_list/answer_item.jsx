@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactHtmlParser from 'react-html-parser';
 
 import AnswerVoteButtonContainer from '../answer_vote_button/answer_vote_button_container';
+
 
 class AnswerItem extends React.Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class AnswerItem extends React.Component {
               <h2>Answered {time_posted_ago}</h2>
             </div>
           </div>
-          <p className="answer-body">{body}</p>
+          <div className="answer-body">{ReactHtmlParser(body)}</div>
           <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids}/>
         </li>
       );

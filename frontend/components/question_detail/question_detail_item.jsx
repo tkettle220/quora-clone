@@ -1,6 +1,7 @@
 import React from 'react';
 
-import AnswerItemContainer from '../answer_list/answer_item_container'
+import AnswerItemContainer from '../answer_list/answer_item_container';
+import AnswerFormContainer from '../answer_form/answer_form_container';
 
 class QuestionDetailItem extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class QuestionDetailItem extends React.Component {
         <div className="question-detail-item">
           <h2 className="question-header">{body}</h2>
           <h3>No answers for this question written yet!</h3>
+          <AnswerFormContainer questionId={id} />
         </div>
       );
     } else {
@@ -33,6 +35,7 @@ class QuestionDetailItem extends React.Component {
             <button onClick={()=>voteOnQuestion(id, "cancel_vote")}>Cancel Downvote</button>
             <button onClick={()=>followQuestion(id)}>Follow {follower_ids}</button>
             <button onClick={()=>unfollowQuestion(id)}>Unfollow</button>
+            <AnswerFormContainer questionId={id} />
           <ul className="answer-list">{answerItems}</ul>
         </div>
       )

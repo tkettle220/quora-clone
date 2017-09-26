@@ -33,3 +33,16 @@ export const voteOnAnswer = (id, type) => (
     }
   })
 );
+
+export const createAnswer = (body, question_id) => (
+  $.ajax({
+    method: 'POST',
+    url: `api/answers`,
+    data: {
+      answer: {
+        body
+      },
+      question_id
+    }
+  })
+);

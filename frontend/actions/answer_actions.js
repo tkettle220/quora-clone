@@ -46,3 +46,9 @@ export const voteOnAnswer = (id, type) => dispatch => (
     answer=>(dispatch(updateAnswer(answer))
   ))
 );
+
+export const createAnswer = (body, questionId) => dispatch => (
+  APIUtil.createAnswer(body, questionId).then(
+    answer=>(dispatch(receiveAnswer(answer))
+  ))
+);

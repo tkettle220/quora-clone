@@ -11,6 +11,7 @@ class FollowTopicButton extends React.Component {
   }
 
   componentWillMount() {
+    debugger
     if(this.props.followed) {
       this.setState({followed: true});
     }
@@ -19,10 +20,10 @@ class FollowTopicButton extends React.Component {
 
   handleClick() {
     if(this.state.followed) {
-      this.props.followTopic(this.props.id);
+      this.props.unfollowTopic(this.props.id);
       this.setState({followed: false});
     } else {
-      this.props.unfollowTopic(this.props.id);
+      this.props.followTopic(this.props.id);
       this.setState({followed: true});
     }
   }

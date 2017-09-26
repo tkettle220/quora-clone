@@ -73,6 +73,11 @@ class User < ApplicationRecord
     through: :answered_questions,
     source: :topics
 
+  has_many :comments,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Comment
+
   acts_as_voter
   #I don't think there's an easy way to cancle a vote which is scoped, so follows are scoped, with a positive vote meaning follow, and a negative or nil vote meaning unfollowed.  Up and downvotes are not scoped, allowing us to use the built-in unliked by
   def follow(entity)

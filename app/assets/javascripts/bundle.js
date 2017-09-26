@@ -1936,10 +1936,21 @@ var selectAnswer = exports.selectAnswer = function selectAnswer(_ref7, id) {
    return answer;
 };
 
+var selectComments = exports.selectComments = function selectComments(_ref8, commentIds) {
+   var comments = _ref8.comments;
+
+   var allComments = Object.values(getState().comments);
+   var selectComments = allComments.filter(function (comment) {
+      return commentIds.includes(comment.id);
+   });
+
+   return selectComments;
+};
+
 //I filter here, since I might not have the query elsewhere
-var asSortedArray = exports.asSortedArray = function asSortedArray(_ref8) {
-   var searchQuestions = _ref8.searchQuestions,
-       filters = _ref8.filters;
+var asSortedArray = exports.asSortedArray = function asSortedArray(_ref9) {
+   var searchQuestions = _ref9.searchQuestions,
+       filters = _ref9.filters;
    var query = filters.query;
 
    var keywords = query.split(" ");
@@ -34766,6 +34777,7 @@ window.fetchAnswer = _answer_actions.fetchAnswer;
 window.updateFilter = _filter_actions.updateFilter;
 window.asSortedArray = _selectors.asSortedArray;
 window.createComment = _comment_actions.createComment;
+window.fetchComments = _comment_actions.fetchComments;
 // window.voteOnQuestion = voteOnQuestion;
 // window.followQuestion = followQuestion;
 // window.unfollowQuestion = unfollowQuestion;
@@ -61628,7 +61640,7 @@ exports.default = CommentsReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createComment = exports.voteOnComment = exports.fetchComment = exports.fetchUserComments = exports.fetchAnswerComments = exports.fetchQuestionComments = exports.updateComment = exports.receiveComment = exports.receiveComments = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = exports.RECEIVE_COMMENTS = undefined;
+exports.createComment = exports.voteOnComment = exports.fetchComment = exports.fetchComments = exports.updateComment = exports.receiveComment = exports.receiveComments = exports.UPDATE_COMMENT = exports.RECEIVE_COMMENT = exports.RECEIVE_COMMENTS = undefined;
 
 var _comment_api_util = __webpack_require__(590);
 
@@ -61661,31 +61673,33 @@ var updateComment = exports.updateComment = function updateComment(comment) {
   };
 };
 
-//fetches comments for a given question
-var fetchQuestionComments = exports.fetchQuestionComments = function fetchQuestionComments(question_id) {
+var fetchComments = exports.fetchComments = function fetchComments(id, type) {
   return function (dispatch) {
-    return APIUtil.fetchQuestionComments(question_id).then(function (comments) {
+    return APIUtil.fetchComments(id, type).then(function (comments) {
       return dispatch(receiveComments(comments));
     });
   };
 };
 
-var fetchAnswerComments = exports.fetchAnswerComments = function fetchAnswerComments(answer_id) {
-  return function (dispatch) {
-    return APIUtil.fetchAnswerComments(answer_id).then(function (comments) {
-      return dispatch(receiveComments(comments));
-    });
-  };
-};
-
-//fetches all of a users comments
-var fetchUserComments = exports.fetchUserComments = function fetchUserComments(user_id) {
-  return function (dispatch) {
-    return APIUtil.fetchUserComments(user_id).then(function (comments) {
-      return dispatch(receiveComments(comments));
-    });
-  };
-};
+// //fetches comments for a given question
+// export const fetchQuestionComments = (question_id) => dispatch => (
+//   APIUtil.fetchQuestionComments(question_id).then(
+//     comments=>(dispatch(receiveComments(comments))
+//   ))
+// );
+//
+// export const fetchAnswerComments = (answer_id) => dispatch => (
+//   APIUtil.fetchAnswerComments(answer_id).then(
+//     comments=>(dispatch(receiveComments(comments))
+//   ))
+// );
+//
+// //fetches all of a users comments
+// export const fetchUserComments = (user_id) => dispatch => (
+//   APIUtil.fetchUserComments(user_id).then(
+//     comments=>(dispatch(receiveComments(comments))
+//   ))
+// );
 
 var fetchComment = exports.fetchComment = function fetchComment(id) {
   return function (dispatch) {
@@ -61721,36 +61735,49 @@ var createComment = exports.createComment = function createComment(commentableCl
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//assumes fetching answers for a single question
-var fetchQuestionComments = exports.fetchQuestionComments = function fetchQuestionComments(question_id) {
+//fetches comments for different types of entities
+
+var fetchComments = exports.fetchComments = function fetchComments(id, type) {
   return $.ajax({
     method: 'GET',
     url: 'api/comments',
     data: {
-      question_id: question_id
+      id: id,
+      type: type
     }
   });
 };
 
-var fetchAnswerComments = exports.fetchAnswerComments = function fetchAnswerComments(answer_id) {
-  return $.ajax({
-    method: 'GET',
-    url: 'api/comments',
-    data: {
-      answer_id: answer_id
-    }
-  });
-};
-
-var fetchUserComments = exports.fetchUserComments = function fetchUserComments(user_id) {
-  return $.ajax({
-    method: 'GET',
-    url: 'api/comments',
-    data: {
-      user_id: user_id
-    }
-  });
-};
+// export const fetchQuestionComments = (question_id) => (
+//   $.ajax({
+//     method: 'GET',
+//     url: 'api/comments',
+//     data: {
+//       question_id
+//     }
+//   })
+// );
+//
+//
+// export const fetchAnswerComments = (answer_id) => (
+//   $.ajax({
+//     method: 'GET',
+//     url: 'api/comments',
+//     data: {
+//       answer_id
+//     }
+//   })
+// );
+//
+// export const fetchUserComments = (user_id) => (
+//   $.ajax({
+//     method: 'GET',
+//     url: 'api/comments',
+//     data: {
+//       user_id
+//     }
+//   })
+// );
 
 var fetchComment = exports.fetchComment = function fetchComment(id) {
   return $.ajax({

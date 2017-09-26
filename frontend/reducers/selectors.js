@@ -32,6 +32,13 @@ export const selectAnswer = ({ answers }, id) => {
    return answer
 };
 
+export const selectComments = ({ comments }, commentIds) => {
+   const allComments = Object.values(getState().comments)
+   const selectComments = allComments.filter((comment)=>commentIds.includes(comment.id))
+
+   return selectComments
+};
+
 //I filter here, since I might not have the query elsewhere
 export const asSortedArray = ({ searchQuestions, filters }) => {
   const {query} = filters;

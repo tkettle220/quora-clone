@@ -1,7 +1,7 @@
 json.extract! comment, :id, :body
 
 json.author do
-  json.partial! 'api/users/user', user: author
+  json.partial! 'api/users/user', user: comment.user
 end
 
 json.time_posted_ago comment.time_posted_ago

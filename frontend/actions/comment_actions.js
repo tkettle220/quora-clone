@@ -21,27 +21,33 @@ export const updateComment = comment => ({
   comment
 });
 
-//fetches comments for a given question
-export const fetchQuestionComments = (question_id) => dispatch => (
-  APIUtil.fetchQuestionComments(question_id).then(
-    comments=>(dispatch(receiveComments(comments))
-  ))
-);
 
-export const fetchAnswerComments = (answer_id) => dispatch => (
-  APIUtil.fetchAnswerComments(answer_id).then(
-    comments=>(dispatch(receiveComments(comments))
-  ))
-);
-
-//fetches all of a users comments
-export const fetchUserComments = (user_id) => dispatch => (
-  APIUtil.fetchUserComments(user_id).then(
+export const fetchComments = (id, type) => dispatch => (
+  APIUtil.fetchComments(id, type).then(
     comments=>(dispatch(receiveComments(comments))
   ))
 );
 
 
+// //fetches comments for a given question
+// export const fetchQuestionComments = (question_id) => dispatch => (
+//   APIUtil.fetchQuestionComments(question_id).then(
+//     comments=>(dispatch(receiveComments(comments))
+//   ))
+// );
+//
+// export const fetchAnswerComments = (answer_id) => dispatch => (
+//   APIUtil.fetchAnswerComments(answer_id).then(
+//     comments=>(dispatch(receiveComments(comments))
+//   ))
+// );
+//
+// //fetches all of a users comments
+// export const fetchUserComments = (user_id) => dispatch => (
+//   APIUtil.fetchUserComments(user_id).then(
+//     comments=>(dispatch(receiveComments(comments))
+//   ))
+// );
 
 export const fetchComment = id => dispatch => (
   APIUtil.fetchComment(id).then(

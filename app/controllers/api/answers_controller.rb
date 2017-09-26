@@ -20,7 +20,7 @@ class Api::AnswersController < ApplicationController
       end
       @answers = topic.answers.includes(:author)
     else
-      @answers = current_user.followed_topics.
+      @answers = current_user.answers
       render :index
     end
   end

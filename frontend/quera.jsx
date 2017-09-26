@@ -8,7 +8,7 @@ import {fetchQuestionAnswers, fetchAnswer} from './actions/answer_actions';
 import {receiveCurrentUser} from './actions/session_actions';
 import {updateFilter} from './actions/filter_actions';
 import {asSortedArray} from './reducers/selectors';
-import {createComment} from './actions/comment_actions';
+import {createComment, fetchComments} from './actions/comment_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
     if(window.currentUser === null) {
@@ -34,6 +34,7 @@ window.fetchAnswer = fetchAnswer;
 window.updateFilter = updateFilter;
 window.asSortedArray = asSortedArray;
 window.createComment = createComment;
+window.fetchComments = fetchComments;
 // window.voteOnQuestion = voteOnQuestion;
 // window.followQuestion = followQuestion;
 // window.unfollowQuestion = unfollowQuestion;

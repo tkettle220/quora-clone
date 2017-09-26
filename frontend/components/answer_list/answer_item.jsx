@@ -3,6 +3,9 @@ import ReactHtmlParser from 'react-html-parser';
 
 import AnswerVoteButtonContainer from '../answer_vote_button/answer_vote_button_container';
 
+import CommentListContainer from '../comment_list/comment_list_container';
+
+
 
 class AnswerItem extends React.Component {
   constructor(props) {
@@ -37,6 +40,7 @@ class AnswerItem extends React.Component {
           </div>
           <div className="answer-body">{answerBody}</div>
           <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids} upvoted={upvoted} downvoted={downvoted}/>
+          <CommentListContainer commentIds={[1,2,3,4,5,6,7]} commentableId={id} type={"answer"} />
         </li>
       );
     }

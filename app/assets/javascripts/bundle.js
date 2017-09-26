@@ -50551,6 +50551,10 @@ var _answer_vote_button_container = __webpack_require__(195);
 
 var _answer_vote_button_container2 = _interopRequireDefault(_answer_vote_button_container);
 
+var _comment_list_container = __webpack_require__(591);
+
+var _comment_list_container2 = _interopRequireDefault(_comment_list_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50640,7 +50644,8 @@ var AnswerItem = function (_React$Component) {
             { className: 'answer-body' },
             answerBody
           ),
-          _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids, upvoted: upvoted, downvoted: downvoted })
+          _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids, upvoted: upvoted, downvoted: downvoted }),
+          _react2.default.createElement(_comment_list_container2.default, { commentIds: [1, 2, 3, 4, 5, 6, 7], commentableId: id, type: "answer" })
         );
       }
     }
@@ -61808,6 +61813,212 @@ var createComment = exports.createComment = function createComment(commentableCl
     }
   });
 };
+
+/***/ }),
+/* 591 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(7);
+
+var _selectors = __webpack_require__(19);
+
+var _comment_list = __webpack_require__(592);
+
+var _comment_list2 = _interopRequireDefault(_comment_list);
+
+var _comment_actions = __webpack_require__(589);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    comments: (0, _selectors.selectComments)(state, ownProps.commentIds),
+    type: ownProps.type,
+    commentableId: ownProps.commentableId
+  };
+};
+
+// Actions
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestComments: function requestComments(type, commentableId) {
+      return dispatch((0, _comment_actions.fetchComments)(type, commentableId));
+    },
+    voteOnComment: function (_voteOnComment) {
+      function voteOnComment(_x, _x2) {
+        return _voteOnComment.apply(this, arguments);
+      }
+
+      voteOnComment.toString = function () {
+        return _voteOnComment.toString();
+      };
+
+      return voteOnComment;
+    }(function (id, type) {
+      return dispatch(voteOnComment(id, type));
+    })
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_comment_list2.default);
+
+/***/ }),
+/* 592 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _comment_list_item = __webpack_require__(593);
+
+var _comment_list_item2 = _interopRequireDefault(_comment_list_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CommentList = function (_React$Component) {
+  _inherits(CommentList, _React$Component);
+
+  function CommentList(props) {
+    _classCallCheck(this, CommentList);
+
+    return _possibleConstructorReturn(this, (CommentList.__proto__ || Object.getPrototypeOf(CommentList)).call(this, props));
+  }
+
+  _createClass(CommentList, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.requestComments(this.props.commentableId, this.props.type);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          comments = _props.comments,
+          voteOnComment = _props.voteOnComment;
+
+      var commentItems = comments.map(function (comment) {
+        return _react2.default.createElement(_comment_list_item2.default, { key: "comment-" + comment.id, comment: comment, voteOnComment: voteOnComment });
+      });
+      return _react2.default.createElement(
+        'div',
+        { id: 'comments-container' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'comment-list' },
+          commentItems
+        )
+      );
+    }
+  }]);
+
+  return CommentList;
+}(_react2.default.Component);
+
+exports.default = CommentList;
+
+/***/ }),
+/* 593 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CommentListItem = function (_React$Component) {
+  _inherits(CommentListItem, _React$Component);
+
+  function CommentListItem(props) {
+    _classCallCheck(this, CommentListItem);
+
+    return _possibleConstructorReturn(this, (CommentListItem.__proto__ || Object.getPrototypeOf(CommentListItem)).call(this, props));
+  }
+
+  _createClass(CommentListItem, [{
+    key: "render",
+    value: function render() {
+      var comment = this.props.comment;
+
+
+      if (Object.keys(comment).length === 0) {
+        console.log("Need to load comments");
+        return _react2.default.createElement(
+          "h1",
+          null,
+          "Loading Comments"
+        );
+      } else {
+        var body = comment.body,
+            time_posted_ago = comment.time_posted_ago,
+            upvoted = comment.upvoted,
+            downvoted = comment.downvoted,
+            up_voter_ids = comment.up_voter_ids,
+            author = comment.author;
+
+
+        return _react2.default.createElement(
+          "li",
+          { className: "comment-list-item" },
+          _react2.default.createElement(
+            "h2",
+            { className: "comment-header" },
+            author.name
+          ),
+          _react2.default.createElement(
+            "p",
+            null,
+            body
+          )
+        );
+      }
+    }
+  }]);
+
+  return CommentListItem;
+}(_react2.default.Component);
+
+exports.default = CommentListItem;
 
 /***/ })
 /******/ ]);

@@ -1,29 +1,29 @@
 import React from 'react';
 
-import TopicListItem from './topic_list_item'
+import CommentListItem from './comment_list_item'
 
-class TopicList extends React.Component {
+class CommentList extends React.Component {
   constructor(props) {
     super(props)
   }
 
   componentWillMount() {
-    this.props.requestComments();
+    this.props.requestComments(this.props.commentableId, this.props.type);
   }
 
   render() {
-    const {topics, voteOnAnswer, questions } = this.props;
-    const topicItems = topics.map( topic => (
-      <TopicListItem key={ "topic-" + topic.id } topic={topic} voteOnAnswer={voteOnAnswer} questions={questions}/>
+    const { comments, voteOnComment } = this.props;
+    const commentItems = comments.map( comment => (
+      <CommentListItem key={ "comment-" + comment.id } comment={comment} voteOnComment={voteOnComment} />
       ));
     return(
-      <div id="topics-container">
-        <ul className="topic-list">
-          {topicItems}
+      <div id="comments-container">
+        <ul className="comment-list">
+          {commentItems}
         </ul>
       </div>
     );
   }
 }
 
-export default TopicList;
+export default CommentList;

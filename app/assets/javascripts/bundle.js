@@ -49924,7 +49924,8 @@ var App = function App() {
       _react2.default.createElement(
         'div',
         { className: 'sidebar' },
-        _react2.default.createElement(_feed_sidebar_container2.default, null)
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _feed_sidebar_container2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/questions', component: _feed_sidebar_container2.default })
       ),
       _react2.default.createElement(
         _reactRouterDom.Switch,
@@ -55298,6 +55299,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(16);
 
+var _topic_search_container = __webpack_require__(597);
+
+var _topic_search_container2 = _interopRequireDefault(_topic_search_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55312,7 +55317,10 @@ var FeedSidebar = function (_React$Component) {
   function FeedSidebar(props) {
     _classCallCheck(this, FeedSidebar);
 
-    return _possibleConstructorReturn(this, (FeedSidebar.__proto__ || Object.getPrototypeOf(FeedSidebar)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (FeedSidebar.__proto__ || Object.getPrototypeOf(FeedSidebar)).call(this, props));
+
+    _this.state = { searchOpen: false };
+    return _this;
   }
 
   _createClass(FeedSidebar, [{
@@ -55321,10 +55329,24 @@ var FeedSidebar = function (_React$Component) {
       this.props.requestTopics();
     }
   }, {
+    key: 'topicSearch',
+    value: function topicSearch() {
+      if (this.state.searchOpen) {
+        return _react2.default.createElement(_topic_search_container2.default, null);
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      console.log("Feed sidebar is rendering");
       var topics = this.props.topics;
 
+      var buttonTxt = "Search topics";
+      if (this.state.searchOpen) {
+        buttonTxt = "Done";
+      }
       var topicItems = topics.map(function (topic) {
         return _react2.default.createElement(
           'li',
@@ -55340,9 +55362,21 @@ var FeedSidebar = function (_React$Component) {
         'div',
         { className: 'feed-sidebar' },
         _react2.default.createElement(
-          'h2',
-          null,
-          'Feeds'
+          'div',
+          { className: 'feed-sidebar-header' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Feeds'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this2.setState({ searchOpen: !_this2.state.searchOpen });
+              } },
+            buttonTxt
+          ),
+          this.topicSearch()
         ),
         _react2.default.createElement(
           'ul',
@@ -62283,6 +62317,204 @@ var SearchTopicsReducer = function SearchTopicsReducer() {
 };
 
 exports.default = SearchTopicsReducer;
+
+/***/ }),
+/* 597 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(7);
+
+var _filter_actions = __webpack_require__(109);
+
+var _selectors = __webpack_require__(19);
+
+var _topic_search = __webpack_require__(598);
+
+var _topic_search2 = _interopRequireDefault(_topic_search);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    topics: (0, _selectors.asSortedTopicArray)(state),
+    topicQuery: state.filters.topicQuery
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    updateFilter: function updateFilter(filter, value) {
+      return dispatch((0, _filter_actions.updateFilter)(filter, value));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_topic_search2.default);
+
+/***/ }),
+/* 598 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _topic_search_input = __webpack_require__(599);
+
+var _topic_search_input2 = _interopRequireDefault(_topic_search_input);
+
+var _topic_search_item = __webpack_require__(600);
+
+var _topic_search_item2 = _interopRequireDefault(_topic_search_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopicSearch = function (_React$Component) {
+  _inherits(TopicSearch, _React$Component);
+
+  function TopicSearch(props) {
+    _classCallCheck(this, TopicSearch);
+
+    return _possibleConstructorReturn(this, (TopicSearch.__proto__ || Object.getPrototypeOf(TopicSearch)).call(this, props));
+  }
+
+  _createClass(TopicSearch, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          topics = _props.topics,
+          topicQuery = _props.topicQuery,
+          updateFilter = _props.updateFilter;
+
+      var TopicItems = topics.map(function (topic) {
+        return _react2.default.createElement(_topic_search_item2.default, { topic: topic, updateFilter: updateFilter });
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'topic-search' },
+        _react2.default.createElement(_topic_search_input2.default, {
+          className: 'search-input',
+          topicQuery: topicQuery,
+          updateFilter: updateFilter
+        }),
+        _react2.default.createElement(
+          'ul',
+          { className: 'topic-search-list' },
+          TopicItems
+        )
+      );
+    }
+  }]);
+
+  return TopicSearch;
+}(_react2.default.Component);
+
+exports.default = TopicSearch;
+
+/***/ }),
+/* 599 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var handleChange = function handleChange(filter, updateFilter) {
+  return function (e) {
+    return updateFilter(filter, e.currentTarget.value);
+  };
+};
+
+var TopicSearchInput = function TopicSearchInput(_ref) {
+  var topicQuery = _ref.topicQuery,
+      updateFilter = _ref.updateFilter;
+  return _react2.default.createElement("input", { type: "text", className: "topic-search-bar", rows: "1", placeholder: "Search for Topics", value: topicQuery, onChange: handleChange('topicQuery', updateFilter) });
+};
+
+exports.default = TopicSearchInput;
+
+/***/ }),
+/* 600 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(16);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TopicSearchItem = function TopicSearchItem(_ref) {
+  var topic = _ref.topic,
+      handleChange = _ref.handleChange,
+      updateFilter = _ref.updateFilter;
+
+  if (Object.keys(topic).length === 0) {
+    console.log("loading");
+    return _react2.default.createElement(
+      'h1',
+      null,
+      'Loading!'
+    );
+  } else {
+    var name = topic.name;
+
+
+    return _react2.default.createElement(
+      'li',
+      { className: 'topic-list-item' },
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/topics/' + topic.id, activeClassName: 'active', onClick: function onClick() {
+            return updateFilter("topicQuery", "");
+          } },
+        name
+      )
+    );
+  }
+};
+
+exports.default = TopicSearchItem;
 
 /***/ })
 /******/ ]);

@@ -11,7 +11,7 @@ class TopicSearch extends React.Component{
   }
 
   render() {
-    const {topics, query, updateFilter} = this.props
+    const {topics, topicQuery, updateFilter} = this.props
     const TopicItems = topics.map(topic => (
       <TopicSearchItem topic={topic} updateFilter={updateFilter} />
     ));
@@ -20,7 +20,7 @@ class TopicSearch extends React.Component{
       <div className="topic-search">
         <TopicSearchInput
           className="search-input"
-          query={query}
+          topicQuery={topicQuery}
           updateFilter={updateFilter}
         />
 

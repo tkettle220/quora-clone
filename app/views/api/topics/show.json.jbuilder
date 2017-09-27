@@ -1,1 +1,1 @@
-json.partial! '/api/topics/topic', topic: @topic
+json.partial! '/api/topics/topic', topic: @topic, keywords: @keywords

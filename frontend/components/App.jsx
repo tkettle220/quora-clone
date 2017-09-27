@@ -20,7 +20,8 @@ const App = () => (
     <NavBarContainer />
     <div id="main-page">
       <div className="sidebar">
-        <FeedSidebarContainer />
+        <Route exact path="/" component={FeedSidebarContainer} />
+        <Route exact path="/questions" component={FeedSidebarContainer} />
       </div>
       <Switch>
         <div className="main-col">

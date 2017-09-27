@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { updateFilter } from '../../actions/filter_actions';
 import { asSortedTopicArray } from '../../reducers/selectors';
-import TopicSearch from './question_search';
+import TopicSearch from './topic_search';
 
 const mapStateToProps = state => ({
   topics: asSortedTopicArray(state),

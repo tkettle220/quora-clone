@@ -50574,7 +50574,11 @@ var AnswerItem = function (_React$Component) {
   function AnswerItem(props) {
     _classCallCheck(this, AnswerItem);
 
-    return _possibleConstructorReturn(this, (AnswerItem.__proto__ || Object.getPrototypeOf(AnswerItem)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AnswerItem.__proto__ || Object.getPrototypeOf(AnswerItem)).call(this, props));
+
+    _this.state = { commentOpen: false };
+    _this.comments = _this.comments.bind(_this);
+    return _this;
   }
 
   _createClass(AnswerItem, [{
@@ -50592,8 +50596,23 @@ var AnswerItem = function (_React$Component) {
       }
     }
   }, {
+    key: 'comments',
+    value: function comments(id, commentIds) {
+      if (this.state.commentOpen) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_comment_form_container2.default, { commentableId: id, commentableClass: 'Answer' }),
+          _react2.default.createElement(_comment_list_container2.default, { commentIds: commentIds, commentableId: id, type: "answer" })
+        );
+      }
+      return null;
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       console.log("Answer is rendering");
       var _props = this.props,
           answer = _props.answer,
@@ -50617,6 +50636,7 @@ var AnswerItem = function (_React$Component) {
             commentIds = answer.commentIds;
 
         var answerBody = void 0;
+
         if (downvoted) {
           answerBody = _react2.default.createElement(
             'div',
@@ -50632,6 +50652,7 @@ var AnswerItem = function (_React$Component) {
         } else {
           answerBody = (0, _reactHtmlParser2.default)(body);
         }
+
         return _react2.default.createElement(
           'li',
           { className: 'answer-item' },
@@ -50661,8 +50682,15 @@ var AnswerItem = function (_React$Component) {
             answerBody
           ),
           _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids, upvoted: upvoted, downvoted: downvoted }),
-          _react2.default.createElement(_comment_form_container2.default, { commentableId: id, commentableClass: 'Answer' }),
-          _react2.default.createElement(_comment_list_container2.default, { commentIds: commentIds, commentableId: id, type: "answer" })
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this2.setState({ commentOpen: !_this2.state.commentOpen });
+              } },
+            'Comments ',
+            commentIds.length
+          ),
+          this.comments(id, commentIds)
         );
       }
     }
@@ -62114,7 +62142,7 @@ var CommentForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (CommentForm.__proto__ || Object.getPrototypeOf(CommentForm)).call(this, props));
 
-    _this.state = { text: '', open: false };
+    _this.state = { text: '' };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.submitComment = _this.submitComment.bind(_this);
     _this.successfulSubmit = _this.successfulSubmit.bind(_this);
@@ -62132,7 +62160,6 @@ var CommentForm = function (_React$Component) {
       var comment = _ref.comment;
 
       this.setState({ text: '' });
-      //  this.props.history.push(`/comments/${comment.id}`);
     }
 
     //need to add args here
@@ -62147,28 +62174,18 @@ var CommentForm = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      if (this.state.open) {
-        return _react2.default.createElement(
-          'div',
-          { className: 'comment-form' },
-          _react2.default.createElement('input', { type: 'text', onChange: this.handleChange, value: this.state.text }),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.submitComment();
-              } },
-            'Submit'
-          )
-        );
-      } else {
-        return _react2.default.createElement(
+      return _react2.default.createElement(
+        'div',
+        { className: 'comment-form' },
+        _react2.default.createElement('input', { type: 'text', onChange: this.handleChange, value: this.state.text }),
+        _react2.default.createElement(
           'button',
           { onClick: function onClick() {
-              return _this2.setState({ open: true });
+              return _this2.submitComment();
             } },
-          'Comment'
-        );
-      }
+          'Submit'
+        )
+      );
     }
   }]);
 

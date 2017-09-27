@@ -11,6 +11,8 @@ import CommentFormContainer from '../comment_form/comment_form_container';
 class AnswerItem extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {commentOpen: false};
+    this.comments = this.comments.bind(this)
   }
 
   componentWillMount() {
@@ -26,6 +28,16 @@ class AnswerItem extends React.Component {
     }
   }
 
+  comments(id, commentIds) {
+    if(this.state.commentOpen) {
+      return (<div>
+        <CommentFormContainer commentableId={id} commentableClass="Answer"/>
+      <CommentListContainer commentIds={commentIds} commentableId={id} type={"answer"} />
+      </div>);
+    }
+    return null;
+  }
+
   render () {
     console.log("Answer is rendering");
     const { answer, voteOnAnswer } = this.props;
@@ -33,13 +45,17 @@ class AnswerItem extends React.Component {
       console.log("Need to load answers");
       return(<h1>Loading Answers</h1>);
     } else {
+
       const {id, body, author, time_posted_ago, upvoter_ids, upvoted, downvoted, commentIds} = answer;
       let answerBody;
+
       if(downvoted) {
         answerBody = <div><h2></h2>You downvoted this answer.<h3>Downvoting low-quality content improves Quera for everyone.</h3></div>
       } else {
         answerBody = ReactHtmlParser(body)
       }
+
+
       return (
         <li className="answer-item">
           <div className="answer-header">
@@ -51,8 +67,8 @@ class AnswerItem extends React.Component {
           </div>
           <div className="answer-body">{answerBody}</div>
           <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids} upvoted={upvoted} downvoted={downvoted}/>
-          <CommentFormContainer commentableId={id} commentableClass="Answer"/>
-          <CommentListContainer commentIds={commentIds} commentableId={id} type={"answer"} />
+          <button onClick={()=>this.setState({commentOpen: !this.state.commentOpen})}>Comments {commentIds.length}</button>
+          {this.comments(id, commentIds)}
         </li>
       );
     }

@@ -11,6 +11,7 @@ class FeedSidebar extends React.Component {
 
   componentWillMount() {
     this.props.requestTopics();
+    this.props.updateFilter(topicQuery, "");
   }
 
 
@@ -23,7 +24,7 @@ class FeedSidebar extends React.Component {
 
   render() {
     const {topics} = this.props;
-    let buttonTxt = "Search topics";
+    let buttonTxt = "Search";
     if(this.state.searchOpen) {
       buttonTxt = "Done";
     }

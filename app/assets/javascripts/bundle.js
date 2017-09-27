@@ -1960,7 +1960,6 @@ var asSortedArray = exports.asSortedArray = function asSortedArray(_ref9) {
 var asSortedTopicArray = exports.asSortedTopicArray = function asSortedTopicArray(_ref10) {
    var searchTopics = _ref10.searchTopics,
        filters = _ref10.filters;
-   var topicQuery = filters.topicQuery;
 
    return Object.values(searchTopics).sort(function (a, b) {
       return b.match_score - a.match_score;
@@ -49925,7 +49924,8 @@ var App = function App() {
         'div',
         { className: 'sidebar' },
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _feed_sidebar_container2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/questions', component: _feed_sidebar_container2.default })
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/questions', component: _feed_sidebar_container2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/topics', component: _feed_sidebar_container2.default })
       ),
       _react2.default.createElement(
         _reactRouterDom.Switch,
@@ -55263,22 +55263,26 @@ var _feed_sidebar2 = _interopRequireDefault(_feed_sidebar);
 
 var _topic_actions = __webpack_require__(34);
 
+var _filter_actions = __webpack_require__(109);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Actions
 var mapStateToProps = function mapStateToProps(state) {
   return {
     topics: (0, _selectors.allTopics)(state)
   };
 };
 
-// Actions
-
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     requestTopics: function requestTopics() {
       return dispatch((0, _topic_actions.fetchTopics)());
+    },
+    updateFilter: function updateFilter(filter, value) {
+      return dispatch((0, _filter_actions.updateFilter)(filter, value));
     }
+
   };
 };
 
@@ -55331,6 +55335,7 @@ var FeedSidebar = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.requestTopics();
+      this.props.updateFilter(topicQuery, "");
     }
   }, {
     key: 'topicSearch',
@@ -55346,7 +55351,7 @@ var FeedSidebar = function (_React$Component) {
 
       var topics = this.props.topics;
 
-      var buttonTxt = "Search topics";
+      var buttonTxt = "Search";
       if (this.state.searchOpen) {
         buttonTxt = "Done";
       }
@@ -62422,13 +62427,17 @@ var TopicSearch = function (_React$Component) {
       });
 
       return _react2.default.createElement(
-        'div',
+        'ul',
         { className: 'topic-search' },
-        _react2.default.createElement(_topic_search_input2.default, {
-          className: 'search-input',
-          topicQuery: topicQuery,
-          updateFilter: updateFilter
-        }),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(_topic_search_input2.default, {
+            className: 'search-input',
+            topicQuery: topicQuery,
+            updateFilter: updateFilter
+          })
+        ),
         _react2.default.createElement(
           'ul',
           { className: 'topic-search-list' },

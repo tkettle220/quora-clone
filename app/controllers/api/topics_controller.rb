@@ -4,14 +4,24 @@ class Api::TopicsController < ApplicationController
 
   #index assumes a current_user and returns JUST their subscribed topics
   def index
+
     if params[:topicQuery]
-      @keywords = params[:topicQuery].downcase.split(" ")
-      topics = []
-      @keywords.each do |keyword|
-        topics += Topic.where("LOWER(name) LIKE ? ", "%#{keyword.downcase}%")
+      ##if it's empty, we want to fetch random topics to show
+      if params[:topicQuery] == ""
+        @topics = Topic.order("RANDOM()").limit(7)
+        reject_topics = current_user.followed_topics
+        @topics.reject!{|topic| reject_topics.include?(topic)}
+      else
+        @keywords = params[:topicQuery].downcase.split(" ")
+        topics = []
+
+        @keywords.each do |keyword|
+          topics += Topic.where("LOWER(name) LIKE ? ", "%#{keyword.downcase}%")
+        end
+
+        @topics = topics.uniq
       end
-      p topics
-      @topics = topics.uniq
+
     else
       @topics = current_user.followed_topics
       render :index

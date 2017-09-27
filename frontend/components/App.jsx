@@ -22,6 +22,7 @@ const App = () => (
       <div className="sidebar">
         <Route exact path="/" component={FeedSidebarContainer} />
         <Route exact path="/questions" component={FeedSidebarContainer} />
+        <Route path="/topics" component={FeedSidebarContainer} />
       </div>
       <Switch>
         <div className="main-col">

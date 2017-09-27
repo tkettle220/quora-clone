@@ -47,7 +47,6 @@ export const asSortedArray = ({ searchQuestions, filters }) => {
 }
 
 export const asSortedTopicArray = ({ searchTopics, filters }) => {
-  const {topicQuery} = filters;
   return(
   Object.values(searchTopics).sort((a,b)=>b.match_score - a.match_score)
   );

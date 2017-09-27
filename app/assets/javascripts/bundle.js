@@ -22077,8 +22077,8 @@ var customStyles = exports.customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    width: '623px'
-  }
+    width: '623px',
+    padding: '0' }
 };
 
 var CreateQuestionForm = function (_React$Component) {
@@ -22179,7 +22179,6 @@ var CreateQuestionForm = function (_React$Component) {
         _react2.default.createElement(
           _reactModal2.default,
           {
-            'class': 'create-question-modal',
             isOpen: this.state.createModalIsOpen,
             onAfterOpen: this.afterOpenModal,
             onRequestClose: function onRequestClose() {
@@ -22188,31 +22187,38 @@ var CreateQuestionForm = function (_React$Component) {
             style: customStyles,
             contentLabel: 'Example Modal'
           },
-          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
           _react2.default.createElement(
-            'span',
-            null,
-            user.name,
-            ' asks'
+            'div',
+            { className: 'question-modal-header' },
+            _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
+            _react2.default.createElement(
+              'span',
+              { id: 'modal-username' },
+              user.name,
+              ' asks'
+            )
           ),
+          _react2.default.createElement('input', { onChange: this.setQuestion, placeholder: 'What is your question?', value: this.state.question }),
           _react2.default.createElement(
-            'form',
-            { className: 'ask-question-form', onSubmit: this.handleSubmit },
-            _react2.default.createElement('input', { onChange: this.setQuestion, value: this.state.question }),
-            _react2.default.createElement('input', { type: 'submit', value: 'Ask Question' })
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this3.closeModal("create");
-              } },
-            'close'
+            'div',
+            { className: 'question-modal-footer' },
+            _react2.default.createElement(
+              'button',
+              { id: 'cancel-button', onClick: function onClick() {
+                  return _this3.closeModal("create");
+                } },
+              'Cancel'
+            ),
+            _react2.default.createElement(
+              'button',
+              { id: 'ask-question-button', onClick: this.handleSubmit },
+              'Ask Question'
+            )
           )
         ),
         _react2.default.createElement(
           _reactModal2.default,
           {
-            'class': 'notice-modal',
             isOpen: this.state.successModalIsOpen,
             onAfterOpen: this.afterOpenModal,
             onRequestClose: function onRequestClose() {

@@ -85,6 +85,7 @@ class CreateQuestionModal extends React.Component {
 
         <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
         <span>{user.name} asks</span>
+
         <form className="ask-question-form" onSubmit={this.handleSubmit}>
           <input onChange={this.setQuestion} value={this.state.question}/>
 

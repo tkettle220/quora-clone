@@ -72,31 +72,19 @@
 
 
 ::-webkit-input-placeholder {
-   color: #757575;
-   font-weight: 300;
-   font-size: 14px;
-   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #999999;
 }
 
 :-ms-input-placeholder {
-  color: #757575;
-  font-weight: 300;
-  font-size: 14px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #999999;
 }
 
 :-moz-placeholder {
-  color: #757575;
-  font-weight: 300;
-  font-size: 14px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #999999;
 }
 
 ::-moz-placeholder {
-  color: #757575;
-  font-weight: 300;
-  font-size: 14px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #999999;
 }
 
 a {

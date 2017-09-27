@@ -10,8 +10,8 @@ export const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    width                 : '623px'
-  }
+    width                 : '623px',
+    padding : '0'  }
 };
 
 class CreateQuestionForm extends React.Component {
@@ -52,7 +52,7 @@ class CreateQuestionForm extends React.Component {
   }
 
   setQuestion(e) {
-    const question = e.target.value ? e.target.value : "";
+    let question = e.target.value ? e.target.value : "";
     this.setState({ question });
   }
 
@@ -81,7 +81,6 @@ class CreateQuestionForm extends React.Component {
         <button onClick={()=>this.openModal("create")}>What is your question?</button>
 
         <Modal
-          class="create-question-modal"
           isOpen={this.state.createModalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={()=>this.closeModal("create")}
@@ -89,20 +88,22 @@ class CreateQuestionForm extends React.Component {
           contentLabel="Example Modal"
         >
 
-        <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
-        <span>{user.name} asks</span>
-        <form className="ask-question-form" onSubmit={this.handleSubmit}>
-          <input onChange={this.setQuestion} value={this.state.question}/>
+        <div className="question-modal-header">
+          <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
+          <span id="modal-username">{user.name} asks</span>
+        </div>
 
-          <input type="submit" value="Ask Question"/>
 
-        </form>
-          <button onClick={()=>this.closeModal("create")}>close</button>
+        <input onChange={this.setQuestion} placeholder="What is your question?" value={this.state.question}/>
+
+        <div className="question-modal-footer">
+          <button id="cancel-button" onClick={()=>this.closeModal("create")}>Cancel</button>
+          <button id="ask-question-button" onClick={this.handleSubmit}>Ask Question</button>
+        </div>
         </Modal>
 
 
         <Modal
-            class="notice-modal"
             isOpen={this.state.successModalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={()=>this.closeModal("success")}

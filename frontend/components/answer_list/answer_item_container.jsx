@@ -2,13 +2,15 @@ import { connect } from 'react-redux';
 import { selectAnswer } from '../../reducers/selectors';
 import AnswerItem from './answer_item';
 
+
 // Actions
 import { fetchAnswer, voteOnAnswer } from '../../actions/answer_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   answer: selectAnswer(state, ownProps.id),
   id: ownProps.id,
-  errors: state.errors
+  errors: state.errors,
+  comments: state.comments
 });
 
 const mapDispatchToProps = dispatch => ({

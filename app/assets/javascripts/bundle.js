@@ -19099,7 +19099,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     answer: (0, _selectors.selectAnswer)(state, ownProps.id),
     id: ownProps.id,
-    errors: state.errors
+    errors: state.errors,
+    comments: state.comments
   };
 };
 
@@ -50579,11 +50580,21 @@ var AnswerItem = function (_React$Component) {
   _createClass(AnswerItem, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
+      console.log("Mounting and requsting answers");
       this.props.requestAnswer(this.props.id);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.comments != nextProps.comments) {
+        console.log("receiving different props");
+        this.props.requestAnswer(this.props.id);
+      }
     }
   }, {
     key: 'render',
     value: function render() {
+      console.log("Answer is rendering");
       var _props = this.props,
           answer = _props.answer,
           voteOnAnswer = _props.voteOnAnswer;
@@ -61923,6 +61934,7 @@ var CommentList = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log("Rendering Comments");
       var _props = this.props,
           comments = _props.comments,
           voteOnComment = _props.voteOnComment;
@@ -62120,7 +62132,6 @@ var CommentForm = function (_React$Component) {
       var comment = _ref.comment;
 
       this.setState({ text: '' });
-      //  rerender or something?
       //  this.props.history.push(`/comments/${comment.id}`);
     }
 

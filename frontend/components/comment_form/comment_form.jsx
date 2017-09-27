@@ -14,8 +14,7 @@ class CommentForm extends React.Component {
  }
 
  successfulSubmit({comment}) {
-   this.setState({text: ''})
-  //  rerender or something?
+   this.setState({text: ''});
   //  this.props.history.push(`/comments/${comment.id}`);
  }
 

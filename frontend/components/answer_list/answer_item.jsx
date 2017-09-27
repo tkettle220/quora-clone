@@ -14,10 +14,20 @@ class AnswerItem extends React.Component {
   }
 
   componentWillMount() {
+    console.log("Mounting and requsting answers");
     this.props.requestAnswer(this.props.id);
   }
 
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.comments != nextProps.comments) {
+      console.log("receiving different props");
+      this.props.requestAnswer(this.props.id);
+    }
+  }
+
   render () {
+    console.log("Answer is rendering");
     const { answer, voteOnAnswer } = this.props;
     if (Object.keys(answer).length === 0) {
       console.log("Need to load answers");

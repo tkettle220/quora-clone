@@ -27,7 +27,6 @@ class Api::CommentsController < ApplicationController
   end
 
   def create
-    debugger
     commentableClass = Object.const_get(params[:commentableClass])
     commentable = commentableClass.find(params[:commentableId])
     author = current_user

@@ -3639,7 +3639,7 @@ var createAnswer = exports.createAnswer = function createAnswer(body, questionId
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.unfollowTopic = exports.followTopic = exports.fetchTopic = exports.fetchTopics = exports.updateTopic = exports.receiveTopic = exports.receiveTopics = exports.UPDATE_TOPIC = exports.RECEIVE_TOPIC = exports.RECEIVE_TOPICS = undefined;
+exports.unfollowTopic = exports.followTopic = exports.fetchTopic = exports.fetchSearchTopics = exports.fetchTopics = exports.updateTopic = exports.receiveTopic = exports.receiveSearchTopics = exports.receiveTopics = exports.UPDATE_TOPIC = exports.RECEIVE_TOPIC = exports.RECEIVE_SEARCH_TOPICS = exports.RECEIVE_TOPICS = undefined;
 
 var _topic_api_util = __webpack_require__(428);
 
@@ -3648,12 +3648,21 @@ var APIUtil = _interopRequireWildcard(_topic_api_util);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_TOPICS = exports.RECEIVE_TOPICS = 'RECEIVE_TOPICS';
+var RECEIVE_SEARCH_TOPICS = exports.RECEIVE_SEARCH_TOPICS = 'RECEIVE_SEARCH_TOPICS';
+
 var RECEIVE_TOPIC = exports.RECEIVE_TOPIC = 'RECEIVE_TOPIC';
 var UPDATE_TOPIC = exports.UPDATE_TOPIC = 'UPDATE_TOPIC';
 
 var receiveTopics = exports.receiveTopics = function receiveTopics(topics) {
   return {
     type: RECEIVE_TOPICS,
+    topics: topics
+  };
+};
+
+var receiveSearchTopics = exports.receiveSearchTopics = function receiveSearchTopics(topics) {
+  return {
+    type: RECEIVE_SEARCH_TOPICS,
     topics: topics
   };
 };
@@ -3677,6 +3686,14 @@ var fetchTopics = exports.fetchTopics = function fetchTopics() {
   return function (dispatch) {
     return APIUtil.fetchTopics().then(function (topics) {
       return dispatch(receiveTopics(topics));
+    });
+  };
+};
+
+var fetchSearchTopics = exports.fetchSearchTopics = function fetchSearchTopics(filters) {
+  return function (dispatch) {
+    return APIUtil.fetchTopics(filters).then(function (topics) {
+      return dispatch(receiveSearchTopics(topics));
     });
   };
 };
@@ -12362,6 +12379,8 @@ exports.updateFilter = exports.changeFilter = exports.UPDATE_FILTER = undefined;
 
 var _question_actions = __webpack_require__(17);
 
+var _topic_actions = __webpack_require__(34);
+
 var UPDATE_FILTER = exports.UPDATE_FILTER = 'UPDATE_FILTER';
 
 var changeFilter = exports.changeFilter = function changeFilter(filter, value) {
@@ -12375,7 +12394,11 @@ var changeFilter = exports.changeFilter = function changeFilter(filter, value) {
 var updateFilter = exports.updateFilter = function updateFilter(filter, value) {
   return function (dispatch, getState) {
     dispatch(changeFilter(filter, value));
-    return (0, _question_actions.fetchSearchQuestions)(getState().filters)(dispatch);
+    if (filter === "query") {
+      return (0, _question_actions.fetchSearchQuestions)(getState().filters)(dispatch);
+    } else {
+      return (0, _topic_actions.fetchSearchTopics)(getState().filters)(dispatch);
+    }
   };
 };
 
@@ -34787,6 +34810,7 @@ window.updateFilter = _filter_actions.updateFilter;
 window.asSortedArray = _selectors.asSortedArray;
 window.createComment = _comment_actions.createComment;
 window.fetchComments = _comment_actions.fetchComments;
+window.fetchSearchTopics = _topic_actions.fetchSearchTopics;
 // window.voteOnQuestion = voteOnQuestion;
 // window.followQuestion = followQuestion;
 // window.unfollowQuestion = unfollowQuestion;
@@ -53849,11 +53873,11 @@ var unfollowQuestion = exports.unfollowQuestion = function unfollowQuestion(id) 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//Doesn't take a user argument, since in the controller it uses the current_user as the user
-var fetchTopics = exports.fetchTopics = function fetchTopics() {
+var fetchTopics = exports.fetchTopics = function fetchTopics(data) {
   return $.ajax({
     method: 'GET',
-    url: 'api/topics'
+    url: 'api/topics',
+    data: data
   });
 };
 
@@ -60420,6 +60444,10 @@ var _search_questions_reducer = __webpack_require__(585);
 
 var _search_questions_reducer2 = _interopRequireDefault(_search_questions_reducer);
 
+var _search_topics_reducer = __webpack_require__(596);
+
+var _search_topics_reducer2 = _interopRequireDefault(_search_topics_reducer);
+
 var _answers_reducer = __webpack_require__(586);
 
 var _answers_reducer2 = _interopRequireDefault(_answers_reducer);
@@ -60443,6 +60471,7 @@ var RootReducer = (0, _redux.combineReducers)({
   answers: _answers_reducer2.default,
   filters: _filters_reducer2.default,
   searchQuestions: _search_questions_reducer2.default,
+  searchTopics: _search_topics_reducer2.default,
   comments: _comments_reducer2.default
 });
 
@@ -62218,6 +62247,42 @@ var CommentForm = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = CommentForm;
+
+/***/ }),
+/* 596 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _merge = __webpack_require__(27);
+
+var _merge2 = _interopRequireDefault(_merge);
+
+var _topic_actions = __webpack_require__(34);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defaultState = {};
+
+var SearchTopicsReducer = function SearchTopicsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _topic_actions.RECEIVE_SEARCH_TOPICS:
+      return action.topics;
+    default:
+      return state;
+  }
+};
+
+exports.default = SearchTopicsReducer;
 
 /***/ })
 /******/ ]);

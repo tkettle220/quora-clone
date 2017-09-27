@@ -1,12 +1,20 @@
 import * as APIUtil from '../util/topic_api_util'
 
 export const RECEIVE_TOPICS = 'RECEIVE_TOPICS';
+export const RECEIVE_SEARCH_TOPICS = 'RECEIVE_SEARCH_TOPICS';
+
 export const RECEIVE_TOPIC = 'RECEIVE_TOPIC';
 export const UPDATE_TOPIC = 'UPDATE_TOPIC';
 
 
+
 export const receiveTopics = topics => ({
   type: RECEIVE_TOPICS,
+  topics
+});
+
+export const receiveSearchTopics = topics => ({
+  type: RECEIVE_SEARCH_TOPICS,
   topics
 });
 
@@ -25,6 +33,12 @@ export const updateTopic = topic => ({
 export const fetchTopics = () => dispatch => (
   APIUtil.fetchTopics().then(
     topics=>(dispatch(receiveTopics(topics))
+  ))
+);
+
+export const fetchSearchTopics = (filters) => dispatch => (
+  APIUtil.fetchTopics(filters).then(
+    topics=>(dispatch(receiveSearchTopics(topics))
   ))
 );
 

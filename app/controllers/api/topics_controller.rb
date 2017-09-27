@@ -4,8 +4,18 @@ class Api::TopicsController < ApplicationController
 
   #index assumes a current_user and returns JUST their subscribed topics
   def index
-    @topics = current_user.followed_topics
-    render :index
+    if params[:topicQuery]
+      @keywords = params[:topicQuery].downcase.split(" ")
+      topics = []
+      @keywords.each do |keyword|
+        topics += Topic.where("LOWER(name) LIKE ? ", "%#{keyword.downcase}%")
+      end
+      p topics
+      @topics = topics.uniq
+    else
+      @topics = current_user.followed_topics
+      render :index
+    end
   end
 
   def show

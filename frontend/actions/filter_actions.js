@@ -1,4 +1,5 @@
 import { fetchSearchQuestions } from './question_actions'
+import { fetchSearchTopics } from './topic_actions'
 
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 
@@ -10,5 +11,9 @@ export const changeFilter = (filter, value) => ({
 
 export const updateFilter = (filter, value) => (dispatch, getState) => {
   dispatch(changeFilter(filter, value));
-  return fetchSearchQuestions(getState().filters)(dispatch);
+  if (filter === "query") {
+    return fetchSearchQuestions(getState().filters)(dispatch);
+  } else {
+    return fetchSearchTopics(getState().filters)(dispatch);
+  }
 };

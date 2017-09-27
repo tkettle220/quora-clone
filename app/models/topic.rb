@@ -57,4 +57,11 @@ class Topic < ApplicationRecord
     created_at.strftime("%B %d, %Y")
   end
 
+  def match_score(keywords)
+    return 0 unless keywords
+    question = self.name.downcase
+    matching_keywords = keywords.reduce(0){|acc, keyword| question.include?(keyword) ? acc + 1 : acc}
+    return matching_keywords/keywords.count.to_f
+  end
+
 end

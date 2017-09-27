@@ -66,16 +66,23 @@ class NavBar extends React.Component {
     return(
       <div className="nav-bar">
         <ul className="nav-bar-items">
-          <li id="nav-logo">Quera</li>
+          <li id="nav-logo">
+            <Link to={`/`}>
+              Quera
+            </Link>
+            </li>
 
           <li id="nav-home" className="nav-link">
-            <i className="fa fa-home"></i>
-            <Link to={`/`}>Home</Link>
+            <Link to={`/`}>
+              <i className="fa fa-home"></i>
+              Home
+            </Link>
           </li>
 
           <li id="nav-answer" className="nav-link">
-            <i className="fa fa-pencil-square-o"></i>
-            <Link to={`/questions`}>Answer</Link>
+            <Link to={`/questions`}>
+              <i className="fa fa-pencil-square-o"></i>
+              Answer</Link>
           </li>
 
           <li id="nav-search">

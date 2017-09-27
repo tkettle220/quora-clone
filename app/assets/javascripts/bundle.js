@@ -54914,25 +54914,29 @@ var NavBar = function (_React$Component) {
           _react2.default.createElement(
             'li',
             { id: 'nav-logo' },
-            'Quera'
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/' },
+              'Quera'
+            )
           ),
           _react2.default.createElement(
             'li',
             { id: 'nav-home', className: 'nav-link' },
-            _react2.default.createElement('i', { className: 'fa fa-home' }),
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/' },
+              _react2.default.createElement('i', { className: 'fa fa-home' }),
               'Home'
             )
           ),
           _react2.default.createElement(
             'li',
             { id: 'nav-answer', className: 'nav-link' },
-            _react2.default.createElement('i', { className: 'fa fa-pencil-square-o' }),
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/questions' },
+              _react2.default.createElement('i', { className: 'fa fa-pencil-square-o' }),
               'Answer'
             )
           ),

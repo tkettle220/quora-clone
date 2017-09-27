@@ -54,6 +54,10 @@
   font-family: "Palatino", sans-serif;
 }
 
+#nav-logo a:hover {
+  text-decoration: none;
+}
+
 #nav-home, #nav-answer {
   max-width: 100px;
   color: #666;
@@ -63,6 +67,11 @@
   line-height: 50px;
   text-decoration: none;
   padding-right: 5px;
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
   a:hover {
     text-decoration: none;
   }
@@ -83,6 +92,7 @@
     border: 1px solid #962520;
     box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
     text-decoration: none;
+    cursor: pointer;
   }
 }
 

@@ -54913,12 +54913,13 @@ var NavBar = function (_React$Component) {
           { className: 'nav-bar-items' },
           _react2.default.createElement(
             'li',
-            null,
+            { id: 'nav-logo' },
             'Quera'
           ),
           _react2.default.createElement(
             'li',
-            null,
+            { id: 'nav-home', className: 'nav-link' },
+            _react2.default.createElement('i', { className: 'fa fa-home' }),
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/' },
@@ -54927,7 +54928,8 @@ var NavBar = function (_React$Component) {
           ),
           _react2.default.createElement(
             'li',
-            null,
+            { id: 'nav-answer', className: 'nav-link' },
+            _react2.default.createElement('i', { className: 'fa fa-pencil-square-o' }),
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/questions' },
@@ -54936,12 +54938,17 @@ var NavBar = function (_React$Component) {
           ),
           _react2.default.createElement(
             'li',
-            null,
+            { id: 'nav-search' },
             _react2.default.createElement(_question_search_container2.default, null)
           ),
           _react2.default.createElement(
             'li',
-            null,
+            { id: 'nav-pro-pic' },
+            _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'nav-pro-pic' })
+          ),
+          _react2.default.createElement(
+            'li',
+            { id: 'nav-ask-question' },
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
@@ -54950,10 +54957,9 @@ var NavBar = function (_React$Component) {
               'Ask Question'
             )
           ),
-          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'nav-pro-pic' }),
           _react2.default.createElement(
             'li',
-            null,
+            { id: 'nav-sign-out' },
             _react2.default.createElement(
               'form',
               { name: 'sign-out', method: 'POST', action: '/users/sign_out' },
@@ -55220,7 +55226,7 @@ var QuestionSearchItem = function QuestionSearchItem(_ref) {
       { className: 'question-list-item' },
       _react2.default.createElement(
         _reactRouterDom.Link,
-        { to: '/questions/' + question.id, activeClassName: 'active', onClick: function onClick() {
+        { to: '/questions/' + question.id, onClick: function onClick() {
             return updateFilter("query", "");
           } },
         body
@@ -60168,7 +60174,7 @@ var QuestionListItem = function (_React$Component) {
           questionHead,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/questions/' + question.id, activeClassName: 'active' },
+            { to: '/questions/' + question.id },
             body
           ),
           _react2.default.createElement(
@@ -60317,7 +60323,7 @@ var AnswerDetail = function (_React$Component) {
           { className: 'answer-detail-view' },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/questions/' + question.id, activeClassName: 'active' },
+            { to: '/questions/' + question.id },
             question.body
           ),
           _react2.default.createElement(

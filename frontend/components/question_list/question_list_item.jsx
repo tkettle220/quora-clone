@@ -26,7 +26,7 @@ class QuestionListItem extends React.Component {
       return (
         <li className="question-list-item">
           {questionHead}
-          <Link to={`/questions/${question.id}`} activeClassName="active">{body}</Link>
+          <Link to={`/questions/${question.id}`} >{body}</Link>
 
           <h3>Last asked {time_posted_ago} · {num_answers}</h3>
           <AnswerFormContainer questionId={id}/>

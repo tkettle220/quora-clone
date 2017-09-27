@@ -24,7 +24,7 @@ class AnswerDetail extends React.Component {
       const {id, body, author, time_posted_ago, upvoter_ids, question} = answer;
       return (
         <div className="answer-detail-view">
-          <Link to={`/questions/${question.id}`} activeClassName="active" >{question.body}</Link>
+          <Link to={`/questions/${question.id}`}  >{question.body}</Link>
           <div className="answer-header">
             <img src={author.pro_pic_url} alt={`${author.name}'s picture`}  className="answerer-pro-pic" />
             <div className="answer-details">

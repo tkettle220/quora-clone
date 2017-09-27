@@ -66,28 +66,31 @@ class NavBar extends React.Component {
     return(
       <div className="nav-bar">
         <ul className="nav-bar-items">
-          <li>Quera</li>
+          <li id="nav-logo">Quera</li>
 
-          <li>
+          <li id="nav-home" className="nav-link">
+            <i className="fa fa-home"></i>
             <Link to={`/`}>Home</Link>
           </li>
 
-          <li>
+          <li id="nav-answer" className="nav-link">
+            <i className="fa fa-pencil-square-o"></i>
             <Link to={`/questions`}>Answer</Link>
           </li>
 
-          <li>
-
+          <li id="nav-search">
             <QuestionSearchContainer />
             </li>
 
-
-          <li><button onClick={()=>this.openModal("create")}>Ask Question</button></li>
-
-
+          <li id="nav-pro-pic">
             <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="nav-pro-pic" />
+          </li>
 
-          <li>
+
+          <li id="nav-ask-question"><button onClick={()=>this.openModal("create")}>Ask Question</button></li>
+
+
+          <li id="nav-sign-out">
             <form name="sign-out" method="POST" action="/users/sign_out">
               <input type="hidden" name="_method" value="delete"/>
               <label>

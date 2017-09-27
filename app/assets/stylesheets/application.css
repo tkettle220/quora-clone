@@ -48,6 +48,16 @@
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+   text-decoration: underline;
+   cursor: pointer;
+}
+
 li {
    list-style-type: none;
  }

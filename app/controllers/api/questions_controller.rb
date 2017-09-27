@@ -6,7 +6,7 @@ class Api::QuestionsController < ApplicationController
   def index
     questions = Question.all.includes(:author)
     if params[:query]
-      @keywords = params[:query].split(" ")
+      @keywords = params[:query].downcase.split(" ")
       questions = []
       @keywords.each do |keyword|
         questions += Question.where("LOWER(body) LIKE ? ", "%#{keyword.downcase}%")

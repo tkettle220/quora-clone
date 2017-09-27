@@ -13,7 +13,7 @@ json.tags question.topics.map{|topic| topic.name}
 
 json.num_answers question.num_answers_str
 keywords ||= []
-
+debugger
 json.match_score question.match_score(keywords)
 
 json.commentIds question.commentIds

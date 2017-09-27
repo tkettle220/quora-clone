@@ -81,9 +81,12 @@ class Question < ApplicationRecord
     end
   end
 
-
+#What fraction of keywords are contained somewhere in the question body?
+#keywords should already be processed to lower
   def match_score(keywords)
-    body.split(" ").reduce(0){|acc, qword| keywords.include?(qword) ? acc + 1 : acc}
+    question = self.body.downcase
+    matching_keywords = keywords.reduce(0){|acc, keyword| question.include?(keyword) ? acc + 1 : acc}
+    return matching_keywords/keywords.count.to_f
   end
 
 end

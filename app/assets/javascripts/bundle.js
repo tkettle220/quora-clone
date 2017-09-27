@@ -1951,10 +1951,18 @@ var selectComments = exports.selectComments = function selectComments(_ref8, com
 var asSortedArray = exports.asSortedArray = function asSortedArray(_ref9) {
    var searchQuestions = _ref9.searchQuestions,
        filters = _ref9.filters;
-   var query = filters.query;
 
-   var keywords = query.split(" ");
    return Object.values(searchQuestions).sort(function (a, b) {
+      return b.match_score - a.match_score;
+   });
+};
+
+var asSortedTopicArray = exports.asSortedTopicArray = function asSortedTopicArray(_ref10) {
+   var searchTopics = _ref10.searchTopics,
+       filters = _ref10.filters;
+   var topicQuery = filters.topicQuery;
+
+   return Object.values(searchTopics).sort(function (a, b) {
       return b.match_score - a.match_score;
    });
 };
@@ -50504,20 +50512,37 @@ var QuestionItem = function (_React$Component) {
           return _react2.default.createElement(_answer_item_container2.default, { key: "answer-" + id, id: id });
         });
 
-        return _react2.default.createElement(
-          'li',
-          { className: 'question-item' },
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/questions/' + id, activeClassName: 'active', className: 'question-header' },
-            body
-          ),
-          _react2.default.createElement(
-            'ul',
-            { className: 'answer-list' },
-            answerItems[0]
-          )
-        );
+        if (answerItems.length === 0) {
+          return _react2.default.createElement(
+            'li',
+            { className: 'question-item' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/questions/' + id, activeClassName: 'active', className: 'question-header' },
+              body
+            ),
+            _react2.default.createElement(
+              'h1',
+              null,
+              'No answers written for this question yet'
+            )
+          );
+        } else {
+          return _react2.default.createElement(
+            'li',
+            { className: 'question-item' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/questions/' + id, activeClassName: 'active', className: 'question-header' },
+              body
+            ),
+            _react2.default.createElement(
+              'ul',
+              { className: 'answer-list' },
+              answerItems[0]
+            )
+          );
+        }
       }
     }
   }]);

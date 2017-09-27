@@ -11,6 +11,8 @@ class QuestionItem extends React.Component {
     this.props.requestQuestion(this.props.id);
   }
 
+
+
   render () {
     const { question } = this.props;
     if (Object.keys(question).length === 0) {
@@ -25,15 +27,25 @@ class QuestionItem extends React.Component {
         <AnswerItemContainer key={ "answer-" + id } id={id}/>
       ));
 
-      return (
-        <li className="question-item">
-          <Link to={`/questions/${id}`} activeClassName="active" className="question-header">{body}</Link>
-          <ul className="answer-list">
-            {answerItems[0]}
+      if(answerItems.length === 0) {
+        return (
+          <li className="question-item">
+            <Link to={`/questions/${id}`} activeClassName="active" className="question-header">{body}</Link>
+            <h1>No answers written for this question yet</h1>
+          </li>
+        )
+      } else {
+        return (
+          <li className="question-item">
+            <Link to={`/questions/${id}`} activeClassName="active" className="question-header">{body}</Link>
+            <ul className="answer-list">
+              {answerItems[0]}
+            </ul>
+          </li>
+        );
+      }
 
-          </ul>
-        </li>
-      );
+
 
     }
 

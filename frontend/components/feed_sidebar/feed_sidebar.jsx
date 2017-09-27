@@ -11,7 +11,7 @@ class FeedSidebar extends React.Component {
 
   componentWillMount() {
     this.props.requestTopics();
-    this.props.updateFilter(topicQuery, "");
+    this.props.updateFilter("topicQuery", "");
   }
 
 

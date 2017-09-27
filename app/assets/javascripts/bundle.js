@@ -55335,7 +55335,7 @@ var FeedSidebar = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.requestTopics();
-      this.props.updateFilter(topicQuery, "");
+      this.props.updateFilter("topicQuery", "");
     }
   }, {
     key: 'topicSearch',

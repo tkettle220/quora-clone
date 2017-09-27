@@ -10,7 +10,7 @@ class Api::TopicsController < ApplicationController
       if params[:topicQuery] == ""
         @topics = Topic.order("RANDOM()").limit(7)
         reject_topics = current_user.followed_topics
-        @topics.reject!{|topic| reject_topics.include?(topic)}
+        @topics = @topics.reject{|topic| reject_topics.include?(topic)}
       else
         @keywords = params[:topicQuery].downcase.split(" ")
         topics = []

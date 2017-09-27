@@ -13,6 +13,7 @@ const QuestionSearchItem = ({ question, handleChange, updateFilter}) => {
     return (
       <li className="question-list-item">
         <Link to={`/questions/${question.id}`}  onClick={()=>updateFilter("query", "")}>{body}</Link>
+        <i className="fa fa-angle-right" ></i>
       </li>
     );
   }

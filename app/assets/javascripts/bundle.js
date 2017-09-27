@@ -55230,7 +55230,8 @@ var QuestionSearchItem = function QuestionSearchItem(_ref) {
             return updateFilter("query", "");
           } },
         body
-      )
+      ),
+      _react2.default.createElement('i', { className: 'fa fa-angle-right' })
     );
   }
 };

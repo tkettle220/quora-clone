@@ -12,8 +12,8 @@ const TopicSearchItem = ({ topic, handleChange, updateFilter}) => {
     const { name } = topic;
 
     return (
-      <li className="topic-list-item">
-        <Link to={`/topics/${topic.id}`} activeClassName="active" onClick={()=>updateFilter("topicQuery", "")}>{name}</Link>
+      <li className="topic-search-list-item">
+        <Link to={`/topics/${topic.id}`} onClick={()=>updateFilter("topicQuery", "")}>{name}</Link>
       </li>
     );
   }

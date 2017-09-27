@@ -13,6 +13,8 @@ class FeedSidebar extends React.Component {
     this.props.requestTopics();
   }
 
+
+
   topicSearch() {
     if(this.state.searchOpen) {
       return <TopicSearchContainer />
@@ -20,14 +22,13 @@ class FeedSidebar extends React.Component {
   }
 
   render() {
-    console.log("Feed sidebar is rendering");
     const {topics} = this.props;
     let buttonTxt = "Search topics";
     if(this.state.searchOpen) {
       buttonTxt = "Done";
     }
     const topicItems = topics.map( topic => (
-      <li key={ "topic-" + topic.id }><Link to={`/topics/${topic.id}`} activeClassName="active">{topic.name}</Link>
+      <li key={ "topic-" + topic.id }><Link to={`/topics/${topic.id}`}>{topic.name}</Link>
 </li>
       ));
     return(

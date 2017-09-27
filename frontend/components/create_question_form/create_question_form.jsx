@@ -73,7 +73,7 @@ class CreateQuestionForm extends React.Component {
     const {user} = this.props
     return (
       <div className="greeting">
-        <div>
+        <div className="greeting-header">
           <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
           <span>{user.name}</span>
         </div>

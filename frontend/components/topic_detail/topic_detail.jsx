@@ -8,7 +8,6 @@ class TopicDetail extends React.Component {
   }
 
   componentWillMount() {
-    console.log("requesting topics");
     this.props.requestTopic(this.props.topicId);
     window.scrollTo(0, 0);
   }
@@ -27,7 +26,6 @@ class TopicDetail extends React.Component {
   render() {
     const {topic, topicId} = this.props;
     if (Object.keys(topic).length === 0) {
-      console.log("No detail topic, gotta load");
       return (<div>Loading</div>)
     } else {
       return(

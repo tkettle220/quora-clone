@@ -1,0 +1,234 @@
+.background {
+  width: 100%;
+  height: 100%;
+  background: url("https://qph.ec.quoracdn.net/main-qimg-53fa8c2c3b3944c91a49b1e9c30970cd");
+  background-size: cover;
+}
+
+.login {
+  margin: auto;
+  position: absolute;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  box-shadow: 0 0 5px #888;
+  top: 100px;
+  left: 100px;
+  right: 100px;
+  width: 652px;
+  height: 495px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#reset_password {
+  height: 400px;
+}
+
+#error_explanation {
+  height: 30px;
+  margin: 20px;
+}
+
+#error_explanation h2 {
+  font-size: 11px;
+}
+
+.logo {
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.one-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 40px;
+  margin-bottom: 155px;
+}
+
+.two-forms {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 40px;
+  margin-bottom: 155px;
+}
+
+.loginhead h2 {
+  margin-top: 0;
+}
+
+.login h1 {
+  text-align: center;
+  color: #B92B27;
+  font-size: 80px;
+  font-weight: bold;
+  font-family: "Palatino", sans-serif;
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+
+.login h2 {
+  text-align: center;
+  margin-top: 5px;
+  font-family: 'q_serif',Georgia,Times,"Times New Roman","Hiragino Kaku Gothic Pro",serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #999;
+}
+
+.leftlogin {
+  width: 100%;
+  padding-right: 20px;
+}
+
+
+.rightlogin {
+  width: 100%;
+  display: block;
+  padding-left: 30px;
+  border-left: 1px solid #e2e2e2;
+}
+
+#user_email, #user_password, #user_password_confirmation {
+  width: 261px;
+  background-color: #EEE;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  outline: 0;
+  height: 20px;
+  padding-left: 5px;
+}
+
+#user_email {
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+#user_password, #user_password_confirmation {
+  margin-bottom: 5px;
+}
+
+label[for="user_login"] {
+   font-size: 10px;
+   font-weight: bold;
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.form_bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.form_bottom a {
+  font-size: 10px;
+  text-decoration: none;
+  margin-top: 2px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.form_bottom a:hover {
+  text-decoration: underline;
+}
+
+.form_bottom a:visited {
+  text-decoration: none;
+  color: #999999;
+}
+
+.actions input {
+  background: #3e78ad;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #3a66ad;
+  color: white;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  border-radius: 3px;
+  padding: 3px, 7px, 4px, 7px;
+  box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+}
+
+.actions input:hover {
+  cursor: pointer;
+}
+
+.leftlogin a, .leftlogin button {
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  border-radius: 3px;
+  display: block;
+  border: 0;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+  text-decoration: none;
+}
+
+.leftlogin a {
+  width: 238px;
+  background: #507cc0;
+}
+
+.leftlogin button {
+  width: 271px;
+  text-align: left;
+  background: #DF4930;
+}
+
+.leftlogin button:focus {outline:0;}
+
+.leftlogin a:before {
+  content: "\f082";
+}
+
+.leftlogin button:before {
+  content: "\f2c4";
+}
+
+.leftlogin button:hover, .leftlogin a:hover{
+  opacity: .6;
+}
+
+.leftlogin button:hover {
+  cursor: pointer;
+}
+
+.leftlogin a:before, .leftlogin button:before {
+
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: 500;
+  text-decoration: inherit;
+  /*--adjust as necessary--*/
+  color: white;
+  font-size: 24px;
+  padding-right: 0.5em;
+  padding-top: 20px;
+  /*top: 10px;*/
+  left: 0;
+}
+
+.notice, .alert{
+  background-color: #CC3729;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  display: block;
+  overflow: hidden;
+}
+
+.notice {
+  background-color: #FFF4C8;
+  color: black;
+}

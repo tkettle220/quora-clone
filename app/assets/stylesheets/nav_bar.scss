@@ -1,0 +1,26 @@
+.nav-bar {
+  background: white;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  padding-left: 8px;
+  padding-right: 8px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-bar-items {
+  background: white;
+  width: 1000px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  margin: 0px;
+}
+
+.nav-pro-pic {
+  height: 26px;
+  border-radius: 50%;
+}

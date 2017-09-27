@@ -22162,7 +22162,7 @@ var CreateQuestionForm = function (_React$Component) {
         { className: 'greeting' },
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'greeting-header' },
           _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
           _react2.default.createElement(
             'span',
@@ -50416,7 +50416,6 @@ var TopicListItem = function (_React$Component) {
 
 
       if (Object.keys(topic).length === 0) {
-        console.log("Need to load topics");
         return _react2.default.createElement(
           'h1',
           null,
@@ -50454,7 +50453,7 @@ var TopicListItem = function (_React$Component) {
             { className: 'topic-list-item-footer' },
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/topics/' + topic.id, activeClassName: 'active' },
+              { to: '/topics/' + topic.id },
               'View All'
             )
           )
@@ -50520,7 +50519,6 @@ var QuestionItem = function (_React$Component) {
 
       if (Object.keys(question).length === 0) {
 
-        console.log("Need to load questions");
         return _react2.default.createElement(
           'h1',
           null,
@@ -50543,7 +50541,7 @@ var QuestionItem = function (_React$Component) {
             { className: 'question-item' },
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/questions/' + id, activeClassName: 'active', className: 'question-header' },
+              { to: '/questions/' + id, className: 'question-header' },
               body
             ),
             _react2.default.createElement(
@@ -50558,7 +50556,7 @@ var QuestionItem = function (_React$Component) {
             { className: 'question-item' },
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/questions/' + id, activeClassName: 'active', className: 'question-header' },
+              { to: '/questions/' + id, className: 'question-header' },
               body
             ),
             _react2.default.createElement(
@@ -50634,14 +50632,12 @@ var AnswerItem = function (_React$Component) {
   _createClass(AnswerItem, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      console.log("Mounting and requsting answers");
       this.props.requestAnswer(this.props.id);
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       if (this.props.comments != nextProps.comments) {
-        console.log("receiving different props");
         this.props.requestAnswer(this.props.id);
       }
     }
@@ -50663,13 +50659,11 @@ var AnswerItem = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log("Answer is rendering");
       var _props = this.props,
           answer = _props.answer,
           voteOnAnswer = _props.voteOnAnswer;
 
       if (Object.keys(answer).length === 0) {
-        console.log("Need to load answers");
         return _react2.default.createElement(
           'h1',
           null,
@@ -54927,7 +54921,7 @@ var NavBar = function (_React$Component) {
             null,
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/', activeClassName: 'active' },
+              { to: '/' },
               'Home'
             )
           ),
@@ -54936,7 +54930,7 @@ var NavBar = function (_React$Component) {
             null,
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/questions', activeClassName: 'active' },
+              { to: '/questions' },
               'Answer'
             )
           ),
@@ -55212,7 +55206,6 @@ var QuestionSearchItem = function QuestionSearchItem(_ref) {
       updateFilter = _ref.updateFilter;
 
   if (Object.keys(question).length === 0) {
-    console.log("loading");
     return _react2.default.createElement(
       'h1',
       null,
@@ -55340,7 +55333,6 @@ var FeedSidebar = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log("Feed sidebar is rendering");
       var topics = this.props.topics;
 
       var buttonTxt = "Search topics";
@@ -55353,7 +55345,7 @@ var FeedSidebar = function (_React$Component) {
           { key: "topic-" + topic.id },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/topics/' + topic.id, activeClassName: 'active' },
+            { to: '/topics/' + topic.id },
             topic.name
           )
         );
@@ -55480,7 +55472,6 @@ var TopicDetail = function (_React$Component) {
   _createClass(TopicDetail, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      console.log("requesting topics");
       this.props.requestTopic(this.props.topicId);
       window.scrollTo(0, 0);
     }
@@ -55503,7 +55494,6 @@ var TopicDetail = function (_React$Component) {
           topicId = _props.topicId;
 
       if (Object.keys(topic).length === 0) {
-        console.log("No detail topic, gotta load");
         return _react2.default.createElement(
           'div',
           null,
@@ -55892,7 +55882,6 @@ var QuestionDetail = function (_React$Component) {
 
 
       if (Object.keys(question).length === 0) {
-        console.log("No question, gotta load");
         return _react2.default.createElement(
           'div',
           null,
@@ -60069,7 +60058,6 @@ var QuestionList = function (_React$Component) {
       var questions = this.props.questions;
 
       if (Object.keys(questions).length === 0) {
-        console.log("loading questions");
         return _react2.default.createElement(
           'h1',
           null,
@@ -60144,7 +60132,6 @@ var QuestionListItem = function (_React$Component) {
 
 
       if (Object.keys(question).length === 0) {
-        console.log("loading");
         return _react2.default.createElement(
           'h1',
           null,
@@ -60312,7 +60299,6 @@ var AnswerDetail = function (_React$Component) {
 
 
       if (Object.keys(answer).length === 0) {
-        console.log("Need to load answers");
         return _react2.default.createElement(
           'h1',
           null,
@@ -62050,7 +62036,6 @@ var CommentList = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log("Rendering Comments");
       var _props = this.props,
           comments = _props.comments,
           voteOnComment = _props.voteOnComment;
@@ -62116,7 +62101,6 @@ var CommentListItem = function (_React$Component) {
 
 
       if (Object.keys(comment).length === 0) {
-        console.log("Need to load comments");
         return _react2.default.createElement(
           "h1",
           null,
@@ -62135,9 +62119,23 @@ var CommentListItem = function (_React$Component) {
           "li",
           { className: "comment-list-item" },
           _react2.default.createElement(
-            "h2",
+            "div",
             { className: "comment-header" },
-            author.name
+            _react2.default.createElement("img", { src: author.pro_pic_url, alt: author.name + "'s picture", className: "commenter-pro-pic" }),
+            _react2.default.createElement(
+              "div",
+              { className: "comment-details" },
+              _react2.default.createElement(
+                "h1",
+                null,
+                author.name
+              ),
+              _react2.default.createElement(
+                "h2",
+                null,
+                time_posted_ago
+              )
+            )
           ),
           _react2.default.createElement(
             "p",
@@ -62502,10 +62500,10 @@ var TopicSearchItem = function TopicSearchItem(_ref) {
 
     return _react2.default.createElement(
       'li',
-      { className: 'topic-list-item' },
+      { className: 'topic-search-list-item' },
       _react2.default.createElement(
         _reactRouterDom.Link,
-        { to: '/topics/' + topic.id, activeClassName: 'active', onClick: function onClick() {
+        { to: '/topics/' + topic.id, onClick: function onClick() {
             return updateFilter("topicQuery", "");
           } },
         name

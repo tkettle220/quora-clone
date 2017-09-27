@@ -12,7 +12,6 @@ class TopicListItem extends React.Component {
     const { topic } = this.props;
 
     if(Object.keys(topic).length === 0) {
-      console.log("Need to load topics");
       return(<h1>Loading Topics</h1>);
     } else {
       const { name, description, num_followers, question_ids} = topic;
@@ -29,7 +28,7 @@ class TopicListItem extends React.Component {
           <h2 className="topic-header">{name}</h2>
           <ul className="question-list">{questionItems}</ul>
           <footer className="topic-list-item-footer">
-            <Link to={`/topics/${topic.id}`} activeClassName="active">View All</Link>
+            <Link to={`/topics/${topic.id}`} >View All</Link>
           </footer>
         </li>
       );

@@ -12,7 +12,6 @@ class CommentList extends React.Component {
   }
 
   render() {
-    console.log("Rendering Comments");
     const { comments, voteOnComment } = this.props;
     const commentItems = comments.map( comment => (
       <CommentListItem key={ "comment-" + comment.id } comment={comment} voteOnComment={voteOnComment} />

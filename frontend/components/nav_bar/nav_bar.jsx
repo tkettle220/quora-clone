@@ -69,11 +69,11 @@ class NavBar extends React.Component {
           <li>Quera</li>
 
           <li>
-            <Link to={`/`} activeClassName="active">Home</Link>
+            <Link to={`/`}>Home</Link>
           </li>
 
           <li>
-            <Link to={`/questions`} activeClassName="active">Answer</Link>
+            <Link to={`/questions`}>Answer</Link>
           </li>
 
           <li>

@@ -12,7 +12,6 @@ class QuestionListItem extends React.Component {
     const { question } = this.props;
 
     if (Object.keys(question).length === 0) {
-      console.log("loading");
       return (
         <h1>Loading!</h1>
       );

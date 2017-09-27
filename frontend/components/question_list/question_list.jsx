@@ -14,7 +14,6 @@ class QuestionList extends React.Component {
   render() {
     const {questions} = this.props;
     if(Object.keys(questions).length === 0) {
-      console.log("loading questions");
       return(<h1>Loading Questions!</h1>);
     } else {
       const questionItems = questions.map( question => (
@@ -27,7 +26,7 @@ class QuestionList extends React.Component {
           </ul>
         </div>
       );
-      
+
     }
   }
 }

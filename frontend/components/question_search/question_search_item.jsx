@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 
 const QuestionSearchItem = ({ question, handleChange, updateFilter}) => {
   if (Object.keys(question).length === 0) {
-    console.log("loading");
     return (
       <h1>Loading!</h1>
     );

@@ -1,0 +1,36 @@
+#main-page {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  background: #FAFAFA;
+  padding-left: 10px;
+  padding-top: 30px;
+}
+
+.main-col {
+  width: 600px;
+  margin-right: 250px;
+  padding-left: 12px;
+}
+
+/*Fix sizing for small screens*/
+@media (max-width: 1075px) {
+  .main-col {
+    margin-right: 0;
+  }
+
+  #main-page {
+    justify-content: flex-start;
+  }
+}
+
+/*@media (max-width: 819px) {
+  .main-col {
+    margin-right: 0;
+  }
+
+  #main-page {
+    justify-content: flex-start;
+  }
+}*/

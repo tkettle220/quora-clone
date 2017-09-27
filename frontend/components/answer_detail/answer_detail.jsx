@@ -19,7 +19,6 @@ class AnswerDetail extends React.Component {
     const { answer, voteOnAnswer } = this.props;
 
     if (Object.keys(answer).length === 0) {
-      console.log("Need to load answers");
       return(<h1>Loading Answers</h1>);
     } else {
       const {id, body, author, time_posted_ago, upvoter_ids, question} = answer;

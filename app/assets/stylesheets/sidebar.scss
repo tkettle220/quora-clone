@@ -29,16 +29,18 @@
 }
 
 .feed-sidebar-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   border-bottom: 1px solid #e2e2e2;
   margin-bottom: 16px;
-  padding-bottom: 8px;
   height: 30px;
   font-size: 15px;
   font-weight: 500;
+
+  .feed-sidebar-fixed {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   button {
   background:none;
@@ -57,17 +59,54 @@
   }
 }
 
-//this is shameful but...
 .topic-search {
   margin-left: 10px;
   z-index: 4000;
-  position: absolute;
-  left: 200px;
-  top: 97px;
+  position: relative;
+  bottom: 18px;
+  left: 150px;
+  background: white;
+  border: 1px solid #e2e2e2;
+  border-bottom: none;
+  min-width: 250px;
+  li {
+    height: 47px;
+    width: 100%px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #e2e2e2;
+  }
+  input {
+    margin: 10px;
+    height: 27px;
+    padding-left: 10px;
+    font-size: 14px;
+  }
+}
+
+.topic-input-container {
+  background-color: #f6f6f6;
 }
 
 .topic-search-bar {
-  box-sizing: border-box;
-  width: 100%;
-  min-width: 250px;
+  width: 250px;
+  height: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+}
+
+.topic-search-list-item {
+  padding-left: 5px;
+}
+
+.topic-search-list-item:hover {
+  color: #2b6dad;
+  text-decoration: none;
+  background-color: #fbfbfb;
+  padding-left: 5px;
+
+  a:hover {
+    text-decoration: none;
+  }
 }

@@ -19,7 +19,7 @@ class TopicSearch extends React.Component{
 
     return (
       <ul className="topic-search">
-        <li><TopicSearchInput
+        <li className= "topic-input-container"><TopicSearchInput
           className="search-input"
           topicQuery={topicQuery}
           updateFilter={updateFilter}

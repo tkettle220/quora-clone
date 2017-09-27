@@ -55373,16 +55373,20 @@ var FeedSidebar = function (_React$Component) {
           'div',
           { className: 'feed-sidebar-header' },
           _react2.default.createElement(
-            'h2',
-            null,
-            'Feeds'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.setState({ searchOpen: !_this2.state.searchOpen });
-              } },
-            buttonTxt
+            'div',
+            { className: 'feed-sidebar-fixed' },
+            _react2.default.createElement(
+              'h2',
+              null,
+              'Feeds'
+            ),
+            _react2.default.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this2.setState({ searchOpen: !_this2.state.searchOpen });
+                } },
+              buttonTxt
+            )
           ),
           this.topicSearch()
         ),
@@ -62431,7 +62435,7 @@ var TopicSearch = function (_React$Component) {
         { className: 'topic-search' },
         _react2.default.createElement(
           'li',
-          null,
+          { className: 'topic-input-container' },
           _react2.default.createElement(_topic_search_input2.default, {
             className: 'search-input',
             topicQuery: topicQuery,

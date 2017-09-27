@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
-import { customStyles } from '../create_question_form/create_question_form';
+import { customStyles, cancelStyles } from '../create_question_form/create_question_form';
 import QuestionSearchContainer from '../question_search/question_search_container';
 
 class NavBar extends React.Component {
@@ -44,7 +44,8 @@ class NavBar extends React.Component {
   }
 
   setQuestion(e) {
-    const question = e.target.value ? e.target.value : "";
+    let question = e.target.value ? e.target.value : "";
+    question = question.charAt(0).toUpperCase() + question.slice(1);
     this.setState({ question });
   }
 
@@ -57,7 +58,7 @@ class NavBar extends React.Component {
 
   handleSuccessfulSubmit(question) {
     this.closeModal("create");
-    this.setState({asked_question: question})
+    this.setState({asked_question: question, question: ""})
     this.openModal("success")
   }
 
@@ -108,7 +109,6 @@ class NavBar extends React.Component {
             </li>
         </ul>
         <Modal
-          class="create-question-modal"
           isOpen={this.state.createModalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={()=>this.closeModal("create")}
@@ -116,28 +116,34 @@ class NavBar extends React.Component {
           contentLabel="Example Modal"
         >
 
-        <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
-        <span>{user.name} asks</span>
-        <form className="ask-question-form" onSubmit={this.handleSubmit}>
-          <input onChange={this.setQuestion} value={this.state.question}/>
+        <div className="question-modal-header">
+          <img src={user.pro_pic_url} alt={`${user.name}'s picture`}  className="user-pro-pic" />
+          <span id="modal-username">{user.name} asks</span>
+        </div>
 
-          <input type="submit" value="Ask Question"/>
 
-        </form>
-          <button onClick={()=>this.closeModal("create")}>close</button>
+        <input onChange={this.setQuestion} placeholder="What is your question?" value={this.state.question}/>
+
+        <div className="question-modal-footer">
+          <button id="cancel-button" onClick={()=>this.closeModal("create")}>Cancel</button>
+          <button id="ask-question-button" onClick={this.handleSubmit}>Ask Question</button>
+        </div>
         </Modal>
 
 
         <Modal
-            class="notice-modal"
+            id="cancel-modal"
+            className="cancel-modal"
             isOpen={this.state.successModalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={()=>this.closeModal("success")}
-            style={customStyles}
+            style={cancelStyles}
             contentLabel="Example Modal"
           >
-          <span>You asked {this.state.asked_question.body}</span>
-          <button onClick={()=>this.closeModal("success")}>close</button>
+          <p>You asked {this.state.asked_question.body}</p>
+            <i className="fa fa-times" onClick={()=>this.closeModal("success")}/>
+
+
           </Modal>
       </div>
     );

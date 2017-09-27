@@ -22045,7 +22045,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.customStyles = undefined;
+exports.cancelStyles = exports.customStyles = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22070,6 +22070,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var customStyles = exports.customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.65)'
+  },
   content: {
     top: '15%',
     left: '50%',
@@ -22079,6 +22087,28 @@ var customStyles = exports.customStyles = {
     transform: 'translate(-50%, -50%)',
     width: '623px',
     padding: '0' }
+};
+
+var cancelStyles = exports.cancelStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.65)'
+  },
+  content: {
+    top: '15%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    width: '300px',
+    background: '#FFF4C8',
+
+    padding: '10px' }
 };
 
 var CreateQuestionForm = function (_React$Component) {
@@ -22130,6 +22160,7 @@ var CreateQuestionForm = function (_React$Component) {
     key: 'setQuestion',
     value: function setQuestion(e) {
       var question = e.target.value ? e.target.value : "";
+      question = question.charAt(0).toUpperCase() + question.slice(1);
       this.setState({ question: question });
     }
   }, {
@@ -22146,7 +22177,7 @@ var CreateQuestionForm = function (_React$Component) {
     key: 'handleSuccessfulSubmit',
     value: function handleSuccessfulSubmit(question) {
       this.closeModal("create");
-      this.setState({ asked_question: question });
+      this.setState({ asked_question: question, question: "" });
       this.openModal("success");
     }
   }, {
@@ -22219,27 +22250,25 @@ var CreateQuestionForm = function (_React$Component) {
         _react2.default.createElement(
           _reactModal2.default,
           {
+            id: 'cancel-modal',
+            className: 'cancel-modal',
             isOpen: this.state.successModalIsOpen,
             onAfterOpen: this.afterOpenModal,
             onRequestClose: function onRequestClose() {
               return _this3.closeModal("success");
             },
-            style: customStyles,
+            style: cancelStyles,
             contentLabel: 'Example Modal'
           },
           _react2.default.createElement(
-            'span',
+            'p',
             null,
             'You asked ',
             this.state.asked_question.body
           ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this3.closeModal("success");
-              } },
-            'close'
-          )
+          _react2.default.createElement('i', { className: 'fa fa-times', onClick: function onClick() {
+              return _this3.closeModal("success");
+            } })
         )
       );
     }
@@ -54885,6 +54914,7 @@ var NavBar = function (_React$Component) {
     key: 'setQuestion',
     value: function setQuestion(e) {
       var question = e.target.value ? e.target.value : "";
+      question = question.charAt(0).toUpperCase() + question.slice(1);
       this.setState({ question: question });
     }
   }, {
@@ -54901,7 +54931,7 @@ var NavBar = function (_React$Component) {
     key: 'handleSuccessfulSubmit',
     value: function handleSuccessfulSubmit(question) {
       this.closeModal("create");
-      this.setState({ asked_question: question });
+      this.setState({ asked_question: question, question: "" });
       this.openModal("success");
     }
   }, {
@@ -54985,7 +55015,6 @@ var NavBar = function (_React$Component) {
         _react2.default.createElement(
           _reactModal2.default,
           {
-            'class': 'create-question-modal',
             isOpen: this.state.createModalIsOpen,
             onAfterOpen: this.afterOpenModal,
             onRequestClose: function onRequestClose() {
@@ -54994,52 +55023,57 @@ var NavBar = function (_React$Component) {
             style: _create_question_form.customStyles,
             contentLabel: 'Example Modal'
           },
-          _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
           _react2.default.createElement(
-            'span',
-            null,
-            user.name,
-            ' asks'
+            'div',
+            { className: 'question-modal-header' },
+            _react2.default.createElement('img', { src: user.pro_pic_url, alt: user.name + '\'s picture', className: 'user-pro-pic' }),
+            _react2.default.createElement(
+              'span',
+              { id: 'modal-username' },
+              user.name,
+              ' asks'
+            )
           ),
+          _react2.default.createElement('input', { onChange: this.setQuestion, placeholder: 'What is your question?', value: this.state.question }),
           _react2.default.createElement(
-            'form',
-            { className: 'ask-question-form', onSubmit: this.handleSubmit },
-            _react2.default.createElement('input', { onChange: this.setQuestion, value: this.state.question }),
-            _react2.default.createElement('input', { type: 'submit', value: 'Ask Question' })
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this3.closeModal("create");
-              } },
-            'close'
+            'div',
+            { className: 'question-modal-footer' },
+            _react2.default.createElement(
+              'button',
+              { id: 'cancel-button', onClick: function onClick() {
+                  return _this3.closeModal("create");
+                } },
+              'Cancel'
+            ),
+            _react2.default.createElement(
+              'button',
+              { id: 'ask-question-button', onClick: this.handleSubmit },
+              'Ask Question'
+            )
           )
         ),
         _react2.default.createElement(
           _reactModal2.default,
           {
-            'class': 'notice-modal',
+            id: 'cancel-modal',
+            className: 'cancel-modal',
             isOpen: this.state.successModalIsOpen,
             onAfterOpen: this.afterOpenModal,
             onRequestClose: function onRequestClose() {
               return _this3.closeModal("success");
             },
-            style: _create_question_form.customStyles,
+            style: _create_question_form.cancelStyles,
             contentLabel: 'Example Modal'
           },
           _react2.default.createElement(
-            'span',
+            'p',
             null,
             'You asked ',
             this.state.asked_question.body
           ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this3.closeModal("success");
-              } },
-            'close'
-          )
+          _react2.default.createElement('i', { className: 'fa fa-times', onClick: function onClick() {
+              return _this3.closeModal("success");
+            } })
         )
       );
     }

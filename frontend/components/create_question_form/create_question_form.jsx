@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 
 export const customStyles = {
+    overlay : {
+    position          : 'fixed',
+    top               : 0,
+    left              : 0,
+    right             : 0,
+    bottom            : 0,
+    backgroundColor   : 'rgba(0, 0, 0, 0.65)'
+  },
   content : {
     top                   : '15%',
     left                  : '50%',
@@ -12,6 +20,28 @@ export const customStyles = {
     transform             : 'translate(-50%, -50%)',
     width                 : '623px',
     padding : '0'  }
+};
+
+export const cancelStyles = {
+  overlay : {
+  position          : 'fixed',
+  top               : 0,
+  left              : 0,
+  right             : 0,
+  bottom            : 0,
+  backgroundColor   : 'rgba(0, 0, 0, 0.65)'
+},
+  content : {
+    top                   : '15%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    width                 : '300px',
+    background            :  '#FFF4C8',
+
+    padding : '10px'  }
 };
 
 class CreateQuestionForm extends React.Component {
@@ -53,6 +83,7 @@ class CreateQuestionForm extends React.Component {
 
   setQuestion(e) {
     let question = e.target.value ? e.target.value : "";
+    question = question.charAt(0).toUpperCase() + question.slice(1);
     this.setState({ question });
   }
 
@@ -65,7 +96,7 @@ class CreateQuestionForm extends React.Component {
 
   handleSuccessfulSubmit(question) {
     this.closeModal("create");
-    this.setState({asked_question: question})
+    this.setState({asked_question: question, question: ""})
     this.openModal("success")
   }
 
@@ -104,14 +135,18 @@ class CreateQuestionForm extends React.Component {
 
 
         <Modal
+            id="cancel-modal"
+            className="cancel-modal"
             isOpen={this.state.successModalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={()=>this.closeModal("success")}
-            style={customStyles}
+            style={cancelStyles}
             contentLabel="Example Modal"
           >
-          <span>You asked {this.state.asked_question.body}</span>
-          <button onClick={()=>this.closeModal("success")}>close</button>
+          <p>You asked {this.state.asked_question.body}</p>
+            <i className="fa fa-times" onClick={()=>this.closeModal("success")}/>
+
+
           </Modal>
       </div>
     );

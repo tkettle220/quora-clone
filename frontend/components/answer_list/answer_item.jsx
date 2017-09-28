@@ -28,7 +28,7 @@ class AnswerItem extends React.Component {
 
   comments(id, commentIds) {
     if(this.state.commentOpen) {
-      return (<div>
+      return (<div className="comments">
         <CommentFormContainer commentableId={id} commentableClass="Answer"/>
       <CommentListContainer commentIds={commentIds} commentableId={id} type={"answer"} />
       </div>);
@@ -62,8 +62,10 @@ class AnswerItem extends React.Component {
             </div>
           </div>
           <div className="answer-body">{answerBody}</div>
-          <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids} upvoted={upvoted} downvoted={downvoted}/>
-          <button onClick={()=>this.setState({commentOpen: !this.state.commentOpen})}>Comments {commentIds.length}</button>
+          <div className="answer-buttons">
+            <AnswerVoteButtonContainer id={id} upvoterIds={upvoter_ids} upvoted={upvoted} downvoted={downvoted}/>
+            <button className="comments-button" onClick={()=>this.setState({commentOpen: !this.state.commentOpen})}>Comments {commentIds.length}</button>
+          </div>
           {this.comments(id, commentIds)}
         </li>
       );

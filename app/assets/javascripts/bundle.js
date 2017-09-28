@@ -50682,7 +50682,7 @@ var AnswerItem = function (_React$Component) {
       if (this.state.commentOpen) {
         return _react2.default.createElement(
           'div',
-          null,
+          { className: 'comments' },
           _react2.default.createElement(_comment_form_container2.default, { commentableId: id, commentableClass: 'Answer' }),
           _react2.default.createElement(_comment_list_container2.default, { commentIds: commentIds, commentableId: id, type: "answer" })
         );
@@ -50760,14 +50760,18 @@ var AnswerItem = function (_React$Component) {
             { className: 'answer-body' },
             answerBody
           ),
-          _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids, upvoted: upvoted, downvoted: downvoted }),
           _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.setState({ commentOpen: !_this2.state.commentOpen });
-              } },
-            'Comments ',
-            commentIds.length
+            'div',
+            { className: 'answer-buttons' },
+            _react2.default.createElement(_answer_vote_button_container2.default, { id: id, upvoterIds: upvoter_ids, upvoted: upvoted, downvoted: downvoted }),
+            _react2.default.createElement(
+              'button',
+              { className: 'comments-button', onClick: function onClick() {
+                  return _this2.setState({ commentOpen: !_this2.state.commentOpen });
+                } },
+              'Comments ',
+              commentIds.length
+            )
           ),
           this.comments(id, commentIds)
         );
@@ -53735,23 +53739,23 @@ var AnswerVoteButton = function (_React$Component) {
         { className: "answer-vote-buttons" },
         _react2.default.createElement(
           "button",
-          { onClick: function onClick() {
+          { className: "answer-upvote-button", onClick: function onClick() {
               return _this2.handleClick("upvote");
             } },
           _react2.default.createElement(
             "div",
-            null,
+            { className: "upvote-text" },
             upvoteText
           ),
           _react2.default.createElement(
             "div",
-            null,
+            { className: "answer-upvoters" },
             this.props.upvoterIds.length
           )
         ),
         _react2.default.createElement(
           "button",
-          { onClick: function onClick() {
+          { className: "answer-downvote-button", onClick: function onClick() {
               return _this2.handleClick("downvote");
             } },
           downvoteText

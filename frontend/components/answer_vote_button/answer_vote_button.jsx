@@ -54,12 +54,12 @@ class AnswerVoteButton extends React.Component {
 
     return (
       <div className="answer-vote-buttons">
-        <button onClick={()=>this.handleClick("upvote")}>
-          <div>{upvoteText}</div>
-          <div>{this.props.upvoterIds.length}</div>
+        <button className="answer-upvote-button" onClick={()=>this.handleClick("upvote")}>
+          <div className="upvote-text">{upvoteText}</div>
+          <div className="answer-upvoters">{this.props.upvoterIds.length}</div>
         </button>
 
-        <button onClick={()=>this.handleClick("downvote")}>{downvoteText}</button>
+        <button className="answer-downvote-button" onClick={()=>this.handleClick("downvote")}>{downvoteText}</button>
       </div>
     );
 

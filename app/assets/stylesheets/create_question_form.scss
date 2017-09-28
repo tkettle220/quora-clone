@@ -13,11 +13,21 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   p {
     margin-right: 30px;
   }
   i:hover {
     cursor: pointer;
+  }
+  a {
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #3e78ad;
   }
 }
 

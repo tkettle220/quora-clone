@@ -22061,6 +22061,8 @@ var _reactModal = __webpack_require__(197);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
 
+var _reactRouterDom = __webpack_require__(16);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22263,8 +22265,12 @@ var CreateQuestionForm = function (_React$Component) {
           _react2.default.createElement(
             'p',
             null,
-            'You asked ',
-            this.state.asked_question.body
+            'You asked: ',
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/questions/' + this.state.asked_question.id },
+              this.state.asked_question.body
+            )
           ),
           _react2.default.createElement('i', { className: 'fa fa-times', onClick: function onClick() {
               return _this3.closeModal("success");

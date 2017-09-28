@@ -1,0 +1,22 @@
+.answer-detail-view {
+  padding: 16px;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  background: white;
+
+  a {
+    font-family: 'q_serif',Georgia,Times,"Times New Roman","Hiragino Kaku Gothic Pro","Meiryo",serif;
+    font-weight: bold;
+    font-size: 23px;
+    word-wrap: break-word;
+    line-height: 1.3;
+
+    padding-top: 15px;
+  }
+
+  .answer-header {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e2e2;
+  }
+}

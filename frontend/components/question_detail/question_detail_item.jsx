@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import AnswerItemContainer from '../answer_list/answer_item_container';
+import AnswerFormContainer from '../answer_form/answer_form_container';
+
 import QuestionButtonsContainer from '../question_buttons/question_buttons_container';
 
 

@@ -70,6 +70,15 @@
      outline: none;
  }
 
+/*Styling for code*/
+ pre {
+   background: black;
+   color: white;
+   border-radius: 3px;
+   padding-left: 15px;
+   tab-size: 4;
+ }
+
 
 
 ::-webkit-input-placeholder {

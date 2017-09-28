@@ -81,6 +81,8 @@
 
   .quill {
     width: 568px;
+    strong { font-weight: bold; }
+    em { font-style: italic; }
   }
 
   .ql-toolbar.ql-snow, .ql-container.ql-snow {

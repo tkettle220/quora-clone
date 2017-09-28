@@ -56722,6 +56722,10 @@ var _answer_item_container = __webpack_require__(181);
 
 var _answer_item_container2 = _interopRequireDefault(_answer_item_container);
 
+var _answer_form_container = __webpack_require__(203);
+
+var _answer_form_container2 = _interopRequireDefault(_answer_form_container);
+
 var _question_buttons_container = __webpack_require__(463);
 
 var _question_buttons_container2 = _interopRequireDefault(_question_buttons_container);
@@ -56777,7 +56781,7 @@ var QuestionDetailItem = function (_React$Component) {
             null,
             'No answers for this question written yet!'
           ),
-          _react2.default.createElement(AnswerFormContainer, { questionId: id })
+          _react2.default.createElement(_answer_form_container2.default, { questionId: id })
         );
       } else {
         var tagItems = tags.map(function (tag) {

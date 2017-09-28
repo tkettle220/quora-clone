@@ -142,7 +142,8 @@ class NavBar extends React.Component {
             style={cancelStyles}
             contentLabel="Example Modal"
           >
-          <p>You asked {this.state.asked_question.body}</p>
+          <p>You asked: <Link to={`/questions/${this.state.asked_question.id}`}>{this.state.asked_question.body}</Link>
+          </p>
             <i className="fa fa-times" onClick={()=>this.closeModal("success")}/>
 
 

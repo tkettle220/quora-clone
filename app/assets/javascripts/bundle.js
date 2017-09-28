@@ -55604,8 +55604,12 @@ var NavBar = function (_React$Component) {
           _react2.default.createElement(
             'p',
             null,
-            'You asked ',
-            this.state.asked_question.body
+            'You asked: ',
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/questions/' + this.state.asked_question.id },
+              this.state.asked_question.body
+            )
           ),
           _react2.default.createElement('i', { className: 'fa fa-times', onClick: function onClick() {
               return _this3.closeModal("success");

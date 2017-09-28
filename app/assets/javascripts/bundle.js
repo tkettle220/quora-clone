@@ -54951,7 +54951,6 @@ var NavBar = function (_React$Component) {
 
       var user = this.props.user;
 
-      debugger;
       return _react2.default.createElement(
         'div',
         { className: 'nav-bar' },

@@ -64,7 +64,6 @@ class NavBar extends React.Component {
 
   render() {
     const {user} = this.props
-    debugger
     return(
       <div className="nav-bar">
         <ul className="nav-bar-items">

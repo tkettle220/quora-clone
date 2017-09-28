@@ -30,7 +30,7 @@ class AnswerForm extends React.Component {
     if (this.state.open) {
       const author = this.props.current_user;
       return (
-        <div>
+        <div className="answer-form-container">
           <button className="write-answer-button" onClick={()=>this.setState({open: true})}>Answer</button>
           <div className="answer-form">
             <div className="answer-header">

@@ -57064,7 +57064,7 @@ var AnswerForm = function (_React$Component) {
         var author = this.props.current_user;
         return _react2.default.createElement(
           'div',
-          null,
+          { className: 'answer-form-container' },
           _react2.default.createElement(
             'button',
             { className: 'write-answer-button', onClick: function onClick() {

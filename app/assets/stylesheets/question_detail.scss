@@ -81,35 +81,33 @@
     top: 6px;
   }
 
-  .quill {
-    width: 568px;
-    strong { font-weight: bold; }
-    em { font-style: italic; }
+}
+
+.quill {
+  strong { font-weight: bold; }
+  em { font-style: italic; }
+}
+
+div.ql-toolbar.ql-snow, div.ql-container.ql-snow {
+  border-left: 0;
+  border-right: 0;
+}
+
+.answer-form {
+  border: 1px solid #e2e2e2;
+  margin-top: 10px;
+
+  .answer-header {
+    background-color: #F6F6F6;
+    border: 0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+
   }
 
-  .ql-toolbar.ql-snow, .ql-container.ql-snow {
-    border-left: 0;
-    border-right: 0;
+  .answer-form-footer {
+
+    padding: 10px;
+    background-color: #F6F6F6;
   }
-
-  .answer-form {
-    border: 1px solid #e2e2e2;
-    margin-top: 10px;
-
-    .answer-header {
-      background-color: #F6F6F6;
-      border: 0;
-      padding-left: 10px;
-      padding-bottom: 10px;
-
-    }
-
-    .answer-form-footer {
-
-      padding: 10px;
-      background-color: #F6F6F6;
-    }
-  }
-
-
 }

@@ -49957,7 +49957,7 @@ var App = function App() {
     null,
     _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _session_form_container2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _session_form_container2.default }),
-    _react2.default.createElement(_nav_bar_container2.default, null),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _nav_bar_container2.default }),
     _react2.default.createElement(
       'div',
       { id: 'main-page' },
@@ -54951,6 +54951,7 @@ var NavBar = function (_React$Component) {
 
       var user = this.props.user;
 
+      debugger;
       return _react2.default.createElement(
         'div',
         { className: 'nav-bar' },
@@ -54968,7 +54969,7 @@ var NavBar = function (_React$Component) {
           ),
           _react2.default.createElement(
             'li',
-            { id: 'nav-home', className: 'nav-link' },
+            { id: 'nav-home', className: "nav-link " + (this.props.location.pathname == "/" ? "highlighted" : "") },
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/' },
@@ -54978,7 +54979,7 @@ var NavBar = function (_React$Component) {
           ),
           _react2.default.createElement(
             'li',
-            { id: 'nav-answer', className: 'nav-link' },
+            { id: 'nav-answer', className: "nav-link " + (this.props.location.pathname == "/questions" ? "highlighted" : "") },
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/questions' },

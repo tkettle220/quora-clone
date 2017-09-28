@@ -58,8 +58,9 @@
   text-decoration: none;
 }
 
-#nav-home, #nav-answer {
-  max-width: 100px;
+
+.nav-link {
+  max-width: 90px;
   color: #666;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
@@ -77,6 +78,19 @@
   }
 }
 
+.nav-link.highlighted {
+  color: #AB3830;
+  border-bottom: 2px solid #b92b27;
+}
+
+.nav-link.highlighted:hover {
+  background: white;
+}
+
+li#nav-search {
+  justify-content: flex-start;
+  max-width: 404px;
+}
 
 #nav-ask-question, #nav-sign-out {
   max-width: 110px;

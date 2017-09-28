@@ -64,6 +64,7 @@ class NavBar extends React.Component {
 
   render() {
     const {user} = this.props
+    debugger
     return(
       <div className="nav-bar">
         <ul className="nav-bar-items">
@@ -73,14 +74,16 @@ class NavBar extends React.Component {
             </Link>
             </li>
 
-          <li id="nav-home" className="nav-link">
+          <li id="nav-home" className={"nav-link " + (this.props.location.pathname == "/" ? "highlighted" : "")} >
             <Link to={`/`}>
               <i className="fa fa-home"></i>
               Home
             </Link>
           </li>
 
-          <li id="nav-answer" className="nav-link">
+
+
+          <li id="nav-answer" className={"nav-link " + (this.props.location.pathname == "/questions" ? "highlighted" : "")}>
             <Link to={`/questions`}>
               <i className="fa fa-pencil-square-o"></i>
               Answer</Link>

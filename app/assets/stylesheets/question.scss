@@ -14,3 +14,8 @@
 .question-header {
   padding-left: 16px;
 }
+
+//this makes word wrap respect padding
+a.question-header {
+  display: block;
+}

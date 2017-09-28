@@ -50682,7 +50682,7 @@ var QuestionItem = function (_React$Component) {
             ),
             _react2.default.createElement(
               'h1',
-              null,
+              { className: 'no-answers-message' },
               'No answers written for this question yet'
             )
           );
@@ -56782,7 +56782,7 @@ var QuestionDetailItem = function (_React$Component) {
           ),
           _react2.default.createElement(
             'h3',
-            null,
+            { className: 'no-answers-message' },
             'No answers for this question written yet!'
           ),
           _react2.default.createElement(_answer_form_container2.default, { questionId: id })

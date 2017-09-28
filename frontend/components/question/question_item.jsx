@@ -30,7 +30,7 @@ class QuestionItem extends React.Component {
         return (
           <li className="question-item">
             <Link to={`/questions/${id}`}  className="question-header">{body}</Link>
-            <h1>No answers written for this question yet</h1>
+            <h1 className="no-answers-message">No answers written for this question yet</h1>
           </li>
         )
       } else {

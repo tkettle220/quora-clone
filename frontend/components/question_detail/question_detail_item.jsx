@@ -27,7 +27,7 @@ class QuestionDetailItem extends React.Component {
       return (
         <div className="question-detail-item">
           <h2 className="question-header">{body}</h2>
-          <h3>No answers for this question written yet!</h3>
+          <h3 className="no-answers-message">No answers for this question written yet!</h3>
           <AnswerFormContainer questionId={id} />
         </div>
       );

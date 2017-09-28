@@ -50577,7 +50577,11 @@ var TopicListItem = function (_React$Component) {
           _react2.default.createElement(
             'h2',
             { className: 'topic-header' },
-            name
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/topics/' + topic.id },
+              name
+            )
           ),
           _react2.default.createElement(
             'ul',

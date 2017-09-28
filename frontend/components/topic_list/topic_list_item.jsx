@@ -25,7 +25,7 @@ class TopicListItem extends React.Component {
 
       return (
         <li className="topic-list-item">
-          <h2 className="topic-header">{name}</h2>
+          <h2 className="topic-header"><Link to={`/topics/${topic.id}`} >{name}</Link></h2>
           <ul className="question-list">{questionItems}</ul>
           <footer className="topic-list-item-footer">
             <Link to={`/topics/${topic.id}`} >View All</Link>

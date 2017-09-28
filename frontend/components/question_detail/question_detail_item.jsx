@@ -1,7 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import AnswerItemContainer from '../answer_list/answer_item_container';
-import AnswerFormContainer from '../answer_form/answer_form_container';
 import QuestionButtonsContainer from '../question_buttons/question_buttons_container';
 
 
@@ -10,9 +10,10 @@ class QuestionDetailItem extends React.Component {
     super(props)
   }
 
+
   render () {
     const { question, voteOnQuestion } = this.props;
-    const { id, body, follower_ids, answer_ids, tags, followed} = question;
+    const { id, body, follower_ids, answer_ids, tags, followed, downvoted} = question;
     const answerItems = answer_ids.map(id => (
       <AnswerItemContainer
         key={ "answer-" + id }
@@ -29,18 +30,15 @@ class QuestionDetailItem extends React.Component {
         </div>
       );
     } else {
-      const tagItems = tags.map(tag => <li>{tag}</li>);
+      const tagItems = tags.map(tag => <Link to={`/topics/${tag[0]}`} >{tag[1]}</Link>);
       return (
         <div className="question-detail-item">
-          <ul>
-            Tags:
+          <h2 className="question-header">{body}</h2>
+          <ul className="tags">
             {tagItems}
           </ul>
-          <h2 className="question-header">{body}</h2>
-            <QuestionButtonsContainer id={id} followerIds={follower_ids} followed={followed}/>
+            <QuestionButtonsContainer id={id} followerIds={follower_ids} followed={followed} downvoted={downvoted}/>
 
-
-            <AnswerFormContainer id={id} />
           <ul className="answer-list">{answerItems}</ul>
         </div>
       )

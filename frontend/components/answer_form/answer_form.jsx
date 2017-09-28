@@ -29,17 +29,21 @@ class AnswerForm extends React.Component {
   render () {
     if (this.state.open) {
       return (
-        <div className="answer-form">
-          <ReactQuill value={this.state.text}
-                      onChange={this.handleChange}
-                      modules={modules}
-                      placeholder={"Write your answer"}/>
-          <button onClick={()=>this.submitAnswer()}>Submit</button>
+        <div>
+          <button className="write-answer-button" onClick={()=>this.setState({open: true})}>Answer</button>
+          <div className="answer-form">
+            <ReactQuill value={this.state.text}
+                        onChange={this.handleChange}
+                        modules={modules}
+                        placeholder={"Write your answer"}/>
+            <button onClick={()=>this.submitAnswer()}>Submit</button>
+          </div>
         </div>
+
       );
     } else {
       return (
-        <button onClick={()=>this.setState({open: true})}>Answer</button>
+        <button className="write-answer-button" onClick={()=>this.setState({open: true})}>Answer</button>
       );
     }
 

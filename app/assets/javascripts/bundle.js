@@ -49964,9 +49964,7 @@ var App = function App() {
       _react2.default.createElement(
         'div',
         { className: 'sidebar' },
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _feed_sidebar_container2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/questions', component: _feed_sidebar_container2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/topics', component: _feed_sidebar_container2.default })
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _feed_sidebar_container2.default })
       ),
       _react2.default.createElement(
         _reactRouterDom.Switch,
@@ -53742,10 +53740,10 @@ var AnswerVoteButton = function (_React$Component) {
 
       return _react2.default.createElement(
         "div",
-        { className: "answer-vote-buttons" },
+        { className: "vote-buttons" },
         _react2.default.createElement(
           "button",
-          { className: "answer-upvote-button", onClick: function onClick() {
+          { className: "upvote-button", onClick: function onClick() {
               return _this2.handleClick("upvote");
             } },
           _react2.default.createElement(
@@ -53755,13 +53753,13 @@ var AnswerVoteButton = function (_React$Component) {
           ),
           _react2.default.createElement(
             "div",
-            { className: "answer-upvoters" },
+            { className: "upvoters" },
             this.props.upvoterIds.length
           )
         ),
         _react2.default.createElement(
           "button",
-          { className: "answer-downvote-button", onClick: function onClick() {
+          { className: "downvote-button", onClick: function onClick() {
               return _this2.handleClick("downvote");
             } },
           downvoteText
@@ -55803,18 +55801,18 @@ var FollowTopicButton = function (_React$Component) {
       }
       return _react2.default.createElement(
         "div",
-        { className: "follow-topic-button" },
+        { className: "follow-button" },
         _react2.default.createElement(
           "button",
           { onClick: this.handleClick, disabled: this.state.disabled },
           _react2.default.createElement(
             "div",
-            null,
+            { className: "follow-text" },
             followText
           ),
           _react2.default.createElement(
             "div",
-            null,
+            { className: "followers" },
             this.props.followerIds.length
           )
         )
@@ -55988,13 +55986,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(16);
+
 var _answer_item_container = __webpack_require__(180);
 
 var _answer_item_container2 = _interopRequireDefault(_answer_item_container);
-
-var _answer_form_container = __webpack_require__(202);
-
-var _answer_form_container2 = _interopRequireDefault(_answer_form_container);
 
 var _question_buttons_container = __webpack_require__(545);
 
@@ -56028,7 +56024,8 @@ var QuestionDetailItem = function (_React$Component) {
           follower_ids = question.follower_ids,
           answer_ids = question.answer_ids,
           tags = question.tags,
-          followed = question.followed;
+          followed = question.followed,
+          downvoted = question.downvoted;
 
       var answerItems = answer_ids.map(function (id) {
         return _react2.default.createElement(_answer_item_container2.default, {
@@ -56050,32 +56047,30 @@ var QuestionDetailItem = function (_React$Component) {
             null,
             'No answers for this question written yet!'
           ),
-          _react2.default.createElement(_answer_form_container2.default, { questionId: id })
+          _react2.default.createElement(AnswerFormContainer, { questionId: id })
         );
       } else {
         var tagItems = tags.map(function (tag) {
           return _react2.default.createElement(
-            'li',
-            null,
-            tag
+            _reactRouterDom.Link,
+            { to: '/topics/' + tag[0] },
+            tag[1]
           );
         });
         return _react2.default.createElement(
           'div',
           { className: 'question-detail-item' },
           _react2.default.createElement(
-            'ul',
-            null,
-            'Tags:',
-            tagItems
-          ),
-          _react2.default.createElement(
             'h2',
             { className: 'question-header' },
             body
           ),
-          _react2.default.createElement(_question_buttons_container2.default, { id: id, followerIds: follower_ids, followed: followed }),
-          _react2.default.createElement(_answer_form_container2.default, { id: id }),
+          _react2.default.createElement(
+            'ul',
+            { className: 'tags' },
+            tagItems
+          ),
+          _react2.default.createElement(_question_buttons_container2.default, { id: id, followerIds: follower_ids, followed: followed, downvoted: downvoted }),
           _react2.default.createElement(
             'ul',
             { className: 'answer-list' },
@@ -56160,23 +56155,34 @@ var AnswerForm = function (_React$Component) {
       if (this.state.open) {
         return _react2.default.createElement(
           'div',
-          { className: 'answer-form' },
-          _react2.default.createElement(_reactQuill2.default, { value: this.state.text,
-            onChange: this.handleChange,
-            modules: modules,
-            placeholder: "Write your answer" }),
+          null,
           _react2.default.createElement(
             'button',
-            { onClick: function onClick() {
-                return _this2.submitAnswer();
+            { className: 'write-answer-button', onClick: function onClick() {
+                return _this2.setState({ open: true });
               } },
-            'Submit'
+            'Answer'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'answer-form' },
+            _react2.default.createElement(_reactQuill2.default, { value: this.state.text,
+              onChange: this.handleChange,
+              modules: modules,
+              placeholder: "Write your answer" }),
+            _react2.default.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this2.submitAnswer();
+                } },
+              'Submit'
+            )
           )
         );
       } else {
         return _react2.default.createElement(
           'button',
-          { onClick: function onClick() {
+          { className: 'write-answer-button', onClick: function onClick() {
               return _this2.setState({ open: true });
             } },
           'Answer'
@@ -59932,6 +59938,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _answer_form_container = __webpack_require__(202);
+
+var _answer_form_container2 = _interopRequireDefault(_answer_form_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59958,7 +59968,7 @@ var QuestionButtons = function (_React$Component) {
   }
 
   _createClass(QuestionButtons, [{
-    key: "componentWillMount",
+    key: 'componentWillMount',
     value: function componentWillMount() {
       if (this.props.followed) {
         this.setState({ followed: true });
@@ -59968,7 +59978,7 @@ var QuestionButtons = function (_React$Component) {
       }
     }
   }, {
-    key: "handleClick",
+    key: 'handleClick',
     value: function handleClick() {
       if (this.state.followed) {
         this.props.unfollowQuestion(this.props.id);
@@ -59982,7 +59992,7 @@ var QuestionButtons = function (_React$Component) {
     //Extra feature: downvoting gives a popup that says the question has been downvoted and will be shown to fewer people
 
   }, {
-    key: "handleDownvote",
+    key: 'handleDownvote',
     value: function handleDownvote() {
       if (this.state.downvoted) {
         this.props.voteOnQuestion(this.props.id, "cancel_vote");
@@ -59993,7 +60003,7 @@ var QuestionButtons = function (_React$Component) {
       }
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var followText = "Follow";
       var downvoteText = "Downvote";
@@ -60006,25 +60016,23 @@ var QuestionButtons = function (_React$Component) {
         downvoteText = "Downvoted (undo)";
       }
       return _react2.default.createElement(
-        "div",
-        { className: "follow-topic-button" },
+        'div',
+        { className: 'question-buttons' },
+        _react2.default.createElement(_answer_form_container2.default, { id: this.props.id }),
         _react2.default.createElement(
-          "button",
-          { onClick: this.handleClick },
+          'button',
+          { className: 'link-button', onClick: this.handleClick },
           _react2.default.createElement(
-            "div",
+            'div',
             null,
-            followText
-          ),
-          _react2.default.createElement(
-            "div",
-            null,
+            followText,
+            ' ',
             this.props.followerIds.length
           )
         ),
         _react2.default.createElement(
-          "button",
-          { onClick: this.handleDownvote },
+          'button',
+          { className: 'link-button', onClick: this.handleDownvote },
           downvoteText
         )
       );

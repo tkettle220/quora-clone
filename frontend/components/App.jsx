@@ -20,9 +20,7 @@ const App = () => (
     <Route path="/" component={NavBarContainer} />
     <div id="main-page">
       <div className="sidebar">
-        <Route exact path="/" component={FeedSidebarContainer} />
-        <Route exact path="/questions" component={FeedSidebarContainer} />
-        <Route path="/topics" component={FeedSidebarContainer} />
+        <Route path="/" component={FeedSidebarContainer} />
       </div>
       <Switch>
         <div className="main-col">

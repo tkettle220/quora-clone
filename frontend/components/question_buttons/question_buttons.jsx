@@ -1,4 +1,5 @@
 import React from 'react';
+import AnswerFormContainer from '../answer_form/answer_form_container';
 
 
 class QuestionButtons extends React.Component {
@@ -56,12 +57,12 @@ class QuestionButtons extends React.Component {
       downvoteText = "Downvoted (undo)";
     }
     return(
-      <div className="follow-topic-button">
-        <button onClick={this.handleClick}>
-          <div>{followText}</div>
-          <div>{this.props.followerIds.length}</div>
+      <div className="question-buttons">
+        <AnswerFormContainer id={this.props.id} />
+        <button className="link-button" onClick={this.handleClick}>
+          <div >{followText} {this.props.followerIds.length}</div>
         </button>
-        <button onClick={this.handleDownvote}>{downvoteText}
+        <button className="link-button" onClick={this.handleDownvote}>{downvoteText}
         </button>
 
 

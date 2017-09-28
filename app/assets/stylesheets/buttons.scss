@@ -1,0 +1,108 @@
+.downvote-button, .comments-button{
+  background:none;
+  color: #999999;
+  border:none;
+  padding:0;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.comments-button {
+  margin-bottom: 10px;
+}
+
+.upvote-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 25px;
+  margin-right: 10px;
+  color: #2b6dad;
+  font-size: 13px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
+  font-weight: 500;
+  background: #f1f8fb;
+  border: 1px solid #bbcadc;
+  box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.upvote-text, .follow-text {
+  padding-right: 5px;
+  border-right: 1px solid #bbcadc;
+}
+
+.upvoters, .followers {
+  padding-left: 5px;
+}
+
+.comments-button:hover {
+  text-decoration: underline;
+}
+
+.vote-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  margin-right: 10px;
+
+  .downvote-button:focus {
+    border: none;
+  }
+}
+
+.link-button {
+  background:none;
+  color: #999999;
+  border:none;
+  padding:0;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.follow-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 25px;
+  margin-right: 10px;
+  color: #2b6dad;
+  font-size: 13px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
+  font-weight: 500;
+  background: #f1f8fb;
+  border: 1px solid #bbcadc;
+  box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.write-answer-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 25px;
+  margin-right: 10px;
+  color: #2b6dad;
+  font-size: 13px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
+  font-weight: 500;
+  background: #f1f8fb;
+  border: 1px solid #bbcadc;
+  box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+  border-radius: 3px;
+  box-sizing: border-box;
+}

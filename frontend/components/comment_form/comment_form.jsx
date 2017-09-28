@@ -28,7 +28,7 @@ class CommentForm extends React.Component {
       return (
         <div className="comment-form">
           <input type="text" onChange={this.handleChange} value={this.state.text} placeholder="Add a comment..."></input>
-          <button onClick={()=>this.submitComment()}>Comment</button>
+          <button className="submit-button" onClick={()=>this.submitComment()}>Comment</button>
         </div>
       );
   }

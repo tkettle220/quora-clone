@@ -7,7 +7,9 @@ import { withRouter } from 'react-router-dom';
 import { createAnswer } from '../../actions/answer_actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  questionId: ownProps.questionId
+  questionId: ownProps.questionId,
+  current_user: state.session.currentUser
+
 });
 
 const mapDispatchToProps = dispatch => ({

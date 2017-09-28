@@ -21,11 +21,13 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: baseline;
     padding-left: 16px;
     margin-top: 10px;
+    position: relative;
 
     .link-button {
-      font-size: 13px;
+      font-size: 14px;
     }
 
   }
@@ -64,5 +66,46 @@
   .answer-item {
     padding-bottom: 0;
   }
+
+  #question-detail-follow {
+    position: absolute;
+    left: 179px;
+    top: 6px;
+  }
+
+  #question-detail-downvote {
+    position: absolute;
+    left: 98px;
+    top: 6px;
+  }
+
+  .quill {
+    width: 568px;
+  }
+
+  .ql-toolbar.ql-snow, .ql-container.ql-snow {
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .answer-form {
+    border: 1px solid #e2e2e2;
+    margin-top: 10px;
+
+    .answer-header {
+      background-color: #F6F6F6;
+      border: 0;
+      padding-left: 10px;
+      padding-bottom: 10px;
+
+    }
+
+    .answer-form-footer {
+
+      padding: 10px;
+      background-color: #F6F6F6;
+    }
+  }
+
 
 }

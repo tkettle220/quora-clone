@@ -28,15 +28,25 @@ class AnswerForm extends React.Component {
 
   render () {
     if (this.state.open) {
+      const author = this.props.current_user;
       return (
         <div>
           <button className="write-answer-button" onClick={()=>this.setState({open: true})}>Answer</button>
           <div className="answer-form">
+            <div className="answer-header">
+              <img src={author.pro_pic_url} alt={`${author.name}'s picture`}  className="answerer-pro-pic" />
+              <div className="answer-details">
+                <h1>{author.name}</h1>
+              </div>
+            </div>
             <ReactQuill value={this.state.text}
                         onChange={this.handleChange}
                         modules={modules}
                         placeholder={"Write your answer"}/>
-            <button onClick={()=>this.submitAnswer()}>Submit</button>
+
+            <div className="answer-form-footer">
+              <button className="submit-button" onClick={()=>this.submitAnswer()}>Submit</button>
+            </div>
           </div>
         </div>
 

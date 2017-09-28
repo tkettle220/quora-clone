@@ -54,15 +54,15 @@ class QuestionButtons extends React.Component {
     }
 
     if(this.state.downvoted) {
-      downvoteText = "Downvoted (undo)";
+      downvoteText = "Downvoted";
     }
     return(
       <div className="question-buttons">
-        <AnswerFormContainer id={this.props.id} />
-        <button className="link-button" onClick={this.handleClick}>
+        <AnswerFormContainer id={this.props.id} className="detail-answer-button"/>
+        <button id="question-detail-follow" className="link-button" onClick={this.handleClick}>
           <div >{followText} {this.props.followerIds.length}</div>
         </button>
-        <button className="link-button" onClick={this.handleDownvote}>{downvoteText}
+        <button id="question-detail-downvote" className="link-button" onClick={this.handleDownvote}>{downvoteText}
         </button>
 
 

@@ -1,4 +1,4 @@
-.downvote-button, .comments-button{
+.downvote-button, .comments-button {
   background:none;
   color: #999999;
   border:none;
@@ -105,4 +105,19 @@
   box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
   border-radius: 3px;
   box-sizing: border-box;
+}
+
+
+.submit-button {
+  background: #3e78ad;
+  font-size: 13px;
+  font-weight: 500;
+  height: 27px;
+  width: 75px;
+  border: 1px solid #3a66ad;
+  color: white;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  border-radius: 3px;
+  padding: 3px, 7px, 4px, 7px;
+  box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
 }

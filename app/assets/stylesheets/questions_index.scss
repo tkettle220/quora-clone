@@ -4,6 +4,23 @@
   background: white;
   width: 600px;
 
+  h1 {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    i {
+      font-size: 20px;
+      background-color: #AB3830;
+      color: white;
+      border-radius: 3px;
+      padding: 2px;
+      margin-right: 6px;
+    }
+  }
+
   .question-list-item {
     padding-left: 20px;
     padding-right: 20px;
@@ -21,7 +38,7 @@
       margin-bottom: 8px;
     }
 
-    h3 {
+    h3, h3 a {
       font-weight: 400;
       font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
       color: #999;

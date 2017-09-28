@@ -60906,6 +60906,12 @@ var QuestionList = function (_React$Component) {
           'div',
           { id: 'questions-container' },
           _react2.default.createElement(
+            'h1',
+            null,
+            _react2.default.createElement('i', { className: 'fa fa-star' }),
+            ' Top Questions for You'
+          ),
+          _react2.default.createElement(
             'ul',
             { className: 'question-list' },
             questionItems
@@ -61012,7 +61018,11 @@ var QuestionListItem = function (_React$Component) {
             'Last asked ',
             time_posted_ago,
             ' \xB7 ',
-            num_answers
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/questions/' + question.id },
+              num_answers
+            )
           ),
           _react2.default.createElement(_answer_form_container2.default, { questionId: id })
         );

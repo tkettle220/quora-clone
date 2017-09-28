@@ -21,6 +21,7 @@ class QuestionList extends React.Component {
       )).reverse();
       return(
         <div id="questions-container">
+          <h1><i className="fa fa-star" ></i> Top Questions for You</h1>
           <ul className="question-list">
             {questionItems}
           </ul>

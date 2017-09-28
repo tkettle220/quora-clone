@@ -1,0 +1,29 @@
+.topic-detail-item {
+  background: white;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  padding-top: 15px;
+
+  .topic-header {
+
+    h1 {
+      margin-bottom: 10px;
+
+      font-family: 'q_serif',Georgia,Times,"Times New Roman","Hiragino Kaku Gothic Pro","Meiryo",serif;
+      font-weight: bold;
+      font-size: 23px;
+
+    }
+
+    h2 {
+      margin-bottom: 10px;
+
+      word-wrap: break-word;
+      font-weight: 400;
+      font-size: 15px;
+      font-family: 'q_serif',Georgia,Times,"Times New Roman","Hiragino Kaku Gothic Pro","Meiryo",serif;
+    }
+
+  }
+}

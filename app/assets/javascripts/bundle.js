@@ -56387,16 +56387,20 @@ var TopicDetailItem = function (_React$Component) {
         'div',
         { className: 'topic-detail-item' },
         _react2.default.createElement(
-          'h2',
+          'div',
           { className: 'topic-header' },
-          name,
           _react2.default.createElement(
-            'p',
+            'h1',
+            null,
+            name
+          ),
+          _react2.default.createElement(
+            'h2',
             null,
             description
-          )
+          ),
+          _react2.default.createElement(_follow_topic_button_container2.default, { id: id, followerIds: follower_ids, followed: followed })
         ),
-        _react2.default.createElement(_follow_topic_button_container2.default, { id: id, followerIds: follower_ids, followed: followed }),
         _react2.default.createElement(
           'ul',
           { className: 'question-list' },
@@ -56534,21 +56538,17 @@ var FollowTopicButton = function (_React$Component) {
         followText = "Following Topic";
       }
       return _react2.default.createElement(
-        "div",
-        { className: "follow-button" },
+        "button",
+        { className: "follow-button", onClick: this.handleClick, disabled: this.state.disabled },
         _react2.default.createElement(
-          "button",
-          { onClick: this.handleClick, disabled: this.state.disabled },
-          _react2.default.createElement(
-            "div",
-            { className: "follow-text" },
-            followText
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "followers" },
-            this.props.followerIds.length
-          )
+          "div",
+          { className: "follow-text" },
+          followText
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "followers" },
+          this.props.followerIds.length
         )
       );
     }

@@ -62202,8 +62202,8 @@ var CommentListItem = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            "p",
-            null,
+            "div",
+            { className: "comment-body" },
             body
           )
         );
@@ -62327,13 +62327,13 @@ var CommentForm = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'comment-form' },
-        _react2.default.createElement('input', { type: 'text', onChange: this.handleChange, value: this.state.text }),
+        _react2.default.createElement('input', { type: 'text', onChange: this.handleChange, value: this.state.text, placeholder: 'Add a comment...' }),
         _react2.default.createElement(
           'button',
           { onClick: function onClick() {
               return _this2.submitComment();
             } },
-          'Submit'
+          'Comment'
         )
       );
     }

@@ -23,7 +23,7 @@ class CommentListItem extends React.Component {
               <h2>{time_posted_ago}</h2>
             </div>
           </div>
-          <p>{body}</p>
+          <div className="comment-body">{body}</div>
         </li>
       );
 

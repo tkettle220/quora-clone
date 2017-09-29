@@ -30,6 +30,15 @@
 
   }
 
+  .no-topic-questions {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
   .no-answers-message {
     padding-left: 20px;
   }

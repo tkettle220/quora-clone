@@ -10,11 +10,17 @@ QuestionsTopic.destroy_all
 TopicsUser.destroy_all
 
 User.destroy_all
-demo_user = User.create(email: "thomas.kilmer@yale.edu", password: "password", name: "Will Xu", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/17952972_10155238754978829_6171178937828086766_n.jpg?oh=d1bd2b6555ebcb13479addf2874a0f83&oe=5A4A61E8")
+demo_user = User.create(email: "tkilmer95@gmail.com", password: "password", name: "Thomas Kilmer", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/18034061_1531797440172887_116146999122184063_n.jpg?oh=53e0fedb702ac8cd4e951281723a8011&oe=5A426750")
 user2 = User.create(email: "sgullapalli@gmail.com", password: "password", name: "Sachith Gullapalli", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/14642433_10154649038393035_50739788996994746_n.jpg?oh=532a963328339ecddfec271190e6175a&oe=5A39FFA4")
-user3 = User.create(email: "becca_stone@hotmail.com", password: "password", name: "Rebecca Stone", pro_pic_url: "https://static.pexels.com/photos/324030/pexels-photo-324030.jpeg")
+user3 = User.create(email: "kbuterbaugh@hotmail.com", password: "password", name: "Kelsey Elizabeth", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/14322733_1092137124157114_3666551548457846592_n.jpg?oh=5fa1a49520550adf607fc3b6be89c1cb&oe=5A8027EB")
 user4 = User.create(email: "dtandon@vision.com", password: "password", name: "Devansh Tandon", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/c11.0.50.50/p50x50/17800343_10212311731050854_7713970108060183435_n.jpg?oh=3b07f29b9167e74437059fc74566b8b9&oe=5A53F81D")
-user5 = User.create(email: "gyi1493@gmail.com", password: "password", name: "Grace Yi", pro_pic_url: "https://static.pexels.com/photos/157023/pexels-photo-157023.jpeg")
+user5 = User.create(email: "gyi1493@gmail.com", password: "password", name: "Grace Yi", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/17424732_10211736914474596_8965113432441232848_n.jpg?oh=dc6c974845bc9044b30362cf6e64f513&oe=5A4D4822")
+user6 = User.create(email: "bkxuupthebum@gamertag.net", password: "password", name: "Will Xu", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/17952972_10155238754978829_6171178937828086766_n.jpg?oh=d1bd2b6555ebcb13479addf2874a0f83&oe=5A4A61E8")
+
+
+#these users don't have questions or answers right now
+user7 = User.create(email: "cosmic_dance_of_bursting_decadence@gmail.com", password: "password", name: "Christopher Buterbaugh", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/18033410_1275862162483417_2400862978869561180_n.jpg?oh=fd3e7e0a55619d2b4dfcf56b4665ba4b&oe=5A3E109F")
+user8 = User.create(email: "bkxuupthebum@gamertag.net", password: "password", name: "Kate Kilmer", pro_pic_url: "https://scontent.xx.fbcdn.net/v/t1.0-1/c0.8.50.50/p50x50/21730985_10212657517060571_1771574933915272294_n.jpg?oh=122389a28df3844637727c4020932b32&oe=5A43B5E7")
 
 
 

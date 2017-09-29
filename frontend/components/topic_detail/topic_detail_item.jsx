@@ -12,13 +12,19 @@ class TopicDetailItem extends React.Component {
     const { topic } = this.props;
     const { id, name, description, num_followers, question_ids, follower_ids, followed} = topic;
 
-      const questionItems = question_ids.map(id => (
-        <QuestionItemContainer
-          key={ "question-" + id }
-          id={ id }
-          />
+    let questionItems = question_ids.map(id => (
+      <QuestionItemContainer
+        key={ "question-" + id }
+        id={ id }
+        />
       )
     );
+
+    if(questionItems.length === 0) {
+      questionItems = [<div className="no-topic-questions">No questions have been written for this topic yet </div>];
+    }
+
+
 
     return (
       <div className="topic-detail-item">

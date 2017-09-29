@@ -1854,10 +1854,11 @@ var receiveQuestions = exports.receiveQuestions = function receiveQuestions(ques
   };
 };
 
-var receiveSearchQuestions = exports.receiveSearchQuestions = function receiveSearchQuestions(questions) {
+var receiveSearchQuestions = exports.receiveSearchQuestions = function receiveSearchQuestions(questions, filters) {
   return {
     type: RECEIVE_SEARCH_QUESTIONS,
-    questions: questions
+    questions: questions,
+    filters: filters
   };
 };
 
@@ -1887,7 +1888,7 @@ var fetchQuestions = exports.fetchQuestions = function fetchQuestions() {
 var fetchSearchQuestions = exports.fetchSearchQuestions = function fetchSearchQuestions(filters) {
   return function (dispatch) {
     return APIUtil.fetchQuestions(filters).then(function (questions) {
-      return dispatch(receiveSearchQuestions(questions));
+      return dispatch(receiveSearchQuestions(questions, filters));
     });
   };
 };
@@ -62467,7 +62468,17 @@ var SearchQuestionsReducer = function SearchQuestionsReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _question_actions.RECEIVE_SEARCH_QUESTIONS:
-      return action.questions;
+      //this is horrible, but if a user deletes their search, we want to wait a bit and make sure to clear out the search questions so that a previous query doesn't get back afterwards...couldn't find a great place to put a settimeout, so I'm just doing a manual sleep .2 seconds here haha
+      if (action.filters.query === "") {
+        var start = new Date().getTime();
+        var now = start;
+        while (now < start + 200) {
+          now = new Date().getTime();
+        }
+        return {};
+      } else {
+        return action.questions;
+      }
     default:
       return state;
   }

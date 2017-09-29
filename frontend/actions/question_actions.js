@@ -11,9 +11,10 @@ export const receiveQuestions = questions => ({
   questions
 });
 
-export const receiveSearchQuestions = questions => ({
+export const receiveSearchQuestions = (questions, filters) => ({
   type: RECEIVE_SEARCH_QUESTIONS,
-  questions
+  questions,
+  filters
 });
 
 export const receiveQuestion = question => ({
@@ -35,7 +36,7 @@ export const fetchQuestions = () => dispatch => (
 
 export const fetchSearchQuestions = (filters) => dispatch => (
   APIUtil.fetchQuestions(filters).then(
-    questions=>(dispatch(receiveSearchQuestions(questions))
+    questions=>(dispatch(receiveSearchQuestions(questions, filters))
   ))
 );
 

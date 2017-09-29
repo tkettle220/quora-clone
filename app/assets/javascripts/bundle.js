@@ -56294,7 +56294,7 @@ var TopicDetail = function (_React$Component) {
       if (Object.keys(topic).length === 0) {
         return _react2.default.createElement(
           'div',
-          null,
+          { id: 'topic-detail' },
           _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' })
         );
       } else {

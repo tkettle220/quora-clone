@@ -22364,7 +22364,9 @@ var CreateQuestionForm = function (_React$Component) {
             'You asked: ',
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/questions/' + this.state.asked_question.id },
+              { onClick: function onClick() {
+                  return _this3.closeModal("success");
+                }, to: '/questions/' + this.state.asked_question.id },
               this.state.asked_question.body
             )
           ),
@@ -55596,7 +55598,9 @@ var NavBar = function (_React$Component) {
             'You asked: ',
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/questions/' + this.state.asked_question.id },
+              { onClick: function onClick() {
+                  return _this3.closeModal("success");
+                }, to: '/questions/' + this.state.asked_question.id },
               this.state.asked_question.body
             )
           ),

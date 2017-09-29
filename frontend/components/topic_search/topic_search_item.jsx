@@ -9,9 +9,8 @@ const clickSearch = (closeSearch, updateFilter) => {
 
 const TopicSearchItem = ({ topic, handleChange, updateFilter, closeSearch}) => {
   if (Object.keys(topic).length === 0) {
-    console.log("loading");
     return (
-      <h1>Loading!</h1>
+      <img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />
     );
   } else {
     const { name } = topic;

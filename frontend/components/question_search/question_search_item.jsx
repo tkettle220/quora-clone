@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 const QuestionSearchItem = ({ question, handleChange, updateFilter}) => {
   if (Object.keys(question).length === 0) {
     return (
-      <h1>Loading!</h1>
+      <img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />
     );
   } else {
     const { body } = question;

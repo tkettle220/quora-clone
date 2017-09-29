@@ -26,7 +26,7 @@ class QuestionDetail extends React.Component {
     const {question, questionId, voteOnQuestion, followQuestion, unfollowQuestion} = this.props;
 
     if (Object.keys(question).length === 0) {
-      return (<div>Loading</div>)
+      return (<img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />)
     } else {
       return(
         <QuestionDetailItem key={ "question-" + question.id } question={question}

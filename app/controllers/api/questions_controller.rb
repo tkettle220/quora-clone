@@ -13,7 +13,7 @@ class Api::QuestionsController < ApplicationController
       end
       @questions = questions.uniq
     else
-      @questions = Question.take(20).includes(:author)
+      @questions = Question.take(20)
     end
     render :index
   end

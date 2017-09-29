@@ -10,7 +10,7 @@ class CommentListItem extends React.Component {
     const { comment } = this.props;
 
     if(Object.keys(comment).length === 0) {
-      return(<h1>Loading Comments</h1>);
+      return(<img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />);
     } else {
       const { body, time_posted_ago, upvoted, downvoted, up_voter_ids, author} = comment;
 

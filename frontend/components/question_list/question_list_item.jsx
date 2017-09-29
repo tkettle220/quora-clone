@@ -13,7 +13,7 @@ class QuestionListItem extends React.Component {
 
     if (Object.keys(question).length === 0) {
       return (
-        <h1>Loading!</h1>
+        <img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />
       );
     } else {
       const { id, body, time_posted_ago, topic, num_answers } = question;

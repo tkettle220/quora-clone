@@ -26,7 +26,7 @@ class TopicDetail extends React.Component {
   render() {
     const {topic, topicId} = this.props;
     if (Object.keys(topic).length === 0) {
-      return (<div>Loading</div>)
+      return (<div><img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" /></div>)
     } else {
       return(
         <div id="topic-detail">

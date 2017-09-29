@@ -50553,11 +50553,7 @@ var TopicListItem = function (_React$Component) {
 
 
       if (Object.keys(topic).length === 0) {
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'Loading Topics'
-        );
+        return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
       } else {
         var name = topic.name,
             description = topic.description,
@@ -50660,11 +50656,7 @@ var QuestionItem = function (_React$Component) {
 
       if (Object.keys(question).length === 0) {
 
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'Loading Questions'
-        );
+        return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
       } else {
         var id = question.id,
             body = question.body,
@@ -50805,11 +50797,7 @@ var AnswerItem = function (_React$Component) {
           voteOnAnswer = _props.voteOnAnswer;
 
       if (Object.keys(answer).length === 0) {
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'Loading Answers'
-        );
+        return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
       } else {
         var id = answer.id,
             body = answer.body,
@@ -54102,11 +54090,7 @@ var CommentListItem = function (_React$Component) {
 
 
       if (Object.keys(comment).length === 0) {
-        return _react2.default.createElement(
-          "h1",
-          null,
-          "Loading Comments"
-        );
+        return _react2.default.createElement("img", { src: "https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png", alt: "loading-image", className: "loading-image" });
       } else {
         var body = comment.body,
             time_posted_ago = comment.time_posted_ago,
@@ -55803,11 +55787,7 @@ var QuestionSearchItem = function QuestionSearchItem(_ref) {
       updateFilter = _ref.updateFilter;
 
   if (Object.keys(question).length === 0) {
-    return _react2.default.createElement(
-      'h1',
-      null,
-      'Loading!'
-    );
+    return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
   } else {
     var body = question.body;
 
@@ -56181,12 +56161,7 @@ var TopicSearchItem = function TopicSearchItem(_ref) {
       closeSearch = _ref.closeSearch;
 
   if (Object.keys(topic).length === 0) {
-    console.log("loading");
-    return _react2.default.createElement(
-      'h1',
-      null,
-      'Loading!'
-    );
+    return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
   } else {
     var name = topic.name;
 
@@ -56320,7 +56295,7 @@ var TopicDetail = function (_React$Component) {
         return _react2.default.createElement(
           'div',
           null,
-          'Loading'
+          _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' })
         );
       } else {
         return _react2.default.createElement(
@@ -56705,11 +56680,7 @@ var QuestionDetail = function (_React$Component) {
 
 
       if (Object.keys(question).length === 0) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          'Loading'
-        );
+        return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
       } else {
         return _react2.default.createElement(_question_detail_item2.default, { key: "question-" + question.id, question: question,
           voteOnQuestion: voteOnQuestion,
@@ -60914,11 +60885,7 @@ var QuestionList = function (_React$Component) {
       var questions = this.props.questions;
 
       if (Object.keys(questions).length === 0) {
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'Loading Questions!'
-        );
+        return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
       } else {
         var questionItems = questions.map(function (question) {
           return _react2.default.createElement(_question_list_item2.default, { key: "question-" + question.id, question: question });
@@ -60994,11 +60961,7 @@ var QuestionListItem = function (_React$Component) {
 
 
       if (Object.keys(question).length === 0) {
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'Loading!'
-        );
+        return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
       } else {
         var id = question.id,
             body = question.body,
@@ -61165,11 +61128,7 @@ var AnswerDetail = function (_React$Component) {
 
 
       if (Object.keys(answer).length === 0) {
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'Loading Answers'
-        );
+        return _react2.default.createElement('img', { src: 'https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png', alt: 'loading-image', className: 'loading-image' });
       } else {
         var id = answer.id,
             body = answer.body,

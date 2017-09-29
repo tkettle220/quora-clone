@@ -14,7 +14,7 @@ class QuestionList extends React.Component {
   render() {
     const {questions} = this.props;
     if(Object.keys(questions).length === 0) {
-      return(<h1>Loading Questions!</h1>);
+      return(<img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />);
     } else {
       const questionItems = questions.map( question => (
         <QuestionListItem key={ "question-" + question.id } question={question}/>

@@ -12,7 +12,7 @@ class TopicListItem extends React.Component {
     const { topic } = this.props;
 
     if(Object.keys(topic).length === 0) {
-      return(<h1>Loading Topics</h1>);
+      return(<img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />);
     } else {
       const { name, description, num_followers, question_ids} = topic;
 

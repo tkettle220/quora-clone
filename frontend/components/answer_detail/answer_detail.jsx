@@ -19,7 +19,7 @@ class AnswerDetail extends React.Component {
     const { answer, voteOnAnswer } = this.props;
 
     if (Object.keys(answer).length === 0) {
-      return(<h1>Loading Answers</h1>);
+      return(<img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />);
     } else {
       const {id, body, author, time_posted_ago, upvoter_ids, question} = answer;
       return (

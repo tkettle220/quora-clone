@@ -30,6 +30,7 @@ q7 = Question.create(body: 'What are some great truths of computer programming?'
 q8 = Question.create(body: 'When did you find out you were not young anymore?', author_id: demo_user.id)
 q9 = Question.create(body: 'How do you explain to your girlfriend that sometimes you actually are thinking nothing?', author_id: user2.id)
 q10 = Question.create(body: 'What is it like working at a Michelin-starred restaurant?', author_id: demo_user.id)
+q11 = Queston.create(body: "What are some famous bugs in the computer science world?", author_id: demo_user.id)
 
 #Create Answers
 Answer.destroy_all
@@ -84,30 +85,43 @@ a16 = Answer.create(body: "<p>I happened to watch the documentary&nbsp;<a href=\
 
 a17 = Answer.create(body: "<p><span style=\"color: rgb(51, 51, 51);\">There are two ways you can do something in a three Michelin-Star restaurant – perfect, or absolutely wrong.&nbsp;</span><em style=\"color: rgb(51, 51, 51);\">\"We cannot use this garbage\"</em><span style=\"color: rgb(51, 51, 51);\">.&nbsp;There is no in-between.&nbsp;Yes, these restaurants do have access to the best produce, meat and fish in the world, but so could many other chefs who have the right venture capitalist funding them.&nbsp;If I had to choose one difference between a three star restaurant and a restaurant with one star or none, it would absolutely be attention to detail.&nbsp;&nbsp;Every single plate that leaves that kitchen is intended to be the best course that person has ever tasted, and I am willing to bet more often than not it is.&nbsp;That is why if you call today to get a reservation for two, you will have to start flipping your calendar quite a few pages forward.&nbsp;There are not many chefs on this planet capable of consistently creating food like this.</span></p><p><br></p><p><img class=\"landscape qtext_image zoomable_in zoomable_in_feed lazy_loaded lazy_loading\" src=\"https://qph.ec.quoracdn.net/main-qimg-a6862f0cbe2449766a3c5131912c5e30.webp\" master_src=\"https://qph.ec.quoracdn.net/main-qimg-7f65473be78e5b2dd3420ce23579ffe6\" master_w=\"2048\" master_h=\"2048\" style=\"opacity: 1; visibility: visible;\"></p>", author_id: user4.id, question_id: q10.id)
 
+a18 = Answer.create(body: "<p>See that moth taped to the paper. That is the first computer bug. Literally.</p><p><br></p><p>That specific bug shorted a relay in the Harvard Mark II computer. Grace Murray Hopper found it </p><p>and put it in the log book.</p><p><br></p><p>Without that moth, we may have a different term for errors in a computer system.</p><p><br></p><p>I’d say that makes it the most famous computer bug ever.</p><p><br></p><p><span style=\"color: rgb(51, 51, 51);\"><img src=\"https://qph.ec.quoracdn.net/main-qimg-3204104f539a588eb0f5680b8ab6912e.webp\"></span></p>", author_id: user5.id, question_id: q11.id)
+
 #Create Topics
 Topic.destroy_all
 t1 = Topic.create(name: "Computer Programming", description: "Computer programming (often shortened to programming) is a process that leads from an original formulation of a computing problem to executable programs. It involves activities such as analysis, understanding, and generically solving such problems resulting in an algorithm, verification of requirements of the algorithm including its correctness and its resource consumption, implementation (commonly referred to as coding) of the algorithm in a target programming language, testing, debugging, and maintaining the source code, implementation of the build system and management of derived artefacts such as machine code of computer programs.")
 t2 = Topic.create(name: "Food", description: "Food is about the ingredients that go into Cooking, perhaps according to Recipes.  Food is a substance that provides nutrition to living organisms (humans, animals, or plants).")
 t3 = Topic.create(name: "Dating and Relationships", description: "This topic covers the essential human endeavor of finding someone you can be happy with, keeping them and yourself happy during the relationship, and how to deal with the inevitable problems that crop up when people are close.")
+t5 = Topic.create(name: "Computer Science", description: "Computer Science is the scientific approach to computation. Questions about programming should also be added to Computer Programming")
+t6 = Topic.create(name: "Life", description: "")
+t7 = Topic.create(name: "Data Structures", description: "")
+t8 = Topic.create(name: "Algorithms", description: "")
+t9 = Topic.create(name: "Fine Dining", description: "")
+
+
+
+
 
 #Add Questions to Topics
-q1.topics += [t1]
-q2.topics += [t1]
-q3.topics += [t1]
-q4.topics += [t1,t2]
-q5.topics += [t1]
-q6.topics += [t3]
-q7.topics += [t1]
-q8.topics += [t3]
+q1.topics += [t1,t5]
+q2.topics += [t1,t5]
+q3.topics += [t1,t5,t7]
+q4.topics += [t1,t2,t9]
+q5.topics += [t1,t6]
+q6.topics += [t3,t6]
+q7.topics += [t1,t5]
+q8.topics += [t3,t6]
 q9.topics += [t3]
 q10.topics += [t2]
+q11.topics += [t1,t7]
 
 #Create comments
 Comment.destroy_all
-c1 = Comment.build_from(a4, demo_user.id, "Hahah, this sort is hilarious")
+c1 = Comment.build_from(a4, user5.id, "Hahah, this sort is hilarious")
 c2 = Comment.build_from(a1, user2.id, "so true")
+c3 = Comment.build_from(a18, user4.id, "But the log notation is \“First actual case of bug being found\” and was written contemporaneously with the taping of the moth to the paper. That indicates that the figurative use of a bug predated the literal finding of a moth in a relay...")
 
-[c1,c2].each{|c| c.save!}
+[c1,c2,c3].each{|c| c.save!}
 
 
 #Make users follow topics and questions

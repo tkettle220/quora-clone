@@ -4,13 +4,13 @@ import ReactHtmlParser from 'react-html-parser';
 
 
 
-const processWord = (word) => {
-  //manually go along a word one char at a time.  If it begins with one of the keywords, highlight the keyword
-  let keywords = ["a", "Wh"]
+const processWord = (word, keywords) => {
+
   let foundMatch = false;
-  for (var i = 0, len = word.length; i < len; i++) {
+  let loweredWord = word.toLowerCase();
+  for (var i = 0, len = word.length; i <= len; i++) {
     keywords.forEach((keyword) =>{
-      if(word.substring(0,i) === keyword) {
+      if(loweredWord.substring(0,i) === keyword) {
         foundMatch = true;
       }
 
@@ -30,14 +30,15 @@ const processWord = (word) => {
 
 }
 
-const QuestionSearchItem = ({ question, handleChange, updateFilter}) => {
+const QuestionSearchItem = ({ question, handleChange, updateFilter, query}) => {
   if (Object.keys(question).length === 0) {
     return (
       <img src="https://image.ibb.co/iYo1yw/Screen_Shot_2017_09_28_at_6_43_28_PM.png" alt={`loading-image`}  className="loading-image" />
     );
   } else {
     const { body } = question;
-    const boldedBody = body.split(" ").map(processWord).join(" ");
+    const keywords = query.toLowerCase().split(" ");
+    const boldedBody = body.split(" ").map((word)=>processWord(word,keywords)).join(" ");
     return (
       <li className="question-list-item">
         <Link to={`/questions/${question.id}`}  onClick={()=>updateFilter("query", "")}>{ReactHtmlParser(boldedBody)}</Link>

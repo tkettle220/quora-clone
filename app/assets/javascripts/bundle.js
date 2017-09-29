@@ -55783,7 +55783,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(11);
 
+var _reactHtmlParser = __webpack_require__(182);
+
+var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var processWord = function processWord(word) {
+  if (word.split("").includes("a")) {
+    return word;
+  } else {
+    return '<strong>' + word + '</strong>';
+  }
+};
 
 var QuestionSearchItem = function QuestionSearchItem(_ref) {
   var question = _ref.question,
@@ -55795,7 +55807,7 @@ var QuestionSearchItem = function QuestionSearchItem(_ref) {
   } else {
     var body = question.body;
 
-
+    var boldedBody = body.split(" ").map(processWord).join(" ");
     return _react2.default.createElement(
       'li',
       { className: 'question-list-item' },
@@ -55804,7 +55816,7 @@ var QuestionSearchItem = function QuestionSearchItem(_ref) {
         { to: '/questions/' + question.id, onClick: function onClick() {
             return updateFilter("query", "");
           } },
-        body
+        (0, _reactHtmlParser2.default)(boldedBody)
       ),
       _react2.default.createElement('i', { className: 'fa fa-angle-right' })
     );

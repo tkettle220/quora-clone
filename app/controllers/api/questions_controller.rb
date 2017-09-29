@@ -9,7 +9,7 @@ class Api::QuestionsController < ApplicationController
       @keywords = params[:query].downcase.split(" ")
       questions = []
       @keywords.each do |keyword|
-        questions += Question.where("LOWER(body) LIKE ? ", "%#{keyword.downcase}%")
+        questions += Question.where("LOWER(body) ~* ?", "(^#{keyword}.*|.* #{keyword}.*)")
       end
       @questions = questions.uniq
     else

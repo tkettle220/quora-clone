@@ -68,6 +68,12 @@
     list-style-position: inside;
     margin-left: 15px;
   }
+
+  ol>li {
+    list-style-type: decimal;
+    margin-top: 10px;
+  }
+
 }
 
 

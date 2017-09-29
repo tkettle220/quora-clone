@@ -35,7 +35,7 @@ class Question < ApplicationRecord
   acts_as_commentable
 
   def follower_ids
-    get_likes(:vote_scope => 'follow').map{|v| v.voter_id}
+    get_likes(:vote_scope => 'follow').map{|v| v.voter_id} + Array.new(self.num_initial_follows)
   end
 
   def upvoter_ids

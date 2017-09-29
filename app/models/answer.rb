@@ -18,7 +18,8 @@ class Answer < ApplicationRecord
   acts_as_commentable
 
   def upvoter_ids
-    get_likes.reject{|v| v.vote_scope}.map{|v| v.voter_id}
+    #add a number of nil values to inflate upvote number and simulate more realistic lookup times
+    get_likes.reject{|v| v.vote_scope}.map{|v| v.voter_id} + Array.new(self.num_initial_upvotes)
   end
 
   def commentIds

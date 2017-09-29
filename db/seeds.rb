@@ -30,7 +30,7 @@ q7 = Question.create(body: 'What are some great truths of computer programming?'
 q8 = Question.create(body: 'When did you find out you were not young anymore?', author_id: demo_user.id)
 q9 = Question.create(body: 'How do you explain to your girlfriend that sometimes you actually are thinking nothing?', author_id: user2.id)
 q10 = Question.create(body: 'What is it like working at a Michelin-starred restaurant?', author_id: demo_user.id)
-q11 = Queston.create(body: "What are some famous bugs in the computer science world?", author_id: demo_user.id)
+q11 = Question.create(body: "What are some famous bugs in the computer science world?", author_id: demo_user.id)
 
 #Create Answers
 Answer.destroy_all
@@ -135,6 +135,20 @@ c3 = Comment.build_from(a18, user4.id, "But the log notation is \“First actual
 
 #Make users downvote questions and answers
 [a12, a2].each{|entity| demo_user.downvote(entity)}
+
+
+# give topics, questions, and answers a random amount of initial follows/upvotes
+Topic.all.each do |topic|
+  topic.update_attribute(:num_initial_follows, 10000*rand)
+end
+
+Question.all.each do |question|
+  question.update_attribute(:num_initial_follows, 500*rand)
+end
+
+Answer.all.each do |answer|
+  answer.update_attribute(:num_initial_upvotes, 1000*rand)
+end
 
 
 #Give queestions, answers, and comments fake timestamps

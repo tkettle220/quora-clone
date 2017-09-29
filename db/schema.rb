@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926210057) do
+ActiveRecord::Schema.define(version: 20170929044648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170926210057) do
     t.integer "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "num_initial_upvotes", default: 0
     t.index ["author_id"], name: "index_answers_on_author_id"
     t.index ["question_id", "author_id"], name: "index_answers_on_question_id_and_author_id", unique: true
     t.index ["question_id"], name: "index_answers_on_question_id"
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 20170926210057) do
     t.integer "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "num_initial_follows", default: 0
     t.index ["author_id", "body"], name: "index_questions_on_author_id_and_body", unique: true
     t.index ["author_id"], name: "index_questions_on_author_id"
   end
@@ -105,6 +107,7 @@ ActiveRecord::Schema.define(version: 20170926210057) do
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "num_initial_follows", default: 0
   end
 
   create_table "topics_users", force: :cascade do |t|

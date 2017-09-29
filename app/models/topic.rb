@@ -39,7 +39,7 @@ class Topic < ApplicationRecord
   acts_as_votable
 
   def follower_ids
-    get_likes(:vote_scope => 'follow').map{|vote| vote.voter_id}
+    get_likes(:vote_scope => 'follow').map{|vote| vote.voter_id} + Array.new(self.num_initial_follows)
   end
 
   def num_followers

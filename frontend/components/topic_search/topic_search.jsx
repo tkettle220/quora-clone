@@ -11,9 +11,9 @@ class TopicSearch extends React.Component{
   }
 
   render() {
-    const {topics, topicQuery, updateFilter} = this.props
+    const {topics, topicQuery, updateFilter, closeSearch} = this.props
     let TopicItems = topics.map(topic => (
-      <TopicSearchItem topic={topic} updateFilter={updateFilter} />
+      <TopicSearchItem topic={topic} updateFilter={updateFilter} closeSearch={closeSearch} />
     ));
 
 

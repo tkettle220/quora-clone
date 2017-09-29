@@ -22250,7 +22250,7 @@ var CreateQuestionForm = function (_React$Component) {
   }, {
     key: 'closeModal',
     value: function closeModal(modalName) {
-      var desiredState = {};
+      var desiredState = { question: "" };
       desiredState[modalName + "ModalIsOpen"] = false;
       this.setState(desiredState);
     }
@@ -55434,7 +55434,7 @@ var NavBar = function (_React$Component) {
   _createClass(NavBar, [{
     key: 'openModal',
     value: function openModal(modalName) {
-      var desiredState = {};
+      var desiredState = { question: "" };
       desiredState[modalName + "ModalIsOpen"] = true;
       this.setState(desiredState);
     }
@@ -55718,8 +55718,10 @@ var QuestionSearch = function (_React$Component) {
           questions = _props.questions,
           query = _props.query,
           updateFilter = _props.updateFilter;
+      //fetch only 10 search results
 
-      var QuestionItems = questions.map(function (question) {
+      var fewerQuestions = questions.slice(0, 10);
+      var QuestionItems = fewerQuestions.map(function (question) {
         return _react2.default.createElement(_question_search_item2.default, { question: question, updateFilter: updateFilter });
       });
 
@@ -55913,6 +55915,7 @@ var FeedSidebar = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (FeedSidebar.__proto__ || Object.getPrototypeOf(FeedSidebar)).call(this, props));
 
     _this.state = { searchOpen: false };
+    _this.closeSearch = _this.closeSearch.bind(_this);
     return _this;
   }
 
@@ -55923,10 +55926,15 @@ var FeedSidebar = function (_React$Component) {
       this.props.updateFilter("topicQuery", "");
     }
   }, {
+    key: 'closeSearch',
+    value: function closeSearch() {
+      this.setState({ searchOpen: false });
+    }
+  }, {
     key: 'topicSearch',
     value: function topicSearch() {
       if (this.state.searchOpen) {
-        return _react2.default.createElement(_topic_search_container2.default, null);
+        return _react2.default.createElement(_topic_search_container2.default, { closeSearch: this.closeSearch });
       }
     }
   }, {
@@ -56012,10 +56020,11 @@ var _topic_search2 = _interopRequireDefault(_topic_search);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     topics: (0, _selectors.asSortedTopicArray)(state),
-    topicQuery: state.filters.topicQuery
+    topicQuery: state.filters.topicQuery,
+    closeSearch: ownProps.closeSearch
   };
 };
 
@@ -56077,10 +56086,11 @@ var TopicSearch = function (_React$Component) {
       var _props = this.props,
           topics = _props.topics,
           topicQuery = _props.topicQuery,
-          updateFilter = _props.updateFilter;
+          updateFilter = _props.updateFilter,
+          closeSearch = _props.closeSearch;
 
       var TopicItems = topics.map(function (topic) {
-        return _react2.default.createElement(_topic_search_item2.default, { topic: topic, updateFilter: updateFilter });
+        return _react2.default.createElement(_topic_search_item2.default, { topic: topic, updateFilter: updateFilter, closeSearch: closeSearch });
       });
 
       return _react2.default.createElement(
@@ -56159,10 +56169,16 @@ var _reactRouterDom = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var clickSearch = function clickSearch(closeSearch, updateFilter) {
+  closeSearch();
+  updateFilter("topicQuery", "");
+};
+
 var TopicSearchItem = function TopicSearchItem(_ref) {
   var topic = _ref.topic,
       handleChange = _ref.handleChange,
-      updateFilter = _ref.updateFilter;
+      updateFilter = _ref.updateFilter,
+      closeSearch = _ref.closeSearch;
 
   if (Object.keys(topic).length === 0) {
     console.log("loading");
@@ -56181,7 +56197,7 @@ var TopicSearchItem = function TopicSearchItem(_ref) {
       _react2.default.createElement(
         _reactRouterDom.Link,
         { to: '/topics/' + topic.id, onClick: function onClick() {
-            return updateFilter("topicQuery", "");
+            return clickSearch(closeSearch, updateFilter);
           } },
         name
       )

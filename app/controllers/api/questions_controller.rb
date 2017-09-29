@@ -11,10 +11,9 @@ class Api::QuestionsController < ApplicationController
       @keywords.each do |keyword|
         questions += Question.where("LOWER(body) LIKE ? ", "%#{keyword.downcase}%")
       end
-      p questions
       @questions = questions.uniq
     else
-      @questions = Question.all.includes(:author)
+      @questions = Question.take(20).includes(:author)
     end
     render :index
   end

@@ -7,6 +7,7 @@ class FeedSidebar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {searchOpen: false}
+    this.closeSearch = this.closeSearch.bind(this);
   }
 
   componentWillMount() {
@@ -14,11 +15,13 @@ class FeedSidebar extends React.Component {
     this.props.updateFilter("topicQuery", "");
   }
 
-
+  closeSearch() {
+    this.setState({searchOpen: false});
+  }
 
   topicSearch() {
     if(this.state.searchOpen) {
-      return <TopicSearchContainer />
+      return <TopicSearchContainer closeSearch={this.closeSearch}/>
     }
   }
 

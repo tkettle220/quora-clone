@@ -26,7 +26,7 @@ class NavBar extends React.Component {
   }
 
   openModal(modalName) {
-    let desiredState = {};
+    let desiredState = {question: ""};
     desiredState[modalName+"ModalIsOpen"] = true;
     this.setState(desiredState);
   }

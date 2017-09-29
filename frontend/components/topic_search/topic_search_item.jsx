@@ -2,7 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 
-const TopicSearchItem = ({ topic, handleChange, updateFilter}) => {
+const clickSearch = (closeSearch, updateFilter) => {
+  closeSearch();
+  updateFilter("topicQuery", "");
+}
+
+const TopicSearchItem = ({ topic, handleChange, updateFilter, closeSearch}) => {
   if (Object.keys(topic).length === 0) {
     console.log("loading");
     return (
@@ -13,7 +18,7 @@ const TopicSearchItem = ({ topic, handleChange, updateFilter}) => {
 
     return (
       <li className="topic-search-list-item">
-        <Link to={`/topics/${topic.id}`} onClick={()=>updateFilter("topicQuery", "")}>{name}</Link>
+        <Link to={`/topics/${topic.id}`} onClick={()=>clickSearch(closeSearch, updateFilter)}>{name}</Link>
       </li>
     );
   }

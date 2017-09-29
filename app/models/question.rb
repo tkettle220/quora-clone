@@ -39,6 +39,7 @@ class Question < ApplicationRecord
   end
 
   def upvoter_ids
+    #to inflate likes, can just add a bunch of extra stuff to this array that isn't a number
     get_likes.reject{|v| v.vote_scope}.map{|v| v.voter_id}
   end
 

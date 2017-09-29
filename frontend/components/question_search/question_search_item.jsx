@@ -5,11 +5,29 @@ import ReactHtmlParser from 'react-html-parser';
 
 
 const processWord = (word) => {
-  if(word.split("").includes("a")) {
-    return word;
-  } else {
-    return `<strong>${word}</strong>`;
+  //manually go along a word one char at a time.  If it begins with one of the keywords, highlight the keyword
+  let keywords = ["a", "Wh"]
+  let foundMatch = false;
+  for (var i = 0, len = word.length; i < len; i++) {
+    keywords.forEach((keyword) =>{
+      if(word.substring(0,i) === keyword) {
+        foundMatch = true;
+      }
+
+    });
+    if(foundMatch) {
+      break;
+    }
   }
+
+  if(foundMatch) {
+    let highlighted = word.substring(0,i);
+    let regular = word.slice(i);
+    return (`<strong>${highlighted}</strong>` + regular);
+  } else {
+    return word
+  }
+
 }
 
 const QuestionSearchItem = ({ question, handleChange, updateFilter}) => {

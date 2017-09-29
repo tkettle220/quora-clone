@@ -55790,10 +55790,26 @@ var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var processWord = function processWord(word) {
-  if (word.split("").includes("a")) {
-    return word;
+  //manually go along a word one char at a time.  If it begins with one of the keywords, highlight the keyword
+  var keywords = ["a", "Wh"];
+  var foundMatch = false;
+  for (var i = 0, len = word.length; i < len; i++) {
+    keywords.forEach(function (keyword) {
+      if (word.substring(0, i) === keyword) {
+        foundMatch = true;
+      }
+    });
+    if (foundMatch) {
+      break;
+    }
+  }
+
+  if (foundMatch) {
+    var highlighted = word.substring(0, i);
+    var regular = word.slice(i);
+    return '<strong>' + highlighted + '</strong>' + regular;
   } else {
-    return '<strong>' + word + '</strong>';
+    return word;
   }
 };
 

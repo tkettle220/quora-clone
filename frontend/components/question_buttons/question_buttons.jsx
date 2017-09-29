@@ -58,7 +58,7 @@ class QuestionButtons extends React.Component {
     }
     return(
       <div className="question-buttons">
-        <AnswerFormContainer id={this.props.id} className="detail-answer-button"/>
+        <AnswerFormContainer questionId={this.props.id} className="detail-answer-button"/>
         <button id="question-detail-follow" className="link-button" onClick={this.handleClick}>
           <div >{followText} {this.props.followerIds.length}</div>
         </button>
